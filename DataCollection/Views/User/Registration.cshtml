@@ -1,0 +1,71 @@
+﻿@model DataCollection.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Registration";
+}
+<link href="~/Content/registration.css" rel="stylesheet" />
+<div class="login-form signup-form">
+    @using (Html.BeginForm("Registration", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h2 class="text-center">Register</h2>
+        if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+        {
+            if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    <strong>Success!</strong>@ViewBag.Message
+                </div>
+            }
+        }
+        else if (ViewBag.Status != null && !Convert.ToBoolean(ViewBag.Status) && ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Error! </strong>@ViewBag.Message                
+            </div>
+        }
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.UserId, new { @class = "form-control", @placeholder = "UserId", @required = "required", @maxlength = "20" })
+            @Html.ValidationMessageFor(m => m.UserId)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.UserEmpNo, new { @type = "number", @class = "form-control", @placeholder = "Emp No", @required = "required", @minlength = "6", @maxlength = "10" })
+            @Html.ValidationMessageFor(m => m.UserEmpNo)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "User Name", @required = "required", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.UserEmail, new { @type = "email", @class = "form-control", @placeholder = "Email", @required = "required", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.UserEmail)
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.UserPassword, new { @type = "password", @class = "form-control", @placeholder = "Password", @required = "required", @maxlength = "20" })
+            @Html.ValidationMessageFor(m => m.UserPassword)
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.ConfirmUserPassword, new { @type = "password", @class = "form-control", @placeholder = "Confirm Password", @required = "required", @maxlength = "20" })
+            @Html.ValidationMessageFor(m => m.ConfirmUserPassword)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.MobileNo, new { @type = "number", @class = "form-control", @placeholder = "Mobile No", @required = "required", @minlength = "10", @maxlength = "10" })
+            @Html.ValidationMessageFor(m => m.MobileNo)
+        </div>
+        <div class="form-group">
+            @Html.TextAreaFor(m => m.UserRemarks, new { @class = "form-control", @placeholder = "User Remarks", @maxlength = "100" })
+            @Html.ValidationMessageFor(m => m.UserRemarks)
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+    }
+</div>
+<script>
+    $(".login").show();
+    $(".Register").hide();
+</script>
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+

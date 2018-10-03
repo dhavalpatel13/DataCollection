@@ -1,0 +1,7 @@
+E:\Anupam\DataCollection\DataAccess\bin\Debug\DataAccess.dll
+E:\Anupam\DataCollection\DataAccess\bin\Debug\DataAccess.pdb
+E:\Anupam\DataCollection\DataAccess\bin\Debug\AutoMapper.dll
+E:\Anupam\DataCollection\DataAccess\bin\Debug\System.ValueTuple.dll
+E:\Anupam\DataCollection\DataAccess\bin\Debug\System.ValueTuple.xml
+E:\Anupam\DataCollection\DataAccess\obj\Debug\DataAccess.dll
+E:\Anupam\DataCollection\DataAccess\obj\Debug\DataAccess.pdb

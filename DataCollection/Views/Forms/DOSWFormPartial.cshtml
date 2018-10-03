@@ -1,0 +1,48 @@
+﻿@model DataAccess.Entity.stInfo2
+
+@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
+@Html.HiddenFor(m => m.IDNo)
+
+<div class="bd-example">
+    <div class="table-responsive-xl ">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Tuition Fees</th>
+                    <th scope="col" colspan="2" width="20%">Domestic</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Undergraduate Fees (INR)</td>
+                    <td colspan="2">                    
+                        @Html.TextBoxFor(m => m.stFeeUGNat, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Postgraduate Fees (INR)</td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.stFeePGNat, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ph.D (INR)</td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(m => m.stFeePHDNat, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.Partial("ConfirmMessagePartail")
+@Html.Partial("ButtonPartail", Model)
+
+<script>
+    var UrlConstant = {        
+        Menu: '@DataAccess.Enum.Menu.DOSW.ToString()',
+        SerializeFormID: '#DOSWTableform',
+        TableDivID: '#DOSWTableDiv'
+    };
+</script>

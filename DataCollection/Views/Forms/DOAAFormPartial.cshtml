@@ -1,0 +1,246 @@
+﻿@model DataAccess.Entity.stInfo
+
+@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
+@Html.HiddenFor(m => m.IDNo)
+
+<div class="table-responsive-xl">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" style="vertical-align: middle;" rowspan="3">Details of Students</th>
+            </tr>
+            <tr>
+                <th scope="col" colspan="4">Overall</th>
+            </tr>
+            <tr>
+                <th scope="col">UG</th>
+                <th scope="col">UG-5YRS</th>
+                <th scope="col">PG-FT</th>
+                <th scope="col">PG-PT</th>
+            </tr>
+        </thead>
+        <tbody id="detailofstd">
+            <tr>
+                <td>No. of Male Students</td>
+                <td>@Html.TextBoxFor(m => m.stMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of Female Students</td>
+                <td>@Html.TextBoxFor(m => m.stFemaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stFemaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stFemalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stFemalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Total Students Within State (Including male & female)</td>
+                <td>@Html.TextBoxFor(m => m.stTotalWithinStateUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalWithinStateUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalWithinStatePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalWithinStatePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Outside State (Including male & female)</td>
+                <td>@Html.TextBoxFor(m => m.stTotalOutsideStateUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalOutsideStateUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalOutsideStatePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalOutsideStatePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Outside Country (Including male & female)</td>
+                <td>@Html.TextBoxFor(m => m.stTotalForeignUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalForeignUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalForeignPGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stTotalForeignPGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Economically Backward (Including male & female)</td>
+                <td>@Html.TextBoxFor(m => m.stEcoBackMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stEcoBackMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stEcoBackMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stEcoBackMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Socially Challenged (SC+ST+OBC Female)</td>
+                <td>@Html.TextBoxFor(m => m.stSocChaFemaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stSocChaFemaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stSocChaFemalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stSocChaFemalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Socially Challenged (SC+ST+OBC Male)</td>
+                <td>@Html.TextBoxFor(m => m.stSocChaMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stSocChaMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stSocChaMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stSocChaMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Physically Challenged (SC+ST+OBC Female)</td>
+                <td>@Html.TextBoxFor(m => m.stPHFemaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPHFemaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPHFemalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPHFemalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Physically Challenged (SC+ST+OBC Male)</td>
+                <td>@Html.TextBoxFor(m => m.stPHMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPHMaleUG5FT, new { @class = "form-control", @type = "number"}) </td>
+                <td>@Html.TextBoxFor(m => m.stPHMalePGFT, new { @class = "form-control", @type = "number"}) </td>
+                <td>@Html.TextBoxFor(m => m.stPHMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students receiving Freeships /Scholarships from the State and Central Government (Female)</td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovFemaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovFemaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovFemalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovFemalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students receiving Freeships /Scholarships from the State and Central Government (Male)</td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholarGovMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students receiving Freeships /Scholarships from Institution (Female)</td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstFemaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstFemaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstFemalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstFemalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students receiving Freeships /Scholarships from Institution (Male)</td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorInstMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Funds No. of students receiving Freeships /Scholarships from the Private Bodies (Female)</td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtFemaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtFemaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtFemalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtFemalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>Funds No. of students receiving Freeships /Scholarships from the Private Bodies (Male)</td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stScholorPvtMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of Students who are not receiving any Freeships /Scholarships</td>
+                <td>@Html.TextBoxFor(m => m.stNoScholorMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stNoScholorMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stNoScholorMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stNoScholorMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of first year students intake in the year</td>
+                <td>@Html.TextBoxFor(m => m.stIntakeMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stIntakeMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stIntakeMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stIntakeMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of first year students admitted in the year</td>
+                <td>@Html.TextBoxFor(m => m.stAdmitMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stAdmitMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stAdmitMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stAdmitMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students admitted through Lateral entry</td>
+                <td>@Html.TextBoxFor(m => m.stLateralMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stLateralMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stLateralMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stLateralMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students graduating in minimum stipulated time</td>
+                <td>@Html.TextBoxFor(m => m.stMinGradMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stMinGradMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stMinGradMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stMinGradMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students placed Median salary of placed graduates per annum  (Amount in Rs.)</td>
+                <td>@Html.TextBoxFor(m => m.stPlaceMedSalMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPlaceMedSalMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPlaceMedSalMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stPlaceMedSalMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of students selected for Higher Studies</td>
+                <td>@Html.TextBoxFor(m => m.stHigherMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stHigherMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stHigherMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stHigherMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of National Conference (Student)</td>
+                <td>@Html.TextBoxFor(m => m.stConfNatMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stConfNatMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stConfNatMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stConfNatMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of International Conference (Student)</td>
+                <td>@Html.TextBoxFor(m => m.stConfIntMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stConfIntMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stConfIntMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td>@Html.TextBoxFor(m => m.stConfIntMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>  
+            <tr>
+                <th>Total</th>
+                <td> <input type="text" readonly="readonly" class="form-control" id="UgftTotal" /> </td>
+                <td> <input type="text" readonly="readonly" class="form-control" id="Ug5ftTotal" /></td>
+                <td> <input type="text" readonly="readonly" class="form-control" id="PgftTotal" /></td>
+                <td> <input type="text" readonly="readonly" class="form-control" id="PgptTotal" /></td>
+            </tr>          
+        </tbody>      
+        <thead>
+            <tr>
+                <th scope="col" style="vertical-align: middle;" rowspan="2">Ph.D Student Details</th>
+                <th colspan="2" scope="col">FullTime(FT)</th>
+                <th colspan="2" scope="col">PartTime(PT)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Students in Financial Year (Sample Data)</td>
+                <td colspan="2">@Html.TextBoxFor(m => m.stPhDFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td colspan="2">@Html.TextBoxFor(m => m.stPhDPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+            <tr>
+                <td>No. of Ph.D students graduated in Financial Year (including Integrated Ph.D)</td>
+                <td colspan="2">@Html.TextBoxFor(m => m.stGradPhDFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+                <td colspan="2">@Html.TextBoxFor(m => m.stGradPhDPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
+            </tr>
+        </tbody>      
+    </table>    
+</div>
+@Html.Partial("ConfirmMessagePartail")
+
+@Html.Partial("ButtonPartail", Model)
+
+<script>
+    $(document).ready(function () {
+        CalculateTotal();
+    });
+
+    var UrlConstant = {        
+        Menu: '@DataAccess.Enum.Menu.DOAA.ToString()',
+        SerializeFormID: '#DOAA1Tableform',
+        TableDivID: '#DOAA1TableDiv'
+    };
+
+    $(".table td input[type='number']").on('change keyup paste mouseup', function () {
+        bindCalculateTotal(this);
+    });
+</script>

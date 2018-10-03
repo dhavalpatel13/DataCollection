@@ -1,0 +1,120 @@
+﻿@model IEnumerable<DataCollection.Models.RankUser>
+
+@{
+    ViewBag.Title = "View1";
+}
+<style>
+    .table tbody > tr > td {
+        line-height: 2.0;
+    }
+</style>
+
+<div class="direction">
+    <h3>REGISTER USERS</h3>
+</div>
+<div class="bd-example">
+    @if (ViewBag.Status != null && ViewBag.Status == true)
+    {
+        <div class="alert alert-success" id="editError">
+            <strong>Success! </strong> @ViewBag.Message
+        </div>
+    }
+    <div class="table-responsive-xl">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserEmpNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeptID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserRole)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserWork)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserMob)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserValid)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmpNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeptID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserRole)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserWork)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserMob)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserValid)
+                        </td>
+                        <td>
+                            <a class="btn editUser" data-userid="@item.UserID">Edit User</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog"></div>
+<script>
+    $(document).ready(function () {
+        $(".editUser").bind("click", function () {
+
+            var UserId = $(this).data("userid");
+
+            $.ajax({
+                url: "/Admin/EditUserDetail",
+                type: "POST",
+                data: { UserId: UserId },
+                success: function (data) {
+                    $("#myModal").html("");
+                    $("#myModal").html(data);
+                    $("#myModal").modal("show");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("An error has occured!!!");
+                }
+            });
+        });
+    });
+</script>

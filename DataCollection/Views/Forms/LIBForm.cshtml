@@ -1,0 +1,37 @@
+﻿@model DataCollection.Models.FormsViewModel
+<style>
+    .table tbody > tr > td {
+        padding: 7px !important;
+        vertical-align: middle;
+    }
+
+    td > input {
+        text-align: center;
+        margin-left: 5px;
+    }
+</style>
+
+
+@{
+    ViewBag.Title = "LIBFORM";
+}
+@Html.Hidden("RankMsgHdn", Model.rankmsg)
+<div class="direction">
+    <h3>LIBRARY DATA PROFORMA FOR RANKING</h3>
+</div>
+<form id="LIBTableform">
+    <div class="bd-example">
+        @*@Html.AntiForgeryToken()*@
+        <div class="table-responsive-xl" id="LIBTableDiv">
+            @Html.Partial("LIBFormPartial", Model.libInfo)
+        </div>
+    </div>
+
+</form>
+@Html.Partial("AlertMessagePartail")
+
+<script>
+    $(document).ready(function () {
+        bindDataCaptYMChangeEvent();
+    });
+</script>

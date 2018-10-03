@@ -1,0 +1,25 @@
+﻿@model DataCollection.Models.FormsViewModel
+
+@{
+    ViewBag.Title = "DOAA1";
+}
+@Html.Hidden("RankMsgHdn", Model.rankmsg)
+<div class="direction">
+    <h3>DOAA DATA PROFORMA FOR RANKING</h3>
+</div>
+<form id="DOAA1Tableform">
+    <div class="bd-example">
+        @*@Html.AntiForgeryToken()*@
+        <div class="table-responsive-xl" id="DOAA1TableDiv">
+            @Html.Partial("DOAAFormPartial", Model.info)
+        </div>
+    </div>
+
+</form>
+@Html.Partial("AlertMessagePartail")
+    
+<script>
+    $(document).ready(function () {
+        bindDataCaptYMChangeEvent();
+    });
+</script>

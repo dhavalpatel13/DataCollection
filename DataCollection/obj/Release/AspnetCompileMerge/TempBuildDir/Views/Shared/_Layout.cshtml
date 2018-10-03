@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    @{
+        if ((Session["IsUserLogin"] == null || Convert.ToBoolean(Session["IsUserLogin"]) == false) && Url.RequestContext.HttpContext.Request.Url.LocalPath != "/Home/Index")
+        {
+            Response.Redirect("~/Home/Index", false);
+        }
+    }
+    <div class="container">
+        <div class="container-fluid">
+            <div id="page-header" class="">
+                <div class="row">
+                    <div id="header-content">
+                        <div id="headerCustomLogo" class="col-xs-3">
+                            <a href="javascript:void(0);"> <img src="~/Images/IITRNewLogo.jpg" alt="Logo" title="Logo" /></a>
+                        </div>
+                        <div id="headerCustomHeading" class="col-xs-9">
+                            @*<h2>
+                                    Ranking Data Collection
+                                    <br /> SRIC , IIT Roorkee
+                                </h2>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="container-fluid">
+                    <div class=" navbar-collapse collapse" id="myNavbar">
+                        <ul class="nav navbar-nav navbar-right">
+                            @if ((Session["IsUserLogin"] != null || Convert.ToBoolean(Session["IsUserLogin"]) == true) && (Convert.ToString(Session["UserName"]) == "user1" || Convert.ToString(Session["UserName"]) == "admin"))
+                            {
+                                <li>@Html.ActionLink("DOAA 1", "DOAAForm1", "Home", new { @class = "navnew" })</li>
+                                <li>@Html.ActionLink("DOAA 2", "DOAAForm2", "Home", new { @class = "navnew" })</li>
+                            }
+
+                            @if ((Session["IsUserLogin"] != null || Convert.ToBoolean(Session["IsUserLogin"]) == true) && (Convert.ToString(Session["UserName"]) == "user2" || Convert.ToString(Session["UserName"]) == "admin"))
+                            {
+                                <li>@Html.ActionLink("LIBRARY FORM", "LibForm", "Home", new { @class = "navnew" })</li>
+                            }
+
+                            @if ((Session["IsUserLogin"] != null || Convert.ToBoolean(Session["IsUserLogin"]) == true))
+                            {
+                                <li>@Html.ActionLink("LOGOUT", "Logout", "Home", new { @class = "navnew" }) </li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("LOGIN", "Index", "Home", new { @class = "navnew" }) </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @if (Session["IsUserLogin"] != null || Convert.ToBoolean(Session["IsUserLogin"]) == true)
+            {
+                <marquee style="color:  #933; font-size: medium; font-weight:bold;">No messages at the moment.</marquee>
+                <div class="navbar navbar-default navbar-static-top" role="navigation">
+                    <div class="container-fluid">
+                        <div class=" navbar-collapse collapse no-hover" id="myNavbar">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navnew">User: @Session["UserName"]</a></li>
+                                <li><a class="navnew">Department: Applied Science & Engineering</a></li>
+                                <li><a class="navnew">Role: @Session["UserRole"]</a></li>
+                                <li><a class="navnew">Data Captured for :</a></li>
+                                <li><select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle"><option value="201801">201801</option><option value="201804">201804</option><option value="201807">201807</option> </select></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="footer-bottom">
+                <div class="container" style="padding: 10px;">
+                    <div class="col-sm-6 " style="">
+                        <div class="copyright-text">
+                            <p>CopyRight © 2017 Digital All Rights Reserved</p>
+                        </div>
+                    </div> <!-- End Col -->
+                    <div class="col-sm-6">
+                        <ul class="social-link pull-right" style="margin: 0;">
+                            <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                        </ul>
+                    </div> 
+                    <!-- End Col -->
+
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div id="divLoading">
+    </div>
+    <script>
+        $(document).ajaxStart(function () {
+            $("div#divLoading").addClass('show');
+            $("#succDiv").remove();
+            $("#errorDiv").remove();
+        });
+
+        $(document).ajaxStop(function () {
+            $("div#divLoading").removeClass('show');
+        });
+        // forceNumeric() plug-in implementation
+        jQuery.fn.forceNumeric = function () {
+            return this.each(function () {
+                $(this).keydown(function (e) {
+                    var key = e.which || e.keyCode;                    
+                    if (!e.shiftKey && !e.altKey && !e.ctrlKey &&                        
+                        // numbers   
+                        key >= 48 && key <= 57 ||
+                        // Numeric keypad
+                        key >= 96 && key <= 105 ||
+                        // comma, period and . on keypad
+                        key == 190 || key == 188 || key == 110 ||
+                        // Backspace and Tab and Enter
+                       key == 8 || key == 9 || key == 13 ||
+                        // Home and End
+                       key == 35 || key == 36 ||
+                        // left and right arrows
+                       key == 37 || key == 39 ||
+                        // Del and Ins
+                       key == 46 || key == 45)
+                        return true;
+
+                    return false;
+                });
+            });
+        }
+    </script>
+</body>
+</html>

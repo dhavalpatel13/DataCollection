@@ -1,0 +1,57 @@
+﻿@model DataAccess.Entity.LibInfo
+
+@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
+@Html.HiddenFor(m => m.IDNo)
+
+<div class="bd-example">
+    <div class="table-responsive-xl" style="min-height:200px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Place</th>
+                    <th scope="col" width="10%">No. Subscription of Journals & Databases</th>
+                    <th scope="col" width="10%">No. of Printed Books</th>
+                    <th scope="col" width="10%">Total Collection</th>
+                    <th scope="col" width="10%">Additions in Financial Year</th>
+                    <th scope="col" width="10%">No. of Library Membership</th>
+                    <th scope="col" width="10%">Seating Capacity</th>
+                    <th scope="col" width="10%">No. of Seminars/ Workshops organized by MGCL</th>
+                    <th scope="col" width="10%">Books/ Chapters in books/ monograph</th>
+                    <th scope="col" width="10%">Papers in Journals</th>
+                    <th scope="col" width="10%">Papers in Conferences/ Symposia/ Seminar/ Workshop</th>
+                    <th scope="col" width="10%">Scientific & Technical Reports</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr style="background:#b8e2ee;padding:10px">
+                    <td>@Html.Label(Model.DeptID)</td>
+                    <td>@Html.TextBoxFor(m => m.SubscJourDB, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.PrintedBooks, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.TotalCollection, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.FYAddition, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.LibMembers, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.LibSeatCap, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.SemWSOrg, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.BooksChMono, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.JourPapers, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.ConfSympWSPapers, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                    <td>@Html.TextBoxFor(m => m.SciTechReports, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("ConfirmMessagePartail")
+
+@Html.Partial("ButtonPartail", Model)
+
+<script>
+    var UrlConstant = {        
+        Menu: '@DataAccess.Enum.Menu.LIBFORM.ToString()',
+        SerializeFormID: '#LIBTableform',
+        TableDivID: '#LIBTableDiv'
+    };
+</script>

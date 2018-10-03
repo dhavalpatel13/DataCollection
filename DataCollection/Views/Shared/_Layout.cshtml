@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    @{
+        if ((DataCollection.ManageSession.SessionManager.IsUserLogin == null || DataCollection.ManageSession.SessionManager.IsUserLogin == false) && (Url.RequestContext.HttpContext.Request.Url.LocalPath != "/User/Login" && Url.RequestContext.HttpContext.Request.Url.LocalPath != "/User/Registration"))
+        {
+            Response.Redirect("~/User/Login", false);
+        }
+    }
+    <div class="container">
+        <div class="container-fluid">
+            <div id="page-header" class="">
+                <div class="row">
+                    <div id="header-content">
+                        <div id="headerCustomLogo" class="col-xs-3">
+                            <a href="javascript:void(0);"> <img src="~/Images/IITRNewLogo.jpg" alt="Logo" title="Logo" /></a>
+                        </div>
+                        <div id="headerCustomHeading" class="col-xs-9">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("MenuPartial")
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />        
+    </div>
+    <script src="~/Scripts/FormScript.js"></script>
+    <footer>
+        <div class="footer-bottom">
+            <div class="container" style="padding: 10px;">
+                <div class="col-sm-6 " style="">
+                    <div class="copyright-text">
+                        <p>CopyRight © 2017 Digital All Rights Reserved</p>
+                    </div>
+                </div> <!-- End Col -->
+                <div class="col-sm-6">
+                    <ul class="social-link pull-right" style="margin: 0;">
+                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
+                    </ul>
+                </div>
+                <!-- End Col -->
+
+            </div>
+        </div>
+    </footer>
+    <div id="divLoading">
+    </div>
+    <script>
+        $(document).ajaxStart(function () {
+            $("div#divLoading").addClass('show');
+            $("#succDiv").remove();
+            $("#errorDiv").remove();
+        });
+
+        $(document).ajaxStop(function () {
+            $("div#divLoading").removeClass('show');
+        });
+        // forceNumeric() plug-in implementation
+        jQuery.fn.forceNumeric = function () {
+            return this.each(function () {
+                $(this).keydown(function (e) {
+                    var key = e.which || e.keyCode;                    
+                    if (!e.shiftKey && !e.altKey && !e.ctrlKey &&                        
+                        // numbers   
+                        key >= 48 && key <= 57 ||
+                        // Numeric keypad
+                        key >= 96 && key <= 105 ||
+                        // comma, period and . on keypad
+                        key == 190 || key == 188 || key == 110 ||
+                        // Backspace and Tab and Enter
+                       key == 8 || key == 9 || key == 13 ||
+                        // Home and End
+                       key == 35 || key == 36 ||
+                        // left and right arrows
+                       key == 37 || key == 39 ||
+                        // Del and Ins
+                       key == 46 || key == 45)
+                        return true;
+
+                    return false;
+                });
+            });
+        }
+
+        $(document).ready(function () {
+            $("#marquee").html($("#RankMsgHdn").val());
+        });
+    </script>
+</body>
+</html>

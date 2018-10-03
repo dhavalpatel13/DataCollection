@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if ((Session["IsUserLogin"] == null || Convert.ToBoolean(Session["IsUserLogin"]) == false) && Url.RequestContext.HttpContext.Request.Url.LocalPath != "/Home/Index")
+{
+    Response.Redirect("~/Home/Index", false);
+}

@@ -1,0 +1,162 @@
+﻿@model DataCollection.Models.RankUserViewModel
+
+<link href="~/Content/registration.css" rel="stylesheet" />
+
+<style>
+    @@media screen and (min-width: 992px) {
+        .modal-lg {
+            width: 950px; /* New width for large modal */
+        }
+    }
+
+    .input-group{
+        display:grid;
+    }
+</style>
+
+@*@using (Html.BeginForm("UpdateUserDetail", "Admin", new { onsubmit = "return false;", ReturnUrl = "/Admin/" }, FormMethod.Post, new { role = "form" }))
+{*@
+<form id="EditUserForm">
+    @Html.AntiForgeryToken()
+
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Register User Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">                                              
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserID, "UserID", new { @class = "form-control-label" })<br />
+                                    @Html.TextBoxFor(m => m.RankUser.UserID, new { @class = "form-control", @placeholder = "UserId", @required = "required", @maxlength = "20", @readonly = "readonly" })
+                                    @*@Html.HiddenFor(m => m.RankUser.UserID)*@
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserEmpNo, "Employee No", new { @class = "form-control-label" })<br />
+                                    @Html.TextBoxFor(m => m.RankUser.UserEmpNo, new { @type = "number", @class = "form-control", @placeholder = "Emp No", @required = "required", @minlength = "6", @maxlength = "10" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserEmpNo)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserName, "User Name", new { @class = "form-control-label" })<br />
+                                    @Html.TextBoxFor(m => m.RankUser.UserName, new { @class = "form-control", @placeholder = "User Name", @required = "required", @maxlength = "50" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserName)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.DeptID, "Department", new { @class = "form-control-label" })
+                                    @Html.DropDownListFor(a => a.RankUser.DeptID, Model.DeptDDLList, "-- Select --", new { @class = "form-control", @placeholder = "Assign Menu", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.MenuID)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MenuList, "Menu", new { @class = "form-control-label" })
+                                    @Html.ListBoxFor(a => a.MenuList, Model.MenuDDLList, new { @multiple = "multiple", @class = "form-control", @placeholder = "Assign Menu", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.MenuList, "Select atlest one menu")
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserValid, "User Status", new { @class = "form-control-label" })
+                                    <br />
+                                    <div class="btn-group" id="toggle_event_editing">
+                                        <button type="button" id="activebtn" data-active="true" class="btn @(Model.RankUser.UserValid == "Y" ? "btn-success" : "btn-default")  locked_active">Active</button>
+                                        <button type="button" id="inactivebtn" data-active="false" class="btn @(Model.RankUser.UserValid == "N" ? "btn-success" : "btn-default") unlocked_inactive">InActive</button>
+                                    </div>
+                                    @Html.HiddenFor(a => a.RankUser.UserValid, new { id = "UserValid" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserPassword, "User Password", new { @class = "form-control-label" })<br />
+                                    @Html.TextBoxFor(m => m.RankUser.UserPassword, new { @class = "form-control", @placeholder = "UserPassword", @required = "required", @maxlength = "20", @readonly = "readonly" })
+                                    @Html.HiddenFor(m => m.RankUser.UserPassword)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserRole, "User Role", new { @class = "form-control-label" })
+                                    @Html.DropDownListFor(a => a.RankUser.UserRole, Model.UserRoleDDLList, "-- Select --", new { @class = "form-control", @placeholder = "Assign Role", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserRole)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserWork, "User Work", new { @class = "form-control-label" })
+                                    @Html.DropDownListFor(a => a.RankUser.UserWork, Model.UserWorkDDLList, "-- Select --", new { @class = "form-control", @placeholder = "Assign UserWork", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserWork)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserEmail, "User Email", new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.RankUser.UserEmail, new { @type = "email", @class = "form-control", @placeholder = "Email", @required = "required", @maxlength = "50" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserEmail)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserMob, "User Mobile No", new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.RankUser.UserMob, new { @type = "number", @class = "form-control", @placeholder = "Mobile No", @required = "required", @minlength = "10", @maxlength = "10" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserMob)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RankUser.UserRemarks, "User Remarks", new { @class = "form-control-label" })
+                                    @Html.TextAreaFor(m => m.RankUser.UserRemarks, new { @class = "form-control", @placeholder = "User Remarks", @rows = "3", @maxlength = "100", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(m => m.RankUser.UserRemarks)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSave" class="btn btn-default">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*}*@
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $('#toggle_event_editing button').click(function () {
+        if($(this).data("active"))
+        {
+            $("#activebtn").addClass("btn-success").removeClass("btn-default");
+            $("#inactivebtn").addClass("btn-default").removeClass("btn-success");
+            $("#UserValid").val("Y");
+        }
+        else
+        {
+            $("#activebtn").addClass("btn-default").removeClass("btn-success");
+            $("#inactivebtn").addClass("btn-success").removeClass("btn-default");
+            $("#UserValid").val("N");
+        }
+    });
+
+
+
+    $('#btnSave').click(function (e) {
+        debugger;
+        e.preventDefault();
+        if ($("#EditUserForm").valid()) {
+            $.ajax({
+                url: '/Admin/UpdateUserDetail',
+                data: $('#EditUserForm').serialize(),
+                type: "POST",
+                success: function (data) {
+                    if (data.success) {
+                        $("#myModal").modal("hide");
+                        location.reload();
+                    }
+                    else {
+                        $("#editError").show();
+                        $("#editError strong").after('@ViewBag.Message');
+                    }
+                },
+                error: function (xhr, text, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        }
+    });
+</script>
+

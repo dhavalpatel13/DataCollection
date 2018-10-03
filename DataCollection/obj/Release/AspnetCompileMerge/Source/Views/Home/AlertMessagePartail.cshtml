@@ -1,0 +1,15 @@
+﻿@if (TempData["isSaveSuccessfully"] != null && Convert.ToBoolean(TempData["isSaveSuccessfully"]) == true)
+{
+    <div class="alert alert-success" id="succDiv">
+        <a href="javascript:void(0);" class="close" onclick="$('#succDiv').hide();">×</a>
+        <strong>Success!</strong> Data Save Successfully
+    </div>
+
+}
+else if (TempData["isSaveSuccessfully"] != null && Convert.ToBoolean(TempData["isSaveSuccessfully"]) == false)
+{
+    <div id="errorDiv" class="alert alert-danger">
+        <a href="javascript:void(0);" class="close" onclick="$('#errorDiv').hide();">×</a>
+        <strong>Danger!</strong> Failed To Save Data
+    </div>
+}

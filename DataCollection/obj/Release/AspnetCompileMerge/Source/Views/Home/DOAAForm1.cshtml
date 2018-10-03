@@ -1,0 +1,65 @@
+﻿@model DataCollection.Models.DOAA1ViewModel
+
+@{
+    ViewBag.Title = "DOAA1";
+}
+
+<div class="direction">
+    <h3>DOAA DATA PROFORMA FOR RANKING</h3>
+</div>
+@*@Html.HiddenFor(m => m.info.MenuID, new { @value = DataCollection.Models.SessionManager.MenuID })*@
+<form id="DOAA1Tableform">
+    <div class="bd-example">
+        @Html.AntiForgeryToken()
+        <div class="table-responsive-xl" id="DOAA1TableDiv">
+            @Html.Partial("DOAAFormPartial", Model.info)
+        </div>
+    </div>
+    <ul class="list-inline">
+        <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
+        <li class="list-inline-item"><input type="text" readonly="readonly" class="form-control" value="Data entry level" /></li>
+        <li class="list-inline-item" style="float:right"><button type="button" class="btn btn-primary">Preview</button></li>
+        <li class="list-inline-item" style="float:right"><button type="button" class="btn btn-primary">Finalize</button></li>
+        <li class="list-inline-item" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+    </ul>
+</form>
+@Html.Partial("AlertMessagePartail")
+    
+<script>
+    $(document).ready(function () {
+        $("#DataCaptYMhid").val($("#DataCaptYM").val());
+        $("#DataCaptYM").change(function () {            
+            $.post("/Home/OnDAtaCaptYMChange",
+            {
+                DataCaptYM: $("#DataCaptYM").val().toString()
+            },
+            function (data) {
+                $("#DOAA1TableDiv").html("");
+                $("#DOAA1TableDiv").html(data);
+            });
+        });
+    });
+
+    $('#btnSave').click(function (e) {
+        e.preventDefault(); // <------------------ stop default behaviour of button
+        var element = this;
+        var data = $("#DOAA1Tableform").serialize();
+        $.ajax({
+            url: '@Url.Action("SaveDOAAForm1", "Home")',
+            type: "POST",
+            data: data,
+            success: function (data, textStatus, jqXHR) {
+                if (data.status == true) {
+                    $("form.DOAA1Tableform").scrollTop(100);
+                    location.reload();
+                } else {
+                    alert("Error occurs on the Database level!");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("An error has occured!!!");
+            }
+        });
+    });    
+</script>
+

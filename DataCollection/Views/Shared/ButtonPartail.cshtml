@@ -1,0 +1,34 @@
+﻿@model dynamic
+
+<ul class="list-inline" id="buttonUL" style="display:none">
+    <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
+    <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
+    <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
+    @if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString())
+    {
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+    }
+    else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
+    {
+        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnFinalizeByHod" class="btn btn-primary">Finalize</button></li>
+    }
+</ul>
+
+<script>
+    $(document).ready(function () {
+        $(".table td input[type='number']").forceNumeric();
+        if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+            $(".table td input[type='number']").attr('readonly', true);
+        }
+    });
+
+    $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
+        SaveFormData(e, this);
+    });
+
+    var SaveUrlConstant = {
+        SaveUrl: '@Url.Action("SaveUpdateFormData", "Forms")'        
+    };
+</script>
