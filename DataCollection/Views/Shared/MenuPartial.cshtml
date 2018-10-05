@@ -16,12 +16,13 @@
 
                 @if (DataCollection.ManageSession.SessionManager.IsUserLogin != null && DataCollection.ManageSession.SessionManager.IsUserLogin == true)
                 {
+                    <li>@Html.ActionLink("CHANGE PASSWORD", "ChangePassword", "User", null, new { @class = "navnew" }) </li>
                     <li>@Html.ActionLink("LOGOUT", "Logout", "User", null, new { @class = "navnew" }) </li>
                 }
                 else
                 {
                     <li>@Html.ActionLink("LOGIN", "Login", "User", null, new { @class = "navnew login" }) </li>
-                    <li>@Html.ActionLink("New User Registration", "Registration", "User", null, new { @class = "navnew Register" }) </li>
+                    <li>@Html.ActionLink("NEW USER REGISTRATION", "Registration", "User", null, new { @class = "navnew Register" }) </li>
                 }
             </ul>
         </div>

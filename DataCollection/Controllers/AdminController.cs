@@ -16,7 +16,7 @@ namespace DataCollection.Controllers
         public ActionResult Index()
         {
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
-            IEnumerable<DataCollection.Models.RankUser> RankUser = db.RankUsers.Where(a => (a.DeptID.ToLower().Trim() != "admin" || a.DeptID == null)).ToList();
+            IEnumerable<DataCollection.Models.RankUser> RankUser = db.RankUsers.Where(a => (a.DeptID.ToLower().Trim() != "admin" || a.DeptID == null) && a.IsEmailVerified == true).ToList();
             return View(RankUser);
         }
 
@@ -90,6 +90,18 @@ namespace DataCollection.Controllers
                         Status = true;
                         ViewBag.Message = "User Updated Successfully.";
                         ViewBag.Status = true;
+
+                        try
+                        {
+                            if (rankUserViewModel.RankUser.UserValid == "Y")
+                            {
+                                string body = "Dear " + rankUserViewModel.RankUser.UserName + ",<br /> You have been authorised by admin now. You can access the system by logging in. <br /><br /> Admin <br /> IRD SRIC";
+
+                                FormServices formServices = new FormServices();
+                                formServices.SendEmail("noReply@email.com", "scir", rankUserViewModel.RankUser.UserEmail, "test", body);
+                            }
+                        }
+                        catch (Exception ex) { }
                     }
                     catch (Exception ex)
                     {

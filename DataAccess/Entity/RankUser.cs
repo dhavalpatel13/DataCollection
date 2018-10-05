@@ -24,6 +24,8 @@ namespace DataAccess.Entity
         public DateTime? UserDisabledOn { get; set; }
         public string UserRemarks { get; set; }
         public string RankMsg { get; set; }
+        public bool IsEmailVerified { get; set; }
+        public Guid ActivationCode { get; set; }
     }
 
     public class RankUserMenu

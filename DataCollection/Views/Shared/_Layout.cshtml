@@ -12,7 +12,7 @@
 </head>
 <body>
     @{
-        if ((DataCollection.ManageSession.SessionManager.IsUserLogin == null || DataCollection.ManageSession.SessionManager.IsUserLogin == false) && (Url.RequestContext.HttpContext.Request.Url.LocalPath != "/User/Login" && Url.RequestContext.HttpContext.Request.Url.LocalPath != "/User/Registration"))
+        if (DataCollection.FormService.FormCommonMethods.IsUserLogin(Url.RequestContext.HttpContext.Request.Url.LocalPath))
         {
             Response.Redirect("~/User/Login", false);
         }

@@ -2,15 +2,58 @@
     ViewBag.Title = "VerifyAccount";
 }
 
-<h2>Verify Account</h2>
-
 @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
 {
-    <div class="alert alert-success">
-        <strong>Success!</strong> Your account has been activated successfully. Click here to @Html.ActionLink("Login","Login","User")
+    bool IsLoginLinkVisible = ViewBag.IsLoginLinkVisible != null && Convert.ToBoolean(ViewBag.IsLoginLinkVisible);
+    
+    <div class="container body-content">
+        <div class="row bs-wizard" style="border-bottom:0;padding-top: 30px;width: 79%;margin-left: 240px;">
+
+            <div class="col-xs-3 bs-wizard-step complete">
+                <div class="text-center bs-wizard-stepnum">Step 1</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+                <div class="bs-wizard-info text-center"><b>User Registration</b></div>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step @(IsLoginLinkVisible ? "complete" : "active")">
+                <!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Step 2</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+                <div class="bs-wizard-info text-center"><b>User Confirmation</b></div>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step @(IsLoginLinkVisible ? "active" : "")">
+                <!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Step 3</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+                @if (IsLoginLinkVisible) 
+                { 
+                    <div class="bs-wizard-info text-center"><b>Authorisation by Admin</b></div>                
+                }
+                else
+                {
+                    <div class="bs-wizard-info text-center">Authorisation by Admin</div>                
+                }
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="alert alert-success">
+            <strong>Success!</strong> @ViewBag.Message 
+            @if (IsLoginLinkVisible)
+            {
+                <span>Click here to @Html.ActionLink("Login","Login","User")</span>
+            }
+        </div>
     </div>
 }
-else{
+else
+{
     <div class="alert alert-danger">
         <strong>Error!</strong> @ViewBag.Message
     </div>

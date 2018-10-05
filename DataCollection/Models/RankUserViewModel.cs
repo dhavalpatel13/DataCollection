@@ -11,11 +11,11 @@ namespace DataCollection.Models
     public class RankUserViewModel
     {
         public DataAccess.Entity.RankUser RankUser { get; set; }
+        public IEnumerable<SelectListItem> UserWorkDDLList { get; set; }
         public IEnumerable<SelectListItem> DeptDDLList { get; set; }
         public IEnumerable<SelectListItem> MenuDDLList { get; set; }
         public string[] MenuList { get; set; }
-        public IEnumerable<SelectListItem> UserRoleDDLList { get; set; }
-        public IEnumerable<SelectListItem> UserWorkDDLList { get; set; }
+        public IEnumerable<SelectListItem> UserRoleDDLList { get; set; }        
         public List<RankUserMenu> CurrentUserMenu { get; set; }
 
         public void GetLoginUser(string UserName, string Password)

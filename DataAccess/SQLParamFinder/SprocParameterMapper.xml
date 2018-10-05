@@ -345,6 +345,11 @@
     <param name="UserEmail" SqlDbType="12" direction="1"></param>
     <param name="UserValid" SqlDbType="3" direction="1"></param>
     <param name="UserRemarks" SqlDbType="12" direction="1"></param>
+    <param name="DeptID" SqlDbType="12" direction="1"></param>
+    <param name="UserWork" SqlDbType="12" direction="1"></param>
+    <param name="UserRole" SqlDbType="12" direction="1"></param>
+    <param name="IsEmailVerified" SqlDbType="2" direction="1"></param>
+    <param name="ActivationCode" SqlDbType="14" direction="1"></param>
   </sproc>
   <sproc name="UPDATE_RANK_USER">
     <param name="UserID" SqlDbType="12" direction="1"></param>

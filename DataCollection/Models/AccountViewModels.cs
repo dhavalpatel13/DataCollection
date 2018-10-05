@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataCollection.Models
 {
@@ -99,5 +100,28 @@ namespace DataCollection.Models
         [MaxLength(100)]
         [DataType(DataType.MultilineText)]
         public string UserRemarks { get; set; }
+
+        public string UserWork { get; set; }
+
+        public string DeptID { get; set; }
+        
+        public IEnumerable<System.Web.Mvc.SelectListItem> UserWorkDDLList { get; set; }
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> DeptDDLList { get; set; }
+    }
+
+    public class ResetPasswordModel
+    {
+        [Required(ErrorMessage = "New password is required", AllowEmptyStrings = false)]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Confirm password is required", AllowEmptyStrings = false)]
+        [Compare("NewPassword", ErrorMessage = "New password and confirm password does not match")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string ResetCode { get; set; }
     }
 }

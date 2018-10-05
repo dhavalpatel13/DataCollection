@@ -56,6 +56,8 @@ namespace DataCollection.Controllers
             int dataCaptYM = 0;
             int.TryParse(DataCaptYM, out dataCaptYM);
             dOAA1ViewModel.GetDOAA1Data(dataCaptYM, DataAccess.Enum.Menu.DOAA.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
             return View(dOAA1ViewModel);
         }
         #endregion DOAA Form
@@ -68,6 +70,8 @@ namespace DataCollection.Controllers
             int dataCaptYM = 0;
             int.TryParse(DataCaptYM, out dataCaptYM);
             dOAA1ViewModel.GetDOAA1Data(dataCaptYM, DataAccess.Enum.Menu.LIBFORM.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
             return View(dOAA1ViewModel);
         }
         #endregion Lib Form
@@ -80,6 +84,8 @@ namespace DataCollection.Controllers
             int dataCaptYM = 0;
             int.TryParse(DataCaptYM, out dataCaptYM);
             dOAA1ViewModel.GetDOAA1Data(dataCaptYM, DataAccess.Enum.Menu.ADIR.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
             return View(dOAA1ViewModel);
         }
         #endregion ADIR Form
@@ -92,6 +98,8 @@ namespace DataCollection.Controllers
             int dataCaptYM = 0;
             int.TryParse(DataCaptYM, out dataCaptYM);
             dOAA1ViewModel.GetDOAA1Data(dataCaptYM, DataAccess.Enum.Menu.DOSW.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
             return View(dOAA1ViewModel);
         }
         #endregion DOSW Form

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace DataCollection.FormService
 {
@@ -36,6 +37,13 @@ namespace DataCollection.FormService
             return MenuPartial;
         }
 
+        public static bool IsUserLogin(string url)
+        {
+            return (DataCollection.ManageSession.SessionManager.IsUserLogin == null || DataCollection.ManageSession.SessionManager.IsUserLogin == false) 
+                    && (!url.Equals("/User/Login") && !url.Equals("/User/Registration")
+                    && !url.StartsWith("/User/VerifyAccount") && !url.Equals("/User/ForgotPassword") && !url.StartsWith("/User/ResetPassword"));
+        }
+
         public static object GetDynamicViewModel(string Menu, FormsViewModel FormsViewModel)
         {
             object FormsDataViewModel = FormsViewModel.info;
@@ -57,6 +65,7 @@ namespace DataCollection.FormService
 
             return FormsDataViewModel;
         }
+        
 
         public static string Hash(string value)
         {

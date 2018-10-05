@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.RankUser.DeptID, "Department", new { @class = "form-control-label" })
                                     @Html.DropDownListFor(a => a.RankUser.DeptID, Model.DeptDDLList, "-- Select --", new { @class = "form-control", @placeholder = "Assign Menu", @required = "required" })
-                                    @Html.ValidationMessageFor(m => m.RankUser.MenuID)
+                                    @Html.ValidationMessageFor(m => m.RankUser.DeptID)
                                 </div>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.MenuList, "Menu", new { @class = "form-control-label" })
