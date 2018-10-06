@@ -13,22 +13,48 @@ else if (TempData["isSaveSuccessfully"] != null && Convert.ToBoolean(TempData["i
         <strong>Error!</strong> Failed To Save Data
     </div>
 }
-else if(ViewBag.Status != null && ViewBag.Status == true && ViewBag.Message != null)
+@*else if (ViewBag.Status != null && ViewBag.Status == true && ViewBag.Message != null && ViewBag.Message != "")
 {
     <div class="alert alert-success" id="succDiv">
         <a href="javascript:void(0);" class="close" onclick="$('#succDiv').hide();">×</a>
         <strong>Success!</strong> @ViewBag.Message
     </div>
 }
-else if (ViewBag.Status != null && ViewBag.Status == false && ViewBag.Message != null)
+else if (ViewBag.Status != null && ViewBag.Status == false && ViewBag.Message != null && ViewBag.Message != "")
 {
      <div id="errorDiv" class="alert alert-danger">
         <a href="javascript:void(0);" class="close" onclick="$('#errorDiv').hide();">×</a>
         <strong>Error!</strong> @ViewBag.Message
     </div>
-}
+}*@
 
 <div id="jsErrorDiv" class="alert alert-danger" style="display:none">
     <a href="javascript:void(0);" class="close" onclick="$('#jsErrorDiv').hide();">×</a>
     <strong>Error!</strong> 
 </div>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        $("#messageDiv").html("");
+        var errormessage = '@(ViewBag.Status != null && ViewBag.Status == false && ViewBag.Message != null && ViewBag.Message != "")';
+        if (errormessage == 'True')
+        {
+            var messageHtml = "<div id=\"errorDiv\" class=\"alert alert-danger\">" +
+                                "<a href=\"javascript:void(0);\" class=\"close\" onclick=\"$('#errorDiv').hide();\">×</a>" +
+                                "<strong>Error! </strong>@ViewBag.Message" +
+                              "</div>"
+            $("#messageDiv").html(messageHtml)
+        }
+
+        var errormessage = '@(ViewBag.Status != null && ViewBag.Status == true && ViewBag.Message != null && ViewBag.Message != "")'
+        if (errormessage == 'True')
+        {
+            var messageHtml = "<div id=\"succDiv\" class=\"alert alert-success\">" +
+                                "<a href=\"javascript:void(0);\" class=\"close\" onclick=\"$('#succDiv').hide();\">×</a>" +
+                                "<strong>Success! </strong>@ViewBag.Message"
+                              "</div>"
+            $("#messageDiv").html(messageHtml)
+        }
+    });
+</script>

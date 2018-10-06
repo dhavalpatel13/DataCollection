@@ -10,6 +10,7 @@
 <form id="DOAA1Tableform">
     <div class="bd-example">
         @*@Html.AntiForgeryToken()*@
+        <div id="messageDiv"></div>
         <div class="table-responsive-xl" id="DOAA1TableDiv">
             @Html.Partial("DOAAFormPartial", Model.info)
         </div>

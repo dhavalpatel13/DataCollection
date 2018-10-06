@@ -25,10 +25,11 @@ namespace DataCollection.Controllers
         }
 
         #region Common Methods
-        public ActionResult OnDAtaCaptYMChange(int DataCaptYM, string Menu)
+        public ActionResult OnDAtaCaptYMChange(int DataCaptYM, string Menu, string DeptId)
         {
             FormsViewModel dOAA1ViewModel = new FormsViewModel();
             SessionManager.DataCaptYR = DataCaptYM;
+            SessionManager.DeptID = DeptId;
             dOAA1ViewModel.GetDOAA1Data(DataCaptYM, Menu);
             string MenuPartial = FormCommonMethods.GetMenuPartial(Menu);
             object DataObject = FormCommonMethods.GetDynamicViewModel(Menu, dOAA1ViewModel);
@@ -101,6 +102,13 @@ namespace DataCollection.Controllers
             ViewBag.Message = Convert.ToString(TempData["Message"]);
             ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
             return View(dOAA1ViewModel);
+        }
+
+        public JsonResult GetDepartmentList()
+        {
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            var DeptDDLList = db.Depts.Select(i => new { Text = i.DeptName, Value = i.DeptID }).AsEnumerable();
+            return Json(DeptDDLList, JsonRequestBehavior.AllowGet);
         }
         #endregion DOSW Form
     }

@@ -17,7 +17,8 @@ function getDataCaptYearData()
     $.post("/Forms/OnDAtaCaptYMChange",
     {
         DataCaptYM: $("#DataCaptYM").val().toString(),
-        Menu: UrlConstant.Menu
+        Menu: UrlConstant.Menu,
+        DeptID: MenuConstant.DeptId
     },
     function (data) {
         var tableDivId = UrlConstant.TableDivID;

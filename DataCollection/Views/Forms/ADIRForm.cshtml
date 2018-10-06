@@ -10,6 +10,7 @@
 <form id="ADIRTableform">
     <div class="bd-example">
         @Html.AntiForgeryToken()
+        <div id="messageDiv"></div>
         <div class="table-responsive-xl" id="ADIRTableDiv">
             @Html.Partial("ADIRFormPartial",Model.info2)
         </div>

@@ -32,14 +32,21 @@
 {
     <marquee id="marquee" class="no-print" style="color:  #933; font-size: medium; font-weight:bold;"></marquee>
 
-    //if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
-    //{
+    
         <div class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="no-hover" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a class="navnew">User: @DataCollection.ManageSession.SessionManager.UserName</a></li>
-                        <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
+                        @if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
+                        {
+                            <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
+                        }
+                        else 
+                        { 
+                            <li><a class="navnew">Department: </a></li>
+                            <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle"></select></li>
+                        }
                         <li><a class="navnew">Role: @DataCollection.ManageSession.SessionManager.UserWork</a></li>
                         <li><a class="navnew">Data Captured for :</a></li>
                         <li>
@@ -54,5 +61,28 @@
                 </div>
             </div>
         </div>
-    //}
+    
 }
+
+<script>
+    $(document).ready(function () {
+        if ('@DataCollection.ManageSession.SessionManager.UserRole.ToLower()' == '@DataAccess.Enum.UserRoles.Admin.ToString().ToLower()') {
+            $.post("/Forms/GetDepartmentList", null,
+            function (data) {
+                $("#DepartmentsDDL").append($('<option></option>').text("-- Select --").val("0"));
+                $.each(data, function (index, item) { // item is now an object containing properties ID and Text
+                    $("#DepartmentsDDL").append($('<option></option>').text(item.Text).val(item.Value));
+                });
+            });
+        }
+
+        $("#DepartmentsDDL").change(function () {
+            MenuConstant.DeptId = $("#DepartmentsDDL").val();
+            getDataCaptYearData();
+        });
+    });
+
+    var MenuConstant = {
+        DeptId: '@DataCollection.ManageSession.SessionManager.DeptID'
+    };
+</script>

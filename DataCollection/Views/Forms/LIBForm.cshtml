@@ -10,8 +10,6 @@
         margin-left: 5px;
     }
 </style>
-
-
 @{
     ViewBag.Title = "LIBFORM";
 }
@@ -22,6 +20,7 @@
 <form id="LIBTableform">
     <div class="bd-example">
         @*@Html.AntiForgeryToken()*@
+        <div id="messageDiv"></div>
         <div class="table-responsive-xl" id="LIBTableDiv">
             @Html.Partial("LIBFormPartial", Model.libInfo)
         </div>

@@ -9,6 +9,7 @@
 <form id="DOSWTableform">
     <div class="bd-example">
         @*@Html.AntiForgeryToken()*@
+        <div id="messageDiv"></div>
         <div class="table-responsive-xl" id="DOSWTableDiv">
             @Html.Partial("DOSWFormPartial", Model.info2)
         </div>
