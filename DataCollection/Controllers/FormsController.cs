@@ -14,6 +14,7 @@ using DataAccess.Enum;
 
 namespace DataCollection.Controllers
 {
+    //Form Controller having all forms methods 
     [Authorize]
     public class FormsController : Controller
     {
