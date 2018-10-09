@@ -4,12 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
+using System.Web.Configuration;
 
 namespace DataCollection.FormService
 {
     public class FormServices
     {
-        public void SendEmail(string FromEmailAddress, string FromName, string ToAddress, string Subject, string MailBody)
+        public void SendEmail(string FromEmailAddress, string FromName, string ToAddress, string Subject, string MailBody, string CcAddress = "")
         {
             string ServerName;
             int PortNumber;
@@ -18,11 +19,15 @@ namespace DataCollection.FormService
             bool ssltype;
             // for IITR Email Server
             // Initialize Values
-            ServerName = "103.37.200.156";  //ServerName = "192.168.180.11";  Local IP
-            PortNumber = 587;
-            UserName = "sric";
-            Password = "xxxxx";
+            //ServerName = "103.37.200.156";  // for Public IP
+            ServerName = WebConfigurationManager.AppSettings["ServerName"];    // for Local IP
+            PortNumber = Convert.ToInt32(WebConfigurationManager.AppSettings["PortNumber"]);
+            UserName = WebConfigurationManager.AppSettings["UserName"];
+            Password = WebConfigurationManager.AppSettings["Password"];
             ssltype = false;
+            FromEmailAddress = WebConfigurationManager.AppSettings["FromEmailAddress"];
+            FromName = WebConfigurationManager.AppSettings["FromName"];
+
             SmtpClient client = new SmtpClient();
             client.Host = ServerName;
             client.Port = PortNumber;
@@ -38,6 +43,8 @@ namespace DataCollection.FormService
             MailMessage message = new MailMessage();
             message.From = FromAddress;
             message.To.Add(ToAddress);
+            message.CC.Add(CcAddress);
+            message.Bcc.Add("sric@iitr.ac.in");
             message.Subject = Subject;
             message.IsBodyHtml = true;
             message.Body = MailBody;
