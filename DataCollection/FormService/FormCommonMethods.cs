@@ -41,7 +41,7 @@ namespace DataCollection.FormService
         {
             return (DataCollection.ManageSession.SessionManager.IsUserLogin == null || DataCollection.ManageSession.SessionManager.IsUserLogin == false) 
                     && (!url.Equals("/User/Login") && !url.Equals("/User/Registration")
-                    && !url.StartsWith("/User/VerifyAccount") && !url.Equals("/User/ForgotPassword") && !url.StartsWith("/User/ResetPassword"));
+                    && !url.StartsWith("/User/VerifyAccount") && !url.Equals("/User/ForgotPassword") && !url.StartsWith("/User/ResetPassword") && !url.StartsWith("/AboutUs") && !url.StartsWith("/Contact"));
         }
 
         public static object GetDynamicViewModel(string Menu, FormsViewModel FormsViewModel)
