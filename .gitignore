@@ -1,7 +1,3 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
 /.vs
 /DataAccess/bin
 /DataAccess/obj
@@ -10,3 +6,4 @@
 /DataCollection/DataCollection.csproj.user
 /DataAccess/obj/Debug/DataAccess.csproj.FileListAbsolute.txt
 /DataCollection/obj/Debug/DataCollection.csproj.FileListAbsolute.txt
+/DataCollection/Properties/Settings.Designer.cs
