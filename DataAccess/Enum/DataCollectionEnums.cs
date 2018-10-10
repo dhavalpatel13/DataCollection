@@ -19,6 +19,9 @@ namespace DataAccess.Enum
         LIBFORM,
         ADIR,
         DOSW,
+        SRIC,
+        SRICFA,
+        DOFA,
         USERS
     }
 

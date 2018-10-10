@@ -269,6 +269,12 @@
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Forms\SRICFormPartial.cshtml" />
+    <Content Include="Views\Forms\SRICForm.cshtml" />
+    <Content Include="Views\Forms\SRICFAForm.cshtml" />
+    <Content Include="Views\Forms\SRICFAFormPartial.cshtml" />
+    <Content Include="Views\Forms\DOFAFormPartial.cshtml" />
+    <Content Include="Views\Forms\DOFAForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

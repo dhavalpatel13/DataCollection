@@ -105,6 +105,24 @@ namespace DataCollection.Controllers
             return View(dOAA1ViewModel);
         }
 
+        [CustomAuthorize(EntityName = Menu.DOFA)]
+        public ActionResult DOFAForm(string DataCaptYM)
+        {
+            return View();
+        }
+
+        [CustomAuthorize(EntityName = Menu.SRICFA)]
+        public ActionResult SRICFAForm(string DataCaptYM)
+        {
+            return View();
+        }
+
+        [CustomAuthorize(EntityName = Menu.SRIC)]
+        public ActionResult SRICForm(string DataCaptYM)
+        {
+            return View();
+        }
+
         public JsonResult GetDepartmentList()
         {
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
