@@ -49,11 +49,14 @@
                 </tr>
             }
         </tbody>
+        @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0)
+        {
         <tfoot>
             <tr>
                 <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
             </tr>
         </tfoot>
+        }
     </table>
     <label>Association Type **</label> <span>R - Regular</span><span>C - Contractual</span><span>V - Visiting</span><span>G - Guest</span><span>A - Adjunct</span>
     <br />
