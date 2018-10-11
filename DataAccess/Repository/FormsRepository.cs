@@ -20,7 +20,7 @@ namespace DataAccess.Repository
         const string _Update_INFO2 = "stINFO2_UPDATE";
         const string _Insert_LIBINFO = "LIBINFO_INSERT";
         const string _Update_LIBINFO = "LIBINFO_UPDATE";
-
+        const string _SELECT_DOFA_Data = "DOFA_DATA_SELECT_BY_DataCaptYM_DeptID_MenuID";
 
         /// <summary>
         /// 
@@ -36,6 +36,20 @@ namespace DataAccess.Repository
             info.DeptID = DeptID;
             info.MenuID = string.IsNullOrWhiteSpace(MenuID) ? "DOAA" : MenuID;
             return this.GetEntity<stInfo>(info, _SELECT_DOAA1_INFO);
+        }
+
+        public List<DofaInfo> GetDOFAFormDataByID(int DataCaptYM, string DeptID, string MenuID)
+        {
+            Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+            sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+            sqlParamDictionary.Add("DeptID", DeptID);
+            sqlParamDictionary.Add("MenuID", string.IsNullOrWhiteSpace(MenuID) ? "DOFA" : MenuID);
+            IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_DOFA_Data);
+            SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+            command.Connection = connection;
+            List<DofaInfo> dofaInfos = EntityMapper.MapCollection<DofaInfo>(command.ExecuteReader()).ToList();
+            DBConnectionHelper.CloseSqlConnection(connection);
+            return dofaInfos;
         }
 
         /// <summary>

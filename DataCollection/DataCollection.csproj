@@ -177,6 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataCollectionModel.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DofaViewModel.cs" />
     <Compile Include="Models\FormsViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\RankUserViewModel.cs" />
@@ -271,6 +272,7 @@
     <Content Include="Views\Forms\SRICFAFormPartial.cshtml" />
     <Content Include="Views\Forms\DOFAFormPartial.cshtml" />
     <Content Include="Views\Forms\DOFAForm.cshtml" />
+    <Content Include="Views\Forms\EditorTemplates\DOFASinglePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

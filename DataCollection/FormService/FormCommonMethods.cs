@@ -30,6 +30,9 @@ namespace DataCollection.FormService
                 case "LIBFORM":
                     MenuPartial = "LIBFormPartial";
                     break;
+                case "DOFA":
+                    MenuPartial = "DOFAFormPartial";
+                    break;
                 default:
                     break;
             }
@@ -39,7 +42,7 @@ namespace DataCollection.FormService
 
         public static bool IsUserLogin(string url)
         {
-            return (DataCollection.ManageSession.SessionManager.IsUserLogin == null || DataCollection.ManageSession.SessionManager.IsUserLogin == false) 
+            return (ManageSession.SessionManager.IsUserLogin == false) 
                     && (!url.Equals("/User/Login") && !url.Equals("/User/Registration")
                     && !url.StartsWith("/User/VerifyAccount") && !url.Equals("/User/ForgotPassword") && !url.StartsWith("/User/ResetPassword"));
         }
@@ -58,6 +61,9 @@ namespace DataCollection.FormService
                     break;
                 case "LIBFORM":
                     FormsDataViewModel = FormsViewModel.libInfo;
+                    break;
+                case "DOFA":
+                    FormsDataViewModel = FormsViewModel.dofaViewModel;
                     break;
                 default:
                     break;

@@ -108,7 +108,13 @@ namespace DataCollection.Controllers
         [CustomAuthorize(EntityName = Menu.DOFA)]
         public ActionResult DOFAForm(string DataCaptYM)
         {
-            return View();
+            FormsViewModel dofaViewModel = new FormsViewModel();
+            int dataCaptYM = 0;
+            int.TryParse(DataCaptYM, out dataCaptYM);
+            dofaViewModel.GetDOFAData(dataCaptYM, Menu.DOFA.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
+            return View(dofaViewModel);
         }
 
         [CustomAuthorize(EntityName = Menu.SRICFA)]

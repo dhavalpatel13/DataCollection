@@ -1,97 +1,101 @@
-﻿@model DataAccess.Entity.stInfo2
+﻿@model DataCollection.Models.DofaViewModel
 
-@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
-@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
-@Html.HiddenFor(m => m.IDNo)
+@*@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+    @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
+    @Html.HiddenFor(m => m.IDNo)*@
 
-<div class="bd-example">
-    <div class="table-responsive-xl ">
-        <table class="table">
-            <thead>
+<div class="table-responsive-xl " style="overflow-x:auto !important;">
+    <table id="DOFATable" class="table">
+        <thead>
+            <tr>
+                <th align="center" valign="middle" rowspan="2">EmpNo</th>
+                <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
+                <th align="center" valign="middle" rowspan="2">DOB</th>
+                <th align="center" valign="middle" rowspan="2">Designation</th>
+                <th align="center" valign="middle" rowspan="2">Gender</th>
+                <th align="center" valign="middle" rowspan="2">Nationality</th>
+                <th align="center" valign="middle" rowspan="1" colspan="3">Highest Qualification</th>
+                <th align="center" valign="middle" rowspan="2">PAN No.</th>
+                <th align="center" valign="middle" rowspan="2">Industry Experience (in Years)</th>
+                <th align="center" valign="middle" rowspan="2">Academic Experience(in Months)</th>
+                <th align="center" valign="middle" rowspan="2">Department</th>
+                <th align="center" valign="middle" rowspan="2">Institute Joining Date</th>
+                <th align="center" valign="middle" rowspan="2">Leaving Date (as on date)</th>
+                <th align="center" valign="middle" rowspan="2">Association Type **</th>
+                <th align="center" valign="middle" rowspan="2">Faculty Exchange Inbound **</th>
+                <th align="center" valign="middle" rowspan="2">Faculty Exchange Outbound **</th>
+                <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars National</th>
+                <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars International</th>
+                <th align="center" valign="middle" rowspan="2">Awards and Honors</th>
+            </tr>
+            <tr>
+                <th align="center" valign="middle" rowspan="1">Course</th>
+                <th align="center" valign="middle" rowspan="1">Year</th>
+                <th align="center" valign="middle" rowspan="1">Institute</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DofaData == null || Model.DofaData.Count == 0)
+            {
+                Model.DofaData = new List<DataAccess.Entity.DofaInfo>();
+                Model.DofaData.Add(new DataAccess.Entity.DofaInfo());
+            }
+
+            @for (int i = 0; i < Model.DofaData.Count; i++)
+            {
                 <tr>
-                    <th scope="col">Tuition Fees</th>
-                    <th scope="col" colspan="2" width="10%">International</th>
+                    <input type="hidden" value="@i" class="DOFAindex" />
+                    @Html.EditorFor(m=>m.DofaData[i],"DOFASinglePartial")
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Undergraduate Fees (US $)</td>
-                    <td colspan="2">                    
-                        @Html.TextBoxFor(m => m.stFeeUGInt, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>                    
-                </tr>
-                <tr>
-                    <td>Postgraduate Fees (US $)</td>
-                    <td colspan="2">
-                        @Html.TextBoxFor(m => m.stFeePGInt, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>                    
-                </tr>
-                <tr>
-                    <td>Ph.D (US $)</td>
-                    <td colspan="2">
-                        @Html.TextBoxFor(m => m.stFeePHDInt, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-            </tbody>
-            <thead>
-                <tr>
-                    <th scope="col">Regional Rankings Indicator</th>
-                    <th scope="col" width="10%">Full Time</th>
-                    <th scope="col" width="10%">Part Time</th>
-                </tr>
-            </thead>            
-            <tbody>
-                <tr>
-                    <td>Undergraduate Exchange Students - Inbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchUGInFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(m => m.stExchUGInPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-                <tr>
-                    <td>Undergraduate Exchange Students - Outbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchUGOutFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchUGOutPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-                <tr>
-                    <td>Postgraduate Exchange Students - Inbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchPGInFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchPGInPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-                <tr>
-                    <td>Postgraduate Exchange Students - Outbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchPGOutFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>                    
-                        @Html.TextBoxFor(m => m.stExchPGOutPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <label>Student Exchange Outbound - </label> Students who have attended another university abroad on international exchange programmes for at least one semester during the annual reporting period
-        <br />
-        <label>Student Exchange Inbound - </label> Students who have attended the institute on international exchange programmes for at least one semester during the annual reporting period
-        <br />
-    </div>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
+            </tr>
+        </tfoot>
+    </table>
+    <label>Association Type **</label> <span>R - Regular</span><span>C - Contractual</span><span>V - Visiting</span><span>G - Guest</span><span>A - Adjunct</span>
+    <br />
+    <label>Faculty Exchange Inbound ** </label> <span>Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
+    <br />
+    <label>Faculty Exchange Outbound ** </label> <span>Faculty who have visited another university abroad as a guest faculty on international exchange programmes </span>
+    <br />
 </div>
+<style>
+    input.edit-value {
+        min-width: 120px;
+    }
+    table > thead > tr > th {
+        vertical-align: middle !important;
+    }
+</style>
 @Html.Partial("ConfirmMessagePartail")
-@Html.Partial("ButtonPartail", Model)
+@*@Html.Partial("ButtonPartail", Model)*@
 
 <script>
-    var UrlConstant = {        
-        Menu: '@DataAccess.Enum.Menu.ADIR.ToString()',
-        SerializeFormID: '#ADIRTableform',
-        TableDivID: '#ADIRTableDiv'
+    var UrlConstant = {
+        Menu: '@DataAccess.Enum.Menu.DOFA.ToString()',
+        SerializeFormID: '#DOFATableform',
+        TableDivID: '#DOFATableDiv'
     };
+
+    function AddNewDOFARow() {
+        var trclone = $("<tr>"+$("#DOFATable tbody tr:last").html()+"</tr>");
+        var dofaIndex = trclone.find("input.DOFAindex");
+        var dofaIndexVal = parseInt(dofaIndex.val());
+        trclone.find("input").each(function (e) {
+            var _el = $(this);
+            if (_el.attr("id")) {
+                _el.attr("id", _el.attr("id").replace(dofaIndexVal, dofaIndexVal + 1));
+            }
+            if (_el.attr("name")) {
+                _el.attr("name", _el.attr("name").replace(dofaIndexVal, dofaIndexVal + 1));
+            }
+            _el.val("");
+        });
+        dofaIndex.val(dofaIndexVal+1)
+        trclone.appendTo("#DOFATable tbody");
+    }
+
 </script>

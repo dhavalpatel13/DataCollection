@@ -35,7 +35,6 @@ else if (ViewBag.Status != null && ViewBag.Status == false && ViewBag.Message !=
 
 <script>
     $(document).ready(function () {
-        debugger;
         $("#messageDiv").html("");
         var errormessage = '@(ViewBag.Status != null && ViewBag.Status == false && ViewBag.Message != null && ViewBag.Message != "")';
         if (errormessage == 'True')

@@ -15,6 +15,9 @@ namespace DataCollection.Models
         public stInfo info { get; set; }
         public stInfo2 info2 { get; set; }
         public LibInfo libInfo { get; set; }
+
+        public DofaViewModel dofaViewModel { get; set; }
+
         public bool isSaveSuccessfully { get; set; }
         public string rankmsg { get; set; }
 
@@ -57,6 +60,61 @@ namespace DataCollection.Models
                     libInfo.DataCaptYM = DataCaptYM;
                     libInfo.DeptName = libInfo.DeptID = SessionManager.DeptID;
                 }
+            }
+            else if (MenuID == DataAccess.Enum.Menu.DOFA.ToString())
+            {
+                this.dofaViewModel = new DofaViewModel();
+                dofaViewModel.GetDOFAData(DataCaptYM, MenuID);
+            }
+
+            RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
+            this.rankmsg = rankmesg.Message;
+        }
+
+        public void GetDOFAData(int DataCaptYM, string MenuID)
+        {
+            FormsRepository formsRepository = new FormsRepository();
+            DataCaptYM = SessionManager.DataCaptYR > 0 ? SessionManager.DataCaptYR : (DataCaptYM > 0 ? DataCaptYM : 0);
+            if (MenuID == DataAccess.Enum.Menu.DOAA.ToString())
+            {
+                this.info = formsRepository.GetDOAA1FormDataByID(DataCaptYM, SessionManager.DeptID, MenuID);
+                if (info == null)
+                {
+                    info = new stInfo();
+                    info.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
+                    info.DataStatusName = "Data Entry Started by Operator";
+                    info.DataCaptYM = DataCaptYM;
+                    info.DeptName = info.DeptID = SessionManager.DeptID;
+                }
+            }
+            else if (MenuID == DataAccess.Enum.Menu.ADIR.ToString() || MenuID == DataAccess.Enum.Menu.DOSW.ToString())
+            {
+                this.info2 = formsRepository.GetADIRFormDataByID(DataCaptYM, SessionManager.DeptID, MenuID);
+                if (info2 == null)
+                {
+                    info2 = new stInfo2();
+                    info2.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
+                    info2.DataStatusName = "Data Entry Started by Operator";
+                    info2.DataCaptYM = DataCaptYM;
+                    info2.DeptName = info2.DeptID = SessionManager.DeptID;
+                }
+            }
+            else if (MenuID == DataAccess.Enum.Menu.LIBFORM.ToString())
+            {
+                this.libInfo = formsRepository.GetLibFormDataByID(DataCaptYM, SessionManager.DeptID, MenuID);
+                if (libInfo == null)
+                {
+                    libInfo = new LibInfo();
+                    libInfo.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
+                    libInfo.DataStatusName = "Data Entry Started by Operator";
+                    libInfo.DataCaptYM = DataCaptYM;
+                    libInfo.DeptName = libInfo.DeptID = SessionManager.DeptID;
+                }
+            }
+            else if(MenuID == DataAccess.Enum.Menu.DOFA.ToString())
+            {
+                this.dofaViewModel = new DofaViewModel();
+                dofaViewModel.GetDOFAData(DataCaptYM, MenuID);
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
