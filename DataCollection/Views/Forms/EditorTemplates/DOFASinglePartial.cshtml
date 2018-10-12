@@ -8,12 +8,12 @@
 <td>@Html.TextBoxFor(m => m.empGender, new { @class = "form-control edit-value", min = 1, max = 1 })</td>
 <td>@Html.TextBoxFor(m => m.empNation, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.QualHighCourse, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.QualHighYear, new { @class = "form-control edit-value", type = "date" })</td>
-<td>@Html.TextBoxFor(m => m.QualHighInst, new { @class = "form-control edit-value", type = "date" })</td>
+<td>@Html.TextBoxFor(m => m.QualHighYear, new { @class = "form-control edit-value", type = "number", min = 0, max = 100 })</td>
+<td>@Html.TextBoxFor(m => m.QualHighInst, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.empPAN, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.ExpIndMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
 <td>@Html.TextBoxFor(m => m.ExpAcadMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
-<td>@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value", required = "required" })</td>
+<td>@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.empDOJ, new { @class = "form-control edit-value", type = "date" })</td>
 <td>@Html.TextBoxFor(m => m.empDOL, new { @class = "form-control edit-value", type = "date" })</td>
 <td>@Html.TextBoxFor(m => m.empType, new { @class = "form-control edit-value", min = 0, max = 1 })</td>

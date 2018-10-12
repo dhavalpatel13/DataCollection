@@ -109,7 +109,10 @@ function SaveFormData(e, obj) {
         data: JSON.stringify(myData), //data,
         success: function (data, textStatus, jqXHR) {
             if (data.status == true) {
-                location.reload();
+                setTimeout(function () {
+                    window.location.href = window.location.href;
+                },200);
+                
             } else {
                 alert("Error occurs on the Database level!");
             }

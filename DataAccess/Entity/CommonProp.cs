@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entity
 {
-    public class CommonProp
+    public class IdProp
     {
         public int IDNo { get; set; }
+    }
+
+    public class BaseProp : IdProp
+    {
         public int DataCaptYM { get; set; }
         public string DeptID { get; set; }
         public string DeptName { get; set; }
         public string MenuID { get; set; }
+    }
+
+    public class CommonProp : BaseProp
+    {   
         public string DataUser { get; set; }
         public DateTime DataUpdatedOn { get; set; }
         public int DataStatus { get; set; }

@@ -50,7 +50,7 @@ namespace DataCollection.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveDOFAFormData(DOfaRequestViewModel data)
+        public ActionResult SaveDOFAFormData(DofaRequestViewModel data)
         {
             FormsViewModel formsViewModel = new FormsViewModel();
             string action = data.action;
