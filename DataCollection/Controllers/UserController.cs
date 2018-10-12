@@ -256,21 +256,21 @@ namespace DataCollection.Controllers
             string body = string.Empty, subject = string.Empty;
             if (emailFor == "VerifyAccount")
             {      
-               subject = "Your account is successfully created!";
-               body = "<br/><br/>We are excited to tell you that your account is" +
+               subject = "Your account is successfully created! Verify Account";
+               body = "Dear " + SessionManager.UserName + ",<br/><br/>We are excited to tell you that your account is" +
                     " successfully created. Please click on the below link to verify your account" +
-                    " <br/><br/><a href='" + link + "'>" + link + "</a> ";
+                    " <br/><br/><a href='" + link + "'>" + link + "</a> " + "<br/><br/> From:<br/> Admin, IRD-SRIC, IITR";
             }
             else if (emailFor == "ResetPassword")
             {
                 subject = "Reset Password";
-                body = "Hi,<br/>br/>We got request for reset your account password. Please click on the below link to reset your password" +
-                    "<br/><br/><a href=" + link + ">Reset Password link</a>";
+                body = "Dear " + SessionManager.UserName + ", <br/>br/>We got request for reset your account password. Please click on the below link to reset your password" +
+                    "<br/><br/><a href=" + link + ">Reset Password link</a>" + "<br/><br/> From:<br/> Admin, IRD-SRIC, IITR"; 
             }
 
 
             FormServices formServices = new FormServices();
-            formServices.SendEmail("noReply@email.com", "scir", emailID, subject, body);
+            formServices.SendEmail(emailID, "", subject, body);
         }
 
         [HttpGet]
@@ -301,16 +301,16 @@ namespace DataCollection.Controllers
                         v.IsEmailVerified = true;
                         db.SubmitChanges();
                         Status = true;
-                        ViewBag.Message = "Your registered details has been verified successfully. Your account will be actived after authorisation by administrator(IRD-SRIC).";                        
+                        ViewBag.Message = "Your registered details has been verified successfully. Your account will be activated after authorisation by administrator(IRD-SRIC).";                        
                     }
                     else if (v.UserValid.ToString().ToUpper() == "N" && v.UserDisabledOn == null)
                     {
                         Status = true;
-                        ViewBag.Message = "Your registered details has been already verified. Please wait for authorisation by administrator(IRD-SRIC)";                        
+                        ViewBag.Message = "Your registered details have been already verified. Please wait for authorisation by administrator(IRD-SRIC)";                        
                     }
                     else if (v.UserValid.ToString().ToUpper() == "Y")
                     {
-                        ViewBag.Message = "Your registered details has been already verified. Please wait for authorisation by administrator(IRD-SRIC)";
+                        ViewBag.Message = "Your registered details have been already verified. Please wait for authorisation by administrator(IRD-SRIC)";
                         IsLoginLinkVisible = true;
                     }
                 }
@@ -419,7 +419,7 @@ namespace DataCollection.Controllers
             }
             else
             {
-                message = "Something invalid";
+                message = "invalid details. Contact System Administrator.";
                 ViewBag.Status = false;
             }
             ViewBag.Message = message;

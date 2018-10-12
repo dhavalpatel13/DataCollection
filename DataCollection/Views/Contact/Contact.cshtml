@@ -1,0 +1,64 @@
+﻿@model DataCollection.Models.ContactUsViewModels
+@{
+    ViewBag.Title = "Contact";
+}
+
+<link href="~/Content/registration.css" rel="stylesheet" />
+
+<div class="login-form signup-form">
+    @using (Html.BeginForm("SendEnquiry", "Contact", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h2 class="text-center">Contact Us</h2>
+        if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+        {
+            if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    <strong>Success!</strong>@ViewBag.Message
+                </div>
+            }
+        }
+        else if (ViewBag.Status != null && !Convert.ToBoolean(ViewBag.Status) && ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Error! </strong>@ViewBag.Message
+            </div>
+        }
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Name", @required = "required", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.EmpNo, new { @type = "number", @class = "form-control", @placeholder = "Emp No", @required = "required", @minlength = "6", @maxlength = "6" })
+            @Html.ValidationMessageFor(m => m.EmpNo)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.MobileNo, new { @type = "number", @class = "form-control", @placeholder = "Mobile No", @required = "required", @minlength = "10", @maxlength = "10" })
+            @Html.ValidationMessageFor(m => m.MobileNo)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control", @placeholder = "Email", @required = "required", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="Subject" name="Subject" placeholder="Subject" required="required">
+                <option value="">-- Select --</option>
+                <option value="Websiterelated">Web site related</option>
+                <option value="Userlogin">User login/password related</option>
+                <option value="AnyOther">Any Other - </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" typeof="textarea" name="Message" id="message" placeholder="Message" maxlength="140" rows="3"></textarea>            
+        </div>        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
