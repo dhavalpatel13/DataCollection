@@ -7,6 +7,7 @@ using DataAccess.Repository;
 using DataCollection.ManageSession;
 using DataCollection.FormService;
 using Newtonsoft.Json;
+using DataAccess.Enum;
 
 namespace DataCollection.Models
 {
@@ -236,12 +237,22 @@ namespace DataCollection.Models
             {
                 try
                 {
-                    string body = "The User: " + SessionManager.UserName + ", Dept: " + SessionManager.DeptID + " , DataCapt: " + info.DataCaptYM + ", Form: DOAA has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
+                    string body = "The User: " + SessionManager.UserName + ", Dept: " + SessionManager.DeptID + " , DataCapt: " + info.DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
                                  + "Time Stamp: DateTime Stamp: " + DateTime.Now
                                  + "This is a System generated Email.";
 
+                    string subject = "IRD Data Entry updated by " + SessionManager.UserName;
+
+                    DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+                    var hod = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() && a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() && a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
+                    string tomail = "webtechrk@gmail.com";
+                    if(hod != null)
+                    {
+                        tomail = hod.UserEmail;
+                    }
+
                     FormServices formServices = new FormServices();
-                    formServices.SendEmail("noReply@email.com", "scir", "webtechrk@gmail.com", "test", body);
+                    formServices.SendEmail(tomail, "", subject, body);
                 }
                 catch (Exception ex) { }
             } 

@@ -21,14 +21,16 @@ namespace DataCollection.Controllers
 
         public ActionResult SendEnquiry(ContactUsViewModels ContactUsViewModels)
         {
-            string body = ("Message Body" +
+            string body = ("Message: " + ContactUsViewModels.Message +
+                          "<br/>From:- " +
                           "<br/> Name:" + ContactUsViewModels.Name +
                           "<br/> EmpNo:" + ContactUsViewModels.EmpNo +
                           "<br/> Mobile No:" + ContactUsViewModels.MobileNo +
-                          "<br/> Email:" + ContactUsViewModels.Email);
+                          "<br/> Email:" + ContactUsViewModels.Email +
+                          "<br/> <br /> Sent by: IRD-SRIC, IIT Roorkee");
 
             FormServices formServices = new FormServices();
-            formServices.SendEmail("noReply@email.com", "scir", "sric@iitr.ac.in", "Equiry", WebUtility.HtmlEncode(body), ContactUsViewModels.Email);
+            formServices.SendEmail("sric@iitr.ac.in", ContactUsViewModels.Email, ContactUsViewModels.Subject, body);
             ViewBag.Status = true;
             ViewBag.Message = "Email has been sent successfully. We will contact you soon.";
             ModelState.Clear();

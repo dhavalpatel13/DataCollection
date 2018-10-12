@@ -10,7 +10,8 @@ namespace DataCollection.FormService
 {
     public class FormServices
     {
-        public void SendEmail(string FromEmailAddress, string FromName, string ToAddress, string Subject, string MailBody, string CcAddress = "")
+        //public void SendEmail(string FromEmailAddress, string FromName, string ToAddress, string Subject, string MailBody, string CcAddress = "")
+        public void SendEmail(string ToAddress, string CcAddress, string Subject, string MailBody)
         {
             string ServerName;
             int PortNumber;
@@ -25,8 +26,8 @@ namespace DataCollection.FormService
             UserName = WebConfigurationManager.AppSettings["UserName"];
             Password = WebConfigurationManager.AppSettings["Password"];
             ssltype = false;
-            FromEmailAddress = WebConfigurationManager.AppSettings["FromEmailAddress"];
-            FromName = WebConfigurationManager.AppSettings["FromName"];
+            string FromEmailAddress = WebConfigurationManager.AppSettings["FromEmailAddress"];
+            string FromName = WebConfigurationManager.AppSettings["FromName"];
 
             SmtpClient client = new SmtpClient();
             client.Host = ServerName;
@@ -43,11 +44,12 @@ namespace DataCollection.FormService
             MailMessage message = new MailMessage();
             message.From = FromAddress;
             message.To.Add(ToAddress);
-            message.CC.Add(CcAddress);
+            if (!string.IsNullOrWhiteSpace(CcAddress))
+                message.CC.Add(CcAddress);
             message.Bcc.Add("sric@iitr.ac.in");
             message.Subject = Subject;
             message.IsBodyHtml = true;
-            message.Body = MailBody;
+            message.Body = MailBody;            
 
             //Step 5 - Send Email
             client.Send(message);
