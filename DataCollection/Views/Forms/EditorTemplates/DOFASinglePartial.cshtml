@@ -1,7 +1,5 @@
 ﻿@model DataAccess.Entity.DofaInfo
 
-@Html.HiddenFor(m => m.DataCaptYM)
-@Html.HiddenFor(m => m.DataStatus)
 @Html.HiddenFor(m => m.IDNo)
 <td>@Html.TextBoxFor(m => m.empNo, new { @class = "form-control edit-value", type = "number", min = 1, max = Int32.MaxValue })</td>
 <td>@Html.TextBoxFor(m => m.empName, new { @class = "form-control edit-value" })</td>

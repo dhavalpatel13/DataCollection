@@ -86,13 +86,20 @@ function SaveFormData(e, obj) {
         Action = 'FinalizedByHod';
     }
     var element = obj;
+    debugger;
     var SerializeFormId = UrlConstant.SerializeFormID;
     var data = $(SerializeFormId).serialize() + "&action=" + Action + "&menu=" + UrlConstant.Menu;
 
     var myData = {};
-    myData.formData = JSON.stringify($(SerializeFormId).serializeObject()); //$(SerializeFormId).serialize();
     myData.action = Action;
     myData.menu = UrlConstant.Menu;
+
+    if (UrlConstant.Menu == "DOFA") {
+        myData.formData = $(SerializeFormId).serializeObject(); //$(SerializeFormId).serialize();
+    }
+    else {
+        myData.formData = JSON.stringify($(SerializeFormId).serializeObject());
+    }
 
     $.ajax({
         url: SaveUrlConstant.SaveUrl,

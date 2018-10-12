@@ -1,9 +1,10 @@
 ﻿@model DataCollection.Models.DofaViewModel
 
-@*@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
-    @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
-    @Html.HiddenFor(m => m.IDNo)*@
+@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
 
+@if (Model.DofaData != null || Model.DofaData.Count > 0)
+{
 <div class="table-responsive-xl " style="overflow-x:auto !important;">
     <table id="DOFATable" class="table">
         <thead>
@@ -35,46 +36,74 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.DofaData == null || Model.DofaData.Count == 0)
-            {
-                Model.DofaData = new List<DataAccess.Entity.DofaInfo>();
-                Model.DofaData.Add(new DataAccess.Entity.DofaInfo());
-            }
-
             @for (int i = 0; i < Model.DofaData.Count; i++)
             {
                 <tr>
                     <input type="hidden" value="@i" class="DOFAindex" />
-                    @Html.EditorFor(m=>m.DofaData[i],"DOFASinglePartial")
+                    @Html.EditorFor(m => m.DofaData[i], "DOFASinglePartial")
                 </tr>
             }
         </tbody>
         @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0)
         {
-        <tfoot>
-            <tr>
-                <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
-            </tr>
-        </tfoot>
+            <tfoot>
+                <tr>
+                    <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
+                </tr>
+            </tfoot>
         }
     </table>
-    <label>Association Type **</label> <span>R - Regular</span><span>C - Contractual</span><span>V - Visiting</span><span>G - Guest</span><span>A - Adjunct</span>
+    <label>Association Type **</label> <span style="margin-right:10px;">R - Regular</span><span>C - Contractual</span><span style="margin-right:10px;">V - Visiting</span><span style="margin-right:10px;">G - Guest</span><span style="margin-right:10px;">A - Adjunct</span>
     <br />
-    <label>Faculty Exchange Inbound ** </label> <span>Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
+    <label>Faculty Exchange Inbound ** </label> <span style="margin-right:10px;">Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
     <br />
-    <label>Faculty Exchange Outbound ** </label> <span>Faculty who have visited another university abroad as a guest faculty on international exchange programmes </span>
+    <label>Faculty Exchange Outbound ** </label> <span style="margin-right:10px;">Faculty who have visited another university abroad as a guest faculty on international exchange programmes </span>
     <br />
 </div>
 <style>
     input.edit-value {
         min-width: 120px;
     }
+
     table > thead > tr > th {
         vertical-align: middle !important;
     }
 </style>
 @Html.Partial("ConfirmMessagePartail")
-@*@Html.Partial("ButtonPartail", Model)*@
+
+
+<ul class="list-inline" id="buttonUL" style="display:none">
+    <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
+    <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
+    <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
+    @if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString())
+    {
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+    }
+    else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
+    {
+        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnFinalizeByHod" class="btn btn-primary">Finalize</button></li>
+    }
+</ul>
+
+<script>
+    $(document).ready(function () {
+        $(".table td input[type='number']").forceNumeric();
+        if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+            $(".table td input").attr('readonly', true);
+        }
+    });
+
+    $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
+        SaveFormData(e, this);
+    });
+
+    var SaveUrlConstant = {
+        SaveUrl: '@Url.Action("SaveDOFAFormData", "Forms")'
+    };
+</script>
 
 <script>
     var UrlConstant = {
@@ -102,3 +131,4 @@
     }
 
 </script>
+}

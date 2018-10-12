@@ -48,6 +48,17 @@ namespace DataCollection.Controllers
             TempData["isSaveSuccessfully"] = IsSuccess;
             return Json(new { status = IsSuccess }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SaveDOFAFormData(DOfaRequestViewModel data)
+        {
+            FormsViewModel formsViewModel = new FormsViewModel();
+            string action = data.action;
+            string menu = data.menu;
+            bool IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu);
+            TempData["isSaveSuccessfully"] = IsSuccess;
+            return Json(new { status = IsSuccess }, JsonRequestBehavior.AllowGet);
+        }
         #endregion Common Methods
 
         #region  DOAA Form      

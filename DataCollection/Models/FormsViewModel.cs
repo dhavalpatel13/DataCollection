@@ -289,7 +289,18 @@ namespace DataCollection.Models
                     formsViewModel.isSaveSuccessfully = formsViewModel.SaveLIBForm(formsViewModel);
                 }
             }
-
+            else if(menu == DataAccess.Enum.Menu.DOFA.ToString())
+            {
+                if (objectData != null && typeof(DofaViewModel) == objectData.GetType())
+                {
+                    DofaViewModel dvm = (DofaViewModel)objectData;
+                    formsViewModel.isSaveSuccessfully = dvm.SaveDOFAData(action);
+                }
+                else
+                {
+                    formsViewModel.isSaveSuccessfully = false;
+                }
+            }
             if (formsViewModel.isSaveSuccessfully && action == "Finalize")
             {
                 try
