@@ -86,7 +86,7 @@ function SaveFormData(e, obj) {
         Action = 'FinalizedByHod';
     }
     var element = obj;
-    debugger;
+
     var SerializeFormId = UrlConstant.SerializeFormID;
     var data = $(SerializeFormId).serialize() + "&action=" + Action + "&menu=" + UrlConstant.Menu;
 
@@ -94,8 +94,8 @@ function SaveFormData(e, obj) {
     myData.action = Action;
     myData.menu = UrlConstant.Menu;
 
-    if (UrlConstant.Menu == "DOFA") {
-        myData.formData = $(SerializeFormId).serializeObject(); //$(SerializeFormId).serialize();
+    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA") {
+        myData.formData = $(SerializeFormId).serializeObject();
     }
     else {
         myData.formData = JSON.stringify($(SerializeFormId).serializeObject());

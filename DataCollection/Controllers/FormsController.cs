@@ -61,6 +61,18 @@ namespace DataCollection.Controllers
             TempData["isSaveSuccessfully"] = IsSuccess;
             return Json(new { status = IsSuccess, msg = msg }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SaveSricFAFormData(SricFaRequestViewModel data)
+        {
+            string msg = string.Empty;
+            FormsViewModel formsViewModel = new FormsViewModel();
+            string action = data.action;
+            string menu = data.menu;
+            bool IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, out msg);
+            TempData["isSaveSuccessfully"] = IsSuccess;
+            return Json(new { status = IsSuccess, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
         #endregion Common Methods
 
         #region  DOAA Form      
@@ -124,7 +136,7 @@ namespace DataCollection.Controllers
             FormsViewModel dofaViewModel = new FormsViewModel();
             int dataCaptYM = 0;
             int.TryParse(DataCaptYM, out dataCaptYM);
-            dofaViewModel.GetDOFAData(dataCaptYM, Menu.DOFA.ToString());
+            dofaViewModel.GetMultiDataByMenuID(dataCaptYM, Menu.DOFA.ToString());
             ViewBag.Message = Convert.ToString(TempData["Message"]);
             ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
             return View(dofaViewModel);
@@ -133,7 +145,13 @@ namespace DataCollection.Controllers
         [CustomAuthorize(EntityName = Menu.SRICFA)]
         public ActionResult SRICFAForm(string DataCaptYM)
         {
-            return View();
+            FormsViewModel viewModel = new FormsViewModel();
+            int dataCaptYM = 0;
+            int.TryParse(DataCaptYM, out dataCaptYM);
+            viewModel.GetMultiDataByMenuID(dataCaptYM, Menu.SRICFA.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
+            return View(viewModel);
         }
 
         [CustomAuthorize(EntityName = Menu.SRIC)]

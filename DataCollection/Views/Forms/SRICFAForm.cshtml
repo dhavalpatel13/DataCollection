@@ -1,18 +1,18 @@
 ﻿@model DataCollection.Models.FormsViewModel
 
 @{
-    ViewBag.Title = "DOSW";
+    ViewBag.Title = "SRICFA";
 }
 @Html.Hidden("RankMsgHdn", Model.rankmsg)
 <div class="direction">
-    <h3>ADIR DATA PROFORMA FOR RANKING</h3>
+    <h3>SRICFA (Funding Agency wise)</h3>
 </div>
-<form id="ADIRTableform">
+<form id="SRICFATableform">
     <div class="bd-example">
         @Html.AntiForgeryToken()
         <div id="messageDiv"></div>
-        <div class="table-responsive-xl" id="ADIRTableDiv">
-            @Html.Partial("ADIRFormPartial",Model.info2)
+        <div class="table-responsive-xl" id="SRICFATableDiv">
+            @Html.Partial("SRICFAFormPartial", Model.sricFAViewModel)
         </div>
     </div>
 

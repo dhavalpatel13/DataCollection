@@ -33,6 +33,9 @@ namespace DataCollection.FormService
                 case "DOFA":
                     MenuPartial = "DOFAFormPartial";
                     break;
+                case "SRICFA":
+                    MenuPartial = "SRICFAFormPartial";
+                    break;
                 default:
                     break;
             }
@@ -64,6 +67,9 @@ namespace DataCollection.FormService
                     break;
                 case "DOFA":
                     FormsDataViewModel = FormsViewModel.dofaViewModel;
+                    break;
+                case "SRICFA":
+                    FormsDataViewModel = FormsViewModel.sricFAViewModel;
                     break;
                 default:
                     break;

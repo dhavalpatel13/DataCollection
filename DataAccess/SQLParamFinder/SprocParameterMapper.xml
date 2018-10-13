@@ -378,4 +378,13 @@
     <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
     <param name="DeptID" SqlDbType="12" direction="1"></param>
   </sproc>
+  <sproc name="SricFA_DATA_SELECT_BY_DataCaptYM_DeptID">
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+    <param name="DeptID" SqlDbType="12" direction="1"></param>
+  </sproc>
+  <sproc name="Bulk_Update_SricFA_DATA_BY_DataCaptYM_DeptID">
+    <param name="sricFaInfo" SqlDbType="30" direction="1"></param>
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+    <param name="DeptID" SqlDbType="12" direction="1"></param>
+  </sproc>
 </sprocs>

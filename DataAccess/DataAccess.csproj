@@ -52,6 +52,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DBConnetion\DBConnectionHelper.cs" />
     <Compile Include="Entity\CommonProp.cs" />
+    <Compile Include="Entity\SricFA.cs" />
     <Compile Include="Entity\DofaInfo.cs" />
     <Compile Include="Entity\LibInfo.cs" />
     <Compile Include="Entity\RankUser.cs" />
