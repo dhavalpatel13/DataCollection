@@ -73,6 +73,19 @@ namespace DataCollection.Controllers
             TempData["isSaveSuccessfully"] = IsSuccess;
             return Json(new { status = IsSuccess, msg = msg }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SaveSricDeptFormData(SricDeptRequestViewModel data)
+        {
+            string msg = string.Empty;
+            FormsViewModel formsViewModel = new FormsViewModel();
+            string action = data.action;
+            string menu = data.menu;
+            bool IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, out msg);
+            TempData["isSaveSuccessfully"] = IsSuccess;
+            return Json(new { status = IsSuccess, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion Common Methods
 
         #region  DOAA Form      
@@ -157,7 +170,13 @@ namespace DataCollection.Controllers
         [CustomAuthorize(EntityName = Menu.SRIC)]
         public ActionResult SRICForm(string DataCaptYM)
         {
-            return View();
+            FormsViewModel viewModel = new FormsViewModel();
+            int dataCaptYM = 0;
+            int.TryParse(DataCaptYM, out dataCaptYM);
+            viewModel.GetMultiDataByMenuID(dataCaptYM, Menu.SRIC.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
+            return View(viewModel);
         }
 
         public JsonResult GetDepartmentList()

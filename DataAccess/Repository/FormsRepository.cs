@@ -24,6 +24,8 @@ namespace DataAccess.Repository
         const string _Bulk_Update_DOFA_Data = "Bulk_Update_DOFA_DATA_BY_DataCaptYM_DeptID_MenuID";
         const string _SELECT_SricFA_Data = "SricFA_DATA_SELECT_BY_DataCaptYM_DeptID";
         const string _Bulk_Update_SricFA_Data = "Bulk_Update_SricFA_DATA_BY_DataCaptYM_DeptID";
+        const string _SELECT_SricDept_Data = "SRIC_DEPT_DATA_SELECT_BY_DataCaptYM";
+        const string _Bulk_Update_SricDept_Data = "Bulk_Update_SRIC_DEPT_BY_DataCaptYM";
 
         /// <summary>
         /// 
@@ -105,6 +107,45 @@ namespace DataAccess.Repository
                 sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
                 sqlParamDictionary.Add("DeptID", DeptID);
                 IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_SricFA_Data);
+                connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+                command.Connection = connection;
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DBConnectionHelper.CloseSqlConnection(connection);
+            }
+        }
+
+        public List<SricDept> GetSricDeptFormDataByID(int DataCaptYM)
+        {
+            Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+            sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+            IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_SricDept_Data);
+            SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+            command.Connection = connection;
+            List<SricDept> sricDepts = EntityMapper.MapCollection<SricDept>(command.ExecuteReader()).ToList();
+            DBConnectionHelper.CloseSqlConnection(connection);
+            return sricDepts;
+        }
+
+        public bool UpdateBulkSricDeptFormData(DataTable data, int DataCaptYM)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+                sqlParamDictionary.Add("sricDeptData", data);
+                sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+                IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_SricDept_Data);
                 connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
                 command.Connection = connection;
                 int result = command.ExecuteNonQuery();

@@ -94,7 +94,7 @@ function SaveFormData(e, obj) {
     myData.action = Action;
     myData.menu = UrlConstant.Menu;
 
-    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA") {
+    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC") {
         myData.formData = $(SerializeFormId).serializeObject();
     }
     else {

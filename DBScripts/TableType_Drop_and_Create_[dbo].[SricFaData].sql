@@ -37,7 +37,3 @@ CREATE TYPE [dbo].[SricFaData] AS TABLE
 );
 
 GO
-
-SET ANSI_PADDING OFF
-GO
-

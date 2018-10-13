@@ -1,97 +1,255 @@
-﻿@model DataAccess.Entity.stInfo2
+﻿@model DataCollection.Models.SricDeptViewModel
 
 @Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
 @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
-@Html.HiddenFor(m => m.IDNo)
 
-<div class="bd-example">
-    <div class="table-responsive-xl ">
+@if (Model.SricDeptData != null || Model.SricDeptData.Count > 0)
+{
+<div class="table-responsive-xl">
+    @for (int i = 0; i < Model.SricDeptData.Count; i++)
+    {
+        @Html.HiddenFor(m => m.SricDeptData[i].IDNo);
+        @Html.HiddenFor(m => m.SricDeptData[i].DeptID);
+    }
+    <div class="table-responsive-xl">
+        <h3>Sponsored Research Details</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Tuition Fees</th>
-                    <th scope="col" colspan="2" width="10%">International</th>
+                    <th align="center" valign="middle" colspan="5">Sponsored Research Projects (Deptt.-wise)</th>
+                </tr>
+                <tr>
+                    <th align="center" valign="middle">Department</th>
+                    <th align="center" valign="middle">No. of Project</th>
+                    <th align="center" valign="middle">Total No. of Funding Agencies</th>
+                    <th align="center" valign="middle">Total Outlay</th>
+                    <th align="center" valign="middle">Total Receipt</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Undergraduate Fees (US $)</td>
-                    <td colspan="2">                    
-                        @Html.TextBoxFor(m => m.stFeeUGInt, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>                    
-                </tr>
-                <tr>
-                    <td>Postgraduate Fees (US $)</td>
-                    <td colspan="2">
-                        @Html.TextBoxFor(m => m.stFeePGInt, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>                    
-                </tr>
-                <tr>
-                    <td>Ph.D (US $)</td>
-                    <td colspan="2">
-                        @Html.TextBoxFor(m => m.stFeePHDInt, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-            </tbody>
-            <thead>
-                <tr>
-                    <th scope="col">Regional Rankings Indicator</th>
-                    <th scope="col" width="10%">Full Time</th>
-                    <th scope="col" width="10%">Part Time</th>
-                </tr>
-            </thead>            
-            <tbody>
-                <tr>
-                    <td>Undergraduate Exchange Students - Inbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchUGInFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(m => m.stExchUGInPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-                <tr>
-                    <td>Undergraduate Exchange Students - Outbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchUGOutFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchUGOutPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-                <tr>
-                    <td>Postgraduate Exchange Students - Inbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchPGInFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchPGInPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
-                <tr>
-                    <td>Postgraduate Exchange Students - Outbound</td>
-                    <td>                        
-                        @Html.TextBoxFor(m => m.stExchPGOutFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                    <td>                    
-                        @Html.TextBoxFor(m => m.stExchPGOutPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue })
-                    </td>
-                </tr>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                    </tr>
+                }
             </tbody>
         </table>
-        <label>Student Exchange Outbound - </label> Students who have attended another university abroad on international exchange programmes for at least one semester during the annual reporting period
+    </div>
+    <br />
+    <div class="table-responsive-xl">
+        <h3>Consultancy Projects</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle" colspan="5">Consultancy Projects (Deptt.-wise)</th>
+                </tr>
+                <tr>
+                    <th align="center" valign="middle">Department</th>
+                    <th align="center" valign="middle">No. of Project</th>
+                    <th align="center" valign="middle">Total No. of Sponsors</th>
+                    <th align="center" valign="middle">Contracted Amount</th>
+                    <th align="center" valign="middle">Actual Receipt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="table-responsive-xl">
+        <h3>Conference / Symposia / Seminars</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle">Department</th>
+                    <th align="center" valign="middle">National</th>
+                    <th align="center" valign="middle">Expenditure</th>
+                    <th align="center" valign="middle">International</th>
+                    <th align="center" valign="middle">Total Expenditure</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNat, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNatExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSInt, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSIntExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
         <br />
-        <label>Student Exchange Inbound - </label> Students who have attended the institute on international exchange programmes for at least one semester during the annual reporting period
         <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle">Details of Intellectual Property</th>
+                    <th align="center" valign="middle">Patents Filed</th>
+                    <th align="center" valign="middle">Patent Published</th>
+                    <th align="center" valign="middle">Patent Granted</th>
+                    <th align="center" valign="middle">Patent Licensed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle">Details of Technology Transfer</th>
+                    <th align="center" valign="middle">Filed</th>
+                    <th align="center" valign="middle">Published</th>
+                    <th align="center" valign="middle">Granted</th>
+                    <th align="center" valign="middle">Licensed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle">Details of Copy Rights</th>
+                    <th align="center" valign="middle">Filed</th>
+                    <th align="center" valign="middle">Published</th>
+                    <th align="center" valign="middle">Granted</th>
+                    <th align="center" valign="middle">Licensed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle">Details of Logo/Design Copy Rights</th>
+                    <th align="center" valign="middle">Filed</th>
+                    <th align="center" valign="middle">Published</th>
+                    <th align="center" valign="middle">Granted</th>
+                    <th align="center" valign="middle">Licensed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.SricDeptData[i].DeptName</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-@Html.Partial("ConfirmMessagePartail")
-@Html.Partial("ButtonPartail", Model)
+    <style>
+        input.edit-value {
+            min-width: 120px;
+        }
 
-<script>
-    var UrlConstant = {        
-        Menu: '@DataAccess.Enum.Menu.ADIR.ToString()',
-        SerializeFormID: '#ADIRTableform',
-        TableDivID: '#ADIRTableDiv'
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
+    </style>
+    @Html.Partial("ConfirmMessagePartail")
+
+
+    <ul class="list-inline" id="buttonUL" style="display:none">
+        <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
+        <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
+        @if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString())
+        {
+            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
+            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+        }
+        else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
+        {
+            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
+            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnFinalizeByHod" class="btn btn-primary">Finalize</button></li>
+        }
+    </ul>
+
+    <script>
+    $(document).ready(function () {
+        $(".table td input[type='number']").forceNumeric();
+        if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+            $(".table td input").attr('readonly', true);
+        }
+    });
+
+    $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
+        SaveFormData(e, this);
+    });
+
+    var SaveUrlConstant = {
+        SaveUrl: '@Url.Action("SaveSricDeptFormData", "Forms")'
     };
-</script>
+
+        var UrlConstant = {
+        Menu: '@DataAccess.Enum.Menu.SRIC.ToString()',
+        SerializeFormID: '#SRICTableform',
+        TableDivID: '#SRICTableDiv'
+    };
+
+    </script>
+}

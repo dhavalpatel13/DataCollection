@@ -20,6 +20,8 @@ namespace DataCollection.Models
         public DofaViewModel dofaViewModel { get; set; }
         public SricFAViewModel sricFAViewModel { get; set; }
 
+        public SricDeptViewModel sricDeptViewModel { get; set; }
+
         public bool isSaveSuccessfully { get; set; }
         public string rankmsg { get; set; }
 
@@ -63,7 +65,7 @@ namespace DataCollection.Models
                     libInfo.DeptName = libInfo.DeptID = SessionManager.DeptID;
                 }
             }
-            if (MenuID == DataAccess.Enum.Menu.DOFA.ToString())
+            else if (MenuID == DataAccess.Enum.Menu.DOFA.ToString())
             {
                 dofaViewModel = new DofaViewModel();
                 dofaViewModel.GetDOFAData(DataCaptYM, MenuID);
@@ -72,6 +74,11 @@ namespace DataCollection.Models
             {
                 sricFAViewModel = new SricFAViewModel();
                 sricFAViewModel.GetSRICFAData(DataCaptYM, MenuID);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.SRIC.ToString())
+            {
+                sricDeptViewModel = new SricDeptViewModel();
+                sricDeptViewModel.GetSRICData(DataCaptYM);
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
@@ -91,6 +98,11 @@ namespace DataCollection.Models
             {
                 sricFAViewModel = new SricFAViewModel();
                 sricFAViewModel.GetSRICFAData(dataCaptYM, MenuID);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.SRIC.ToString())
+            {
+                sricDeptViewModel = new SricDeptViewModel();
+                sricDeptViewModel.GetSRICData(dataCaptYM);
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
@@ -284,6 +296,18 @@ namespace DataCollection.Models
                 {
                     SricFAViewModel sfvm = (SricFAViewModel)objectData;
                     formsViewModel.isSaveSuccessfully = sfvm.SaveSricFAData(action, out msg);
+                }
+                else
+                {
+                    formsViewModel.isSaveSuccessfully = false;
+                }
+            }
+            else if (menu == DataAccess.Enum.Menu.SRIC.ToString())
+            {
+                if (objectData != null && typeof(SricDeptViewModel) == objectData.GetType())
+                {
+                    SricDeptViewModel sdvm = (SricDeptViewModel)objectData;
+                    formsViewModel.isSaveSuccessfully = sdvm.SaveSricDeptData(action, out msg);
                 }
                 else
                 {

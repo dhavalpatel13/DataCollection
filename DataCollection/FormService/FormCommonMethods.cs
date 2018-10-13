@@ -36,6 +36,9 @@ namespace DataCollection.FormService
                 case "SRICFA":
                     MenuPartial = "SRICFAFormPartial";
                     break;
+                case "SRIC":
+                    MenuPartial = "SRICFormPartial";
+                    break;
                 default:
                     break;
             }
@@ -70,6 +73,9 @@ namespace DataCollection.FormService
                     break;
                 case "SRICFA":
                     FormsDataViewModel = FormsViewModel.sricFAViewModel;
+                    break;
+                case "SRIC":
+                    FormsDataViewModel = FormsViewModel.sricDeptViewModel;
                     break;
                 default:
                     break;

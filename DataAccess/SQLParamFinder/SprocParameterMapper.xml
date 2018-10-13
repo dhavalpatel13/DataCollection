@@ -387,4 +387,11 @@
     <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
     <param name="DeptID" SqlDbType="12" direction="1"></param>
   </sproc>
+  <sproc name="SRIC_DEPT_DATA_SELECT_BY_DataCaptYM">
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+  </sproc>
+  <sproc name="Bulk_Update_SRIC_DEPT_BY_DataCaptYM">
+    <param name="sricDeptData" SqlDbType="30" direction="1"></param>
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+  </sproc>
 </sprocs>

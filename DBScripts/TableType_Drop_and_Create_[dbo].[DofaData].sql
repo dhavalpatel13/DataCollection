@@ -47,7 +47,3 @@ CREATE TYPE [dbo].[DofaData] AS TABLE
 );
 
 GO
-
-SET ANSI_PADDING OFF
-GO
-
