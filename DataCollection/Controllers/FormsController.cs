@@ -40,24 +40,26 @@ namespace DataCollection.Controllers
         [HttpPost]
         public ActionResult SaveUpdateFormData(CommonSaveUpdateProp data)
         {
+            string msg = string.Empty;
             FormsViewModel formsViewModel = new FormsViewModel();
             object objectData = data.formData;
             string action = data.action;
             string menu = data.menu;
-            bool IsSuccess = formsViewModel.SaveUpdateFormData(objectData, action, menu);
+            bool IsSuccess = formsViewModel.SaveUpdateFormData(objectData, action, menu, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess;
-            return Json(new { status = IsSuccess }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = IsSuccess, msg =  msg}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult SaveDOFAFormData(DofaRequestViewModel data)
         {
+            string msg = string.Empty;
             FormsViewModel formsViewModel = new FormsViewModel();
             string action = data.action;
             string menu = data.menu;
-            bool IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu);
+            bool IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess;
-            return Json(new { status = IsSuccess }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = IsSuccess, msg = msg }, JsonRequestBehavior.AllowGet);
         }
         #endregion Common Methods
 

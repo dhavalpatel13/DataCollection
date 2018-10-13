@@ -114,7 +114,12 @@ function SaveFormData(e, obj) {
                 },200);
                 
             } else {
-                alert("Error occurs on the Database level!");
+                if (data.msg && data.msg.length > 0) {
+                    alert(data.msg);
+                }
+                else {
+                    alert("Error occurs on the Database level!");
+                }
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {

@@ -41,8 +41,9 @@ namespace DataCollection.Models
             }
         }
 
-        public bool SaveDOFAData(string action)
+        public bool SaveDOFAData(string action, out string msg)
         {
+            msg = string.Empty;
             bool success = false;
             if (DofaData==null || DofaData.Count ==0)
             {
@@ -51,6 +52,7 @@ namespace DataCollection.Models
 
             if (DofaData.GroupBy(n => n.empNo).Any(c => c.Count() > 1))
             {
+                msg = "Duplicate EmpNo Exist.! Data saving aborted.";
                 return success;
             }
 
@@ -73,7 +75,6 @@ namespace DataCollection.Models
                 item.DataValid = "Y";
                 item.DataLocked = "N";
                 item.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
-
             }
 
             try

@@ -23,9 +23,9 @@ namespace DataAccess.Entity
         public string DataLocked { get; set; }
         public int empNo { get; set; }
         public string empName { get; set; }
-        public DateTime? empDOB { get; set; }
-        public DateTime? empDOJ { get; set; }
-        public DateTime? empDOL { get; set; }
+        public string empDOB { get; set; }
+        public string empDOJ { get; set; }
+        public string empDOL { get; set; }
         public string empGender { get; set; }
         public string empDESG { get; set; }
         public string empDEPT { get; set; }

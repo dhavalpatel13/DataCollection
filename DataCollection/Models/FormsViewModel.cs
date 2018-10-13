@@ -176,10 +176,11 @@ namespace DataCollection.Models
         }
         #endregion LIB Form
         
-        public bool SaveUpdateFormData(object objectData, string action, string menu)
+        public bool SaveUpdateFormData(object objectData, string action, string menu, out string msg)
         {
+            msg = string.Empty;
             FormsViewModel formsViewModel = new FormsViewModel();
-
+            
             if (menu == DataAccess.Enum.Menu.DOSW.ToString() || menu == DataAccess.Enum.Menu.ADIR.ToString())
             {
                 stInfo2 info2 = new stInfo2();
@@ -295,7 +296,7 @@ namespace DataCollection.Models
                 if (objectData != null && typeof(DofaViewModel) == objectData.GetType())
                 {
                     DofaViewModel dvm = (DofaViewModel)objectData;
-                    formsViewModel.isSaveSuccessfully = dvm.SaveDOFAData(action);
+                    formsViewModel.isSaveSuccessfully = dvm.SaveDOFAData(action, out msg);
                 }
                 else
                 {

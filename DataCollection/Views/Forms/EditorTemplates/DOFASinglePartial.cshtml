@@ -3,7 +3,7 @@
 @Html.HiddenFor(m => m.IDNo)
 <td>@Html.TextBoxFor(m => m.empNo, new { @class = "form-control edit-value", type = "number", min = 1, max = Int32.MaxValue })</td>
 <td>@Html.TextBoxFor(m => m.empName, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empDOB, new { @class = "form-control edit-value", type = "date" })</td>
+<td>@Html.TextBoxFor(m => m.empDOB, new { @class = "form-control edit-value"})</td>
 <td>@Html.TextBoxFor(m => m.empDESG, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.empGender, new { @class = "form-control edit-value", min = 1, max = 1 })</td>
 <td>@Html.TextBoxFor(m => m.empNation, new { @class = "form-control edit-value" })</td>
@@ -14,8 +14,8 @@
 <td>@Html.TextBoxFor(m => m.ExpIndMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
 <td>@Html.TextBoxFor(m => m.ExpAcadMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
 <td>@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empDOJ, new { @class = "form-control edit-value", type = "date" })</td>
-<td>@Html.TextBoxFor(m => m.empDOL, new { @class = "form-control edit-value", type = "date" })</td>
+<td>@Html.TextBoxFor(m => m.empDOJ, new { @class = "form-control edit-value"})</td>
+<td>@Html.TextBoxFor(m => m.empDOL, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.empType, new { @class = "form-control edit-value", min = 0, max = 1 })</td>
 <td>@Html.TextBoxFor(m => m.FacExcgIn, new { @class = "form-control edit-value" })</td>
 <td>@Html.TextBoxFor(m => m.FacExcgOut, new { @class = "form-control edit-value" })</td>

@@ -3,7 +3,7 @@
     <div class="container">
         <div id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                @if (DataCollection.ManageSession.SessionManager.IsUserLogin != null && DataCollection.ManageSession.SessionManager.IsUserLogin == true
+                @if (DataCollection.ManageSession.SessionManager.IsUserLogin == true
                                 && DataCollection.ManageSession.SessionManager.MenuList != null && DataCollection.ManageSession.SessionManager.MenuList.Count > 0)
                 {
                     foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
@@ -14,7 +14,7 @@
                     }
                 }
 
-                @if (DataCollection.ManageSession.SessionManager.IsUserLogin != null && DataCollection.ManageSession.SessionManager.IsUserLogin == true)
+                @if (DataCollection.ManageSession.SessionManager.IsUserLogin == true)
                 {
                     <li>@Html.ActionLink("CHANGE PASSWORD", "ChangePassword", "User", null, new { @class = "navnew" }) </li>
                     <li>@Html.ActionLink("LOGOUT", "Logout", "User", null, new { @class = "navnew" }) </li>
@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-@if (DataCollection.ManageSession.SessionManager.IsUserLogin != null && DataCollection.ManageSession.SessionManager.IsUserLogin == true)
+@if (DataCollection.ManageSession.SessionManager.IsUserLogin == true)
 {
     <marquee id="marquee" class="no-print" style="color:  #933; font-size: medium; font-weight:bold;"></marquee>
 

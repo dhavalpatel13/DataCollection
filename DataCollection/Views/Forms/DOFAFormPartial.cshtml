@@ -5,54 +5,56 @@
 
 @if (Model.DofaData != null || Model.DofaData.Count > 0)
 {
-<div class="table-responsive-xl " style="overflow-x:auto !important;">
-    <table id="DOFATable" class="table">
-        <thead>
-            <tr>
-                <th align="center" valign="middle" rowspan="2">EmpNo</th>
-                <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
-                <th align="center" valign="middle" rowspan="2">DOB</th>
-                <th align="center" valign="middle" rowspan="2">Designation</th>
-                <th align="center" valign="middle" rowspan="2">Gender</th>
-                <th align="center" valign="middle" rowspan="2">Nationality</th>
-                <th align="center" valign="middle" rowspan="1" colspan="3">Highest Qualification</th>
-                <th align="center" valign="middle" rowspan="2">PAN No.</th>
-                <th align="center" valign="middle" rowspan="2">Industry Experience (in Years)</th>
-                <th align="center" valign="middle" rowspan="2">Academic Experience(in Months)</th>
-                <th align="center" valign="middle" rowspan="2">Department</th>
-                <th align="center" valign="middle" rowspan="2">Institute Joining Date</th>
-                <th align="center" valign="middle" rowspan="2">Leaving Date (as on date)</th>
-                <th align="center" valign="middle" rowspan="2">Association Type **</th>
-                <th align="center" valign="middle" rowspan="2">Faculty Exchange Inbound **</th>
-                <th align="center" valign="middle" rowspan="2">Faculty Exchange Outbound **</th>
-                <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars National</th>
-                <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars International</th>
-                <th align="center" valign="middle" rowspan="2">Awards and Honors</th>
-            </tr>
-            <tr>
-                <th align="center" valign="middle" rowspan="1">Course</th>
-                <th align="center" valign="middle" rowspan="1">Year</th>
-                <th align="center" valign="middle" rowspan="1">Institute</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.DofaData.Count; i++)
+<div class="table-responsive-xl">
+    <div class="table-responsive-xl " style="overflow-x:auto !important;">
+        <table id="DOFATable" class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle" rowspan="2">EmpNo</th>
+                    <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
+                    <th align="center" valign="middle" rowspan="2">DOB</th>
+                    <th align="center" valign="middle" rowspan="2">Designation</th>
+                    <th align="center" valign="middle" rowspan="2">Gender</th>
+                    <th align="center" valign="middle" rowspan="2">Nationality</th>
+                    <th align="center" valign="middle" rowspan="1" colspan="3">Highest Qualification</th>
+                    <th align="center" valign="middle" rowspan="2">PAN No.</th>
+                    <th align="center" valign="middle" rowspan="2">Industry Experience (in Years)</th>
+                    <th align="center" valign="middle" rowspan="2">Academic Experience(in Months)</th>
+                    <th align="center" valign="middle" rowspan="2">Department</th>
+                    <th align="center" valign="middle" rowspan="2">Institute Joining Date</th>
+                    <th align="center" valign="middle" rowspan="2">Leaving Date (as on date)</th>
+                    <th align="center" valign="middle" rowspan="2">Association Type **</th>
+                    <th align="center" valign="middle" rowspan="2">Faculty Exchange Inbound **</th>
+                    <th align="center" valign="middle" rowspan="2">Faculty Exchange Outbound **</th>
+                    <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars National</th>
+                    <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars International</th>
+                    <th align="center" valign="middle" rowspan="2">Awards and Honors</th>
+                </tr>
+                <tr>
+                    <th align="center" valign="middle" rowspan="1">Course</th>
+                    <th align="center" valign="middle" rowspan="1">Year</th>
+                    <th align="center" valign="middle" rowspan="1">Institute</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.DofaData.Count; i++)
+                {
+                    <tr>
+                        <input type="hidden" value="@i" class="DOFAindex" />
+                        @Html.EditorFor(m => m.DofaData[i], "DOFASinglePartial")
+                    </tr>
+                }
+            </tbody>
+            @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0 && (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString()))
             {
-                <tr>
-                    <input type="hidden" value="@i" class="DOFAindex" />
-                    @Html.EditorFor(m => m.DofaData[i], "DOFASinglePartial")
-                </tr>
+                <tfoot>
+                    <tr>
+                        <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
+                    </tr>
+                </tfoot>
             }
-        </tbody>
-        @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0)
-        {
-            <tfoot>
-                <tr>
-                    <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
-                </tr>
-            </tfoot>
-        }
-    </table>
+        </table>
+    </div>
     <label>Association Type **</label> <span style="margin-right:10px;">R - Regular</span><span style="margin-right:10px;">C - Contractual</span><span style="margin-right:10px;">V - Visiting</span><span style="margin-right:10px;">G - Guest</span><span style="margin-right:10px;">A - Adjunct</span>
     <br />
     <label>Faculty Exchange Inbound ** </label> <span style="margin-right:10px;">Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
