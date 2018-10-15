@@ -91,6 +91,10 @@
     .input-validation-error {
         border: solid 1px red !important;
     }
+
+    .ui-datepicker{
+        z-index : 9999 !important;
+    }
 </style>
 @Html.Partial("ConfirmMessagePartail")
 
@@ -130,6 +134,9 @@
     };
 
     function LoadDatepicker() {
+        $("input.datepicker").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
     }
 
 </script>

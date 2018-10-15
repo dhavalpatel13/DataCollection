@@ -18,7 +18,10 @@
 
 </form>
 @Html.Partial("AlertMessagePartail")
-
+@section scripts{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Content/jquery-ui.js"></script>
+}
 <script>
     $(document).ready(function () {
         bindDataCaptYMChangeEvent();
