@@ -78,11 +78,18 @@ namespace DataCollection.Models
                 return success;
             }
 
+            if (DofaData.Any(n => n.empNo <= 0 || string.IsNullOrWhiteSpace(n.empName) || string.IsNullOrWhiteSpace(n.empDEPT)))
+            {
+                msg = "Minimum EmpNo, Name, Dept should not be blank";
+                return success;
+            }
+
             if (DofaData.GroupBy(n => n.empNo).Any(c => c.Count() > 1))
             {
                 msg = "Duplicate EmpNo Exist.! Data saving aborted.";
                 return success;
             }
+            
 
             foreach (var item in DofaData)
             {

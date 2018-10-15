@@ -43,6 +43,10 @@ function bindCalculateTotal(obj)
     }
 }
 
+function setTooltip() {
+    $("input.edit-value").tooltip();    
+}
+
 function CalculateTotal() {
     var result = [];
     $('table tbody#detailofstd tr').each(function () {
@@ -115,10 +119,22 @@ function SaveFormData(e, obj) {
                 
             } else {
                 if (data.msg && data.msg.length > 0) {
-                    alert(data.msg);
+                    if ($("#alertMsgSpan").length > 0) {
+                        $("#alertMsgSpan").html(data.msg);
+                        $("#ErrorAlertModel").modal("show");
+                    }
+                    else {
+                        alert(data.msg);
+                    }
                 }
                 else {
-                    alert("Error occurs on the Database level!");
+                    if ($("#alertMsgSpan").length > 0) {
+                        $("#alertMsgSpan").html("Error occurs on the Database level!");
+                        $("#ErrorAlertModel").modal("show");
+                    }
+                    else {
+                        alert("Error occurs on the Database level!");
+                    }
                 }
             }
         },

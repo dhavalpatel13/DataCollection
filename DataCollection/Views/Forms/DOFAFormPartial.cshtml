@@ -10,6 +10,7 @@
         <table id="DOFATable" class="table">
             <thead>
                 <tr>
+                    <th align="center" valign="middle" rowspan="2">Sr. No</th>
                     <th align="center" valign="middle" rowspan="2">EmpNo</th>
                     <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
                     <th align="center" valign="middle" rowspan="2">DOB</th>
@@ -49,7 +50,7 @@
             {
                 <tfoot>
                     <tr>
-                        <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
+                        <th scope="col" colspan="22" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
                     </tr>
                 </tfoot>
             }
@@ -64,11 +65,31 @@
 </div>
 <style>
     input.edit-value {
-        min-width: 120px;
+        min-width: 80px;
+    }
+
+    input.datepicker {
+        min-width: 120px !important;
     }
 
     table > thead > tr > th {
         vertical-align: middle !important;
+    }
+
+    body {
+        counter-reset: srnocounter;
+    }
+
+    span.srno {
+        counter-increment: srnocounter;
+    }
+
+        span.srno:after {
+            content: counter(srnocounter);
+        }
+
+    .input-validation-error {
+        border: solid 1px red !important;
     }
 </style>
 @Html.Partial("ConfirmMessagePartail")
@@ -96,6 +117,8 @@
         if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
             $(".table td input").attr('readonly', true);
         }
+        setTooltip();
+        LoadDatepicker();
     });
 
     $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
@@ -105,6 +128,10 @@
     var SaveUrlConstant = {
         SaveUrl: '@Url.Action("SaveDOFAFormData", "Forms")'
     };
+
+    function LoadDatepicker() {
+    }
+
 </script>
 
 <script>
@@ -130,6 +157,8 @@
         });
         dofaIndex.val(dofaIndexVal + 1);
         trclone.appendTo("#DOFATable tbody");
+        setTooltip();
+        LoadDatepicker();
     }
 
 </script>

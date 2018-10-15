@@ -10,6 +10,7 @@
             <table id="SRICFATable" class="table">
                 <thead>
                     <tr>
+                        <th align="center" valign="middle">Sr. No</th>
                         <th align="center" valign="middle">Organization / Agency Name</th>
                         <th align="center" valign="middle">No. of Projects (SR)</th>
                         <th align="center" valign="middle">Outlay (SR)</th>
@@ -37,7 +38,7 @@
                 {
                     <tfoot>
                         <tr>
-                            <th scope="col" colspan="21" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewSRICFARow()">Add Row</button></th>
+                            <th scope="col" colspan="13" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewSRICFARow()">Add Row</button></th>
                         </tr>
                     </tfoot>
                 }
@@ -46,11 +47,45 @@
     </div>
     <style>
         input.edit-value {
-            min-width: 120px;
+            min-width: 80px;
         }
 
+        input[type=number].edit-value {
+            min-width: 65px !important;
+        }
+
+        input.edit-value.big-text {
+            min-width: 150px;
+        }
+
+        input.datepicker {
+            min-width: 120px !important;
+        }
+
+        td input {
+            margin-left : 1px !important;
+        }
+        td input.form-control {
+            padding: 1px !important;
+        }
         table > thead > tr > th {
             vertical-align: middle !important;
+        }
+
+        body {
+            counter-reset: srnocounter;
+        }
+
+        span.srno {
+            counter-increment: srnocounter;
+        }
+
+            span.srno:after {
+                content: counter(srnocounter);
+            }
+
+        .input-validation-error {
+            border: solid 1px red !important;
         }
     </style>
     @Html.Partial("ConfirmMessagePartail")
@@ -78,6 +113,7 @@
         if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
             $(".table td input").attr('readonly', true);
         }
+        setTooltip();
     });
 
     $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
@@ -112,6 +148,7 @@
         });
         sricfaIndex.val(sricfaIndexVal + 1);
         trclone.appendTo("#SRICFATable tbody");
+        setTooltip();
     }
 
     </script>

@@ -1,24 +1,25 @@
 ﻿@model DataAccess.Entity.DofaInfo
 
 @Html.HiddenFor(m => m.IDNo)
-<td>@Html.TextBoxFor(m => m.empNo, new { @class = "form-control edit-value", type = "number", min = 1, max = Int32.MaxValue })</td>
-<td>@Html.TextBoxFor(m => m.empName, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empDOB, new { @class = "form-control edit-value"})</td>
-<td>@Html.TextBoxFor(m => m.empDESG, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empGender, new { @class = "form-control edit-value", min = 1, max = 1 })</td>
-<td>@Html.TextBoxFor(m => m.empNation, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.QualHighCourse, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.QualHighYear, new { @class = "form-control edit-value", type = "number", min = 0, max = 100 })</td>
-<td>@Html.TextBoxFor(m => m.QualHighInst, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empPAN, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.ExpIndMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
-<td>@Html.TextBoxFor(m => m.ExpAcadMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
-<td>@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empDOJ, new { @class = "form-control edit-value"})</td>
-<td>@Html.TextBoxFor(m => m.empDOL, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.empType, new { @class = "form-control edit-value", min = 0, max = 1 })</td>
-<td>@Html.TextBoxFor(m => m.FacExcgIn, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.FacExcgOut, new { @class = "form-control edit-value" })</td>
-<td>@Html.TextBoxFor(m => m.ConfSymSemNat, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
-<td>@Html.TextBoxFor(m => m.ConfSymSemInt, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue })</td>
-<td>@Html.TextBoxFor(m => m.AwardHonors, new { @class = "form-control edit-value" })</td>
+<td align="center" valign="middle"><span class="srno">&nbsp;</span></td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empNo, new { @class = "form-control edit-value", type = "number", min = 1, max = Int32.MaxValue, required="true", title="Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empName, new { @class = "form-control edit-value", required = "true", title = "Add Text" })</td>
+<td align="center" valign="middle"><div style="position:relative;">@Html.TextBoxFor(m => m.empDOB, new { @class = "form-control edit-value datepicker", title = "Add Date", placeholder = "dd-mmm-yyyy" })</div></td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empDESG, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empGender, new { @class = "form-control edit-value", minLength = 1, maxLength = 1, title = "Add Char" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empNation, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.QualHighCourse, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.QualHighYear, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.QualHighInst, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empPAN, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.ExpIndMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.ExpAcadMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value", minLength = 1, required = "true", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empDOJ, new { @class = "form-control edit-value datepicker", placeholder = "dd-mmm-yyyy", title = "Add Date" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empDOL, new { @class = "form-control edit-value datepicker", placeholder = "dd-mmm-yyyy", title = "Add Date" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empType, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.FacExcgIn, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.FacExcgOut, new { @class = "form-control edit-value", title = "Add text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.ConfSymSemNat, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.ConfSymSemInt, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.AwardHonors, new { @class = "form-control edit-value", title = "Add text" })</td>

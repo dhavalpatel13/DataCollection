@@ -48,6 +48,12 @@ namespace DataCollection.Models
                 return success;
             }
 
+            if (SricFAData.Any(n => string.IsNullOrWhiteSpace(n.FAName)))
+            {
+                msg = "At least Agency Name / Sponsor Name Required.";
+                return success;
+            }
+
             if (SricFAData.GroupBy(n => n.FAName.Trim().ToLower()).Any(c => c.Count() > 1))
             {
                 msg = "Duplicate Organization / Agency Name Exist.! Data saving aborted.";

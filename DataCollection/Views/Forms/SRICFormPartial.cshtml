@@ -31,10 +31,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -61,10 +61,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -88,10 +88,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNat, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNatExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSInt, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSIntExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = decimal.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNat, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNatExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSInt, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSIntExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -113,10 +113,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -139,10 +139,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -165,10 +165,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -191,10 +191,10 @@
                 {
                     <tr>
                         <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                     </tr>
                 }
             </tbody>
@@ -235,6 +235,7 @@
         if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
             $(".table td input").attr('readonly', true);
         }
+        setTooltip();
     });
 
     $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
