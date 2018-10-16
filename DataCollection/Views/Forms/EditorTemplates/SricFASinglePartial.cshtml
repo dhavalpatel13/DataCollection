@@ -1,7 +1,7 @@
 ﻿@model DataAccess.Entity.SricFA
 
-@Html.HiddenFor(m => m.IDNo)
-<td align="center" valign="middle"><span class="srno">&nbsp;</span></td>
+
+<td align="center" valign="middle">@Html.HiddenFor(m => m.IDNo, new { @class = "idno" })<span class="srno">&nbsp;</span><a style="display:none;" class="deletenew" title="Remove row" href="javascript:;" onclick="removeSRICFARow(event)"> X </a></td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.FAName, new { @class = "form-control edit-value big-text", required="true", minLenght = 1, maxLenght = 100, title = "Add Text" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.FASRProjQty, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.FASRProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>

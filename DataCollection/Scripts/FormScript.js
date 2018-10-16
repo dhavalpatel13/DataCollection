@@ -43,8 +43,15 @@ function bindCalculateTotal(obj)
     }
 }
 
-function setTooltip() {
-    $("input.edit-value").tooltip();    
+function setTooltip(el) {
+    if (!el) {
+        $("input.edit-value").tooltip();
+        $("a.deletenew").tooltip();
+    }
+    else {
+        $(el).find("input.edit-value").tooltip();
+        $(el).find("a.deletenew").tooltip();
+    }   
 }
 
 function CalculateTotal() {
@@ -92,7 +99,7 @@ function SaveFormData(e, obj) {
     var element = obj;
 
     var SerializeFormId = UrlConstant.SerializeFormID;
-    var data = $(SerializeFormId).serialize() + "&action=" + Action + "&menu=" + UrlConstant.Menu;
+    //var data = $(SerializeFormId).serialize() + "&action=" + Action + "&menu=" + UrlConstant.Menu;
 
     var myData = {};
     myData.action = Action;

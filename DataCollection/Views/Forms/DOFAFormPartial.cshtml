@@ -10,7 +10,7 @@
         <table id="DOFATable" class="table">
             <thead>
                 <tr>
-                    <th align="center" valign="middle" rowspan="2">Sr. No</th>
+                    <th align="center" valign="middle" rowspan="2">Sr.No</th>
                     <th align="center" valign="middle" rowspan="2">EmpNo</th>
                     <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
                     <th align="center" valign="middle" rowspan="2">DOB</th>
@@ -95,6 +95,21 @@
     .ui-datepicker{
         z-index : 9999 !important;
     }
+
+    input[value='0'].idno.new + span.srno:hover + a.deletenew {
+        display: inline !important;
+    }
+    input[value='0'].idno.new + span.srno + a.deletenew:hover {
+        display: inline !important;
+    }
+
+    a.deletenew {
+        color: red;
+        font:bold;
+        cursor:pointer;
+        text-decoration:none;
+    }
+
 </style>
 @Html.Partial("ConfirmMessagePartail")
 
@@ -133,10 +148,18 @@
         SaveUrl: '@Url.Action("SaveDOFAFormData", "Forms")'
     };
 
-    function LoadDatepicker() {
-        $("input.datepicker").datepicker({
-            dateFormat: 'dd-M-yy'
-        });
+    function LoadDatepicker(el) {
+        if (!el) {
+            $("input.datepicker").datepicker({
+                dateFormat: 'dd-M-yy'
+            });
+        }
+        else {
+            $(el).find("input.datepicker").removeClass("hasDatepicker");
+            $(el).find("input.datepicker").datepicker({
+                dateFormat: 'dd-M-yy'
+            });
+        }
     }
 
 </script>
@@ -149,23 +172,45 @@
     };
 
     function AddNewDOFARow() {
-        var trclone = $("<tr>"+$("#DOFATable tbody tr:last").html()+"</tr>");
+        var trclone = $("<tr class='newrow'>"+$("#DOFATable tbody tr:last").html()+"</tr>");
         var dofaIndex = trclone.find("input.DOFAindex");
         var dofaIndexVal = parseInt(dofaIndex.val());
         trclone.find("input").each(function (e) {
             var _el = $(this);
-            if (_el.attr("id")) {
-                _el.attr("id", _el.attr("id").replace(dofaIndexVal, dofaIndexVal + 1));
-            }
+            _el.removeAttr("id");
             if (_el.attr("name")) {
                 _el.attr("name", _el.attr("name").replace(dofaIndexVal, dofaIndexVal + 1));
             }
-            _el.val("");
+            if (_el.attr("readonly") != true) {
+                _el.val("");
+            }
+            if (_el.hasClass("idno")) {
+                _el.addClass("new");
+                _el.val("0");
+            }
         });
         dofaIndex.val(dofaIndexVal + 1);
         trclone.appendTo("#DOFATable tbody");
-        setTooltip();
-        LoadDatepicker();
+        setTooltip($("#DOFATable tbody tr:last"));
+        LoadDatepicker($("#DOFATable tbody tr:last"));
+    }
+
+    function removeDOFARow(e) {
+        var _curenttr = $(e.target).parents("tr.newrow")[0];
+        var currentIndex = parseInt($(_curenttr).find("input.DOFAindex").val());
+        $(_curenttr).remove();
+
+        $("#DOFATable tbody tr.newrow").each(function () {
+            var _tr = $(this);
+            _tr.find("input").each(function (e) {
+                var _el = $(this);
+                _el.removeAttr("id");
+                if (_el.attr("name")) {
+                    _el.attr("name", "DofaData[" + currentIndex + "]." + _el.attr("name").split(".")[1]);
+                }
+            });
+            currentIndex++;
+        });
     }
 
 </script>

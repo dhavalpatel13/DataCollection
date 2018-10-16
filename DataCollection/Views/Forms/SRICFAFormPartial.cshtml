@@ -87,6 +87,21 @@
         .input-validation-error {
             border: solid 1px red !important;
         }
+
+        input[value='0'].idno.new + span.srno:hover + a.deletenew {
+            display: inline !important;
+        }
+
+        input[value='0'].idno.new + span.srno + a.deletenew:hover {
+            display: inline !important;
+        }
+
+        a.deletenew {
+            color: red;
+            font: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
     </style>
     @Html.Partial("ConfirmMessagePartail")
 
@@ -107,49 +122,67 @@
         }
     </ul>
 
-    <script>
-    $(document).ready(function () {
-        $(".table td input[type='number']").forceNumeric();
-        if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
-            $(".table td input").attr('readonly', true);
-        }
-        setTooltip();
-    });
-
-    $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
-        SaveFormData(e, this);
-    });
-
-    var SaveUrlConstant = {
-        SaveUrl: '@Url.Action("SaveSricFAFormData", "Forms")'
-    };
-    </script>
-
-    <script>
-    var UrlConstant = {
-        Menu: '@DataAccess.Enum.Menu.SRICFA.ToString()',
-        SerializeFormID: '#SRICFATableform',
-        TableDivID: '#SRICFATableDiv'
-    };
-
-    function AddNewSRICFARow() {
-        var trclone = $("<tr>"+$("#SRICFATable tbody tr:last").html()+"</tr>");
-        var sricfaIndex = trclone.find("input.SRICFAindex");
-        var sricfaIndexVal = parseInt(sricfaIndex.val());
-        trclone.find("input").each(function (e) {
-            var _el = $(this);
-            if (_el.attr("id")) {
-                _el.attr("id", _el.attr("id").replace(sricfaIndexVal, sricfaIndexVal + 1));
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".table td input[type='number']").forceNumeric();
+            if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+                $(".table td input").attr('readonly', true);
             }
-            if (_el.attr("name")) {
-                _el.attr("name", _el.attr("name").replace(sricfaIndexVal, sricfaIndexVal + 1));
-            }
-            _el.val("");
+            setTooltip();
         });
-        sricfaIndex.val(sricfaIndexVal + 1);
-        trclone.appendTo("#SRICFATable tbody");
-        setTooltip();
-    }
 
+        $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
+            SaveFormData(e, this);
+        });
+
+        var SaveUrlConstant = {
+            SaveUrl: '@Url.Action("SaveSricFAFormData", "Forms")'
+        };
+
+        var UrlConstant = {
+            Menu: '@DataAccess.Enum.Menu.SRICFA.ToString()',
+            SerializeFormID: '#SRICFATableform',
+            TableDivID: '#SRICFATableDiv'
+        };
+
+        function AddNewSRICFARow() {
+            var trclone = $("<tr class='newrow'>"+$("#SRICFATable tbody tr:last").html()+"</tr>");
+            var sricfaIndex = trclone.find("input.SRICFAindex");
+            var sricfaIndexVal = parseInt(sricfaIndex.val());
+            trclone.find("input").each(function (e) {
+                var _el = $(this);
+                _el.removeAttr("id");
+                if (_el.attr("name")) {
+                    _el.attr("name", _el.attr("name").replace(sricfaIndexVal, sricfaIndexVal + 1));
+                }
+                _el.val("");
+
+                if (_el.hasClass("idno")) {
+                    _el.addClass("new");
+                    _el.val("0");
+                }
+            });
+            sricfaIndex.val(sricfaIndexVal + 1);
+            trclone.appendTo("#SRICFATable tbody");
+            setTooltip($("#SRICFATable tbody tr:last"));
+        }
+
+        function removeSRICFARow(e) {
+            var _curenttr = $(e.target).parents("tr.newrow")[0];
+            var currentIndex = parseInt($(_curenttr).find("input.SRICFAindex").val());
+            $(_curenttr).remove();
+
+            $("#SRICFATable tbody tr.newrow").each(function () {
+                var _tr = $(this);
+                _tr.find("input").each(function (e) {
+                    var _el = $(this);
+                    _el.removeAttr("id");
+                    if (_el.attr("name")) {
+                        _el.attr("name", "SricFAData[" + currentIndex + "]." + _el.attr("name").split(".")[1]);
+                    }
+                });
+                currentIndex++;
+            });
+        }
     </script>
 }
