@@ -11,195 +11,262 @@
         @Html.HiddenFor(m => m.SricDeptData[i].IDNo);
         @Html.HiddenFor(m => m.SricDeptData[i].DeptID);
     }
-    <div class="table-responsive-xl">
-        <h3>Sponsored Research Details</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle" colspan="5">Sponsored Research Projects (Deptt.-wise)</th>
-                </tr>
-                <tr>
-                    <th align="center" valign="middle">Department</th>
-                    <th align="center" valign="middle">No. of Project</th>
-                    <th align="center" valign="middle">Total No. of Funding Agencies</th>
-                    <th align="center" valign="middle">Total Outlay</th>
-                    <th align="center" valign="middle">Total Receipt</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    <h4 class="panel-title">Sponsored Research Projects (Deptt.-wise)</h4>
+                </a>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Department</th>
+                                    <th align="center" valign="middle">No. of Project</th>
+                                    <th align="center" valign="middle">Total No. of Funding Agencies</th>
+                                    <th align="center" valign="middle">Total Outlay</th>
+                                    <th align="center" valign="middle">Total Receipt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].SRProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    <h4 class="panel-title">Consultancy Projects (Deptt.-wise)</h4>
+                </a>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Department</th>
+                                    <th align="center" valign="middle">No. of Project</th>
+                                    <th align="center" valign="middle">Total No. of Sponsors</th>
+                                    <th align="center" valign="middle">Contracted Amount</th>
+                                    <th align="center" valign="middle">Actual Receipt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    <h4 class="panel-title">Conference / Symposia / Seminars</h4>
+                </a>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Department</th>
+                                    <th align="center" valign="middle">National</th>
+                                    <th align="center" valign="middle">Expenditure</th>
+                                    <th align="center" valign="middle">International</th>
+                                    <th align="center" valign="middle">Total Expenditure</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNat, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNatExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSInt, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSIntExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                    <h4 class="panel-title">Details of Intellectual Property</h4>
+                </a>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Details of Intellectual Property</th>
+                                    <th align="center" valign="middle">Patents Filed</th>
+                                    <th align="center" valign="middle">Patent Published</th>
+                                    <th align="center" valign="middle">Patent Granted</th>
+                                    <th align="center" valign="middle">Patent Licensed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                    <h4 class="panel-title">Details of Technology Transfer</h4>
+                </a>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Details of Technology Transfer</th>
+                                    <th align="center" valign="middle">Filed</th>
+                                    <th align="center" valign="middle">Published</th>
+                                    <th align="center" valign="middle">Granted</th>
+                                    <th align="center" valign="middle">Licensed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                    <h4 class="panel-title">Details of Copy Rights</h4>
+                </a>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Details of Copy Rights</th>
+                                    <th align="center" valign="middle">Filed</th>
+                                    <th align="center" valign="middle">Published</th>
+                                    <th align="center" valign="middle">Granted</th>
+                                    <th align="center" valign="middle">Licensed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                    <h4 class="panel-title">Details of Logo/Design Copy Rights</h4>
+                </a>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th align="center" valign="middle">Details of Logo/Design Copy Rights</th>
+                                    <th align="center" valign="middle">Filed</th>
+                                    <th align="center" valign="middle">Published</th>
+                                    <th align="center" valign="middle">Granted</th>
+                                    <th align="center" valign="middle">Licensed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.SricDeptData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.SricDeptData[i].DeptName</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <br />
-    <div class="table-responsive-xl">
-        <h3>Consultancy Projects</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle" colspan="5">Consultancy Projects (Deptt.-wise)</th>
-                </tr>
-                <tr>
-                    <th align="center" valign="middle">Department</th>
-                    <th align="center" valign="middle">No. of Project</th>
-                    <th align="center" valign="middle">Total No. of Sponsors</th>
-                    <th align="center" valign="middle">Contracted Amount</th>
-                    <th align="center" valign="middle">Actual Receipt</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjQty, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICFAQty, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjOutlay, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ICProjRcp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <br />
-    <div class="table-responsive-xl">
-        <h3>Conference / Symposia / Seminars</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle">Department</th>
-                    <th align="center" valign="middle">National</th>
-                    <th align="center" valign="middle">Expenditure</th>
-                    <th align="center" valign="middle">International</th>
-                    <th align="center" valign="middle">Total Expenditure</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNat, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSNatExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSInt, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].ConfSSIntExp, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <br />
-        <br />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle">Details of Intellectual Property</th>
-                    <th align="center" valign="middle">Patents Filed</th>
-                    <th align="center" valign="middle">Patent Published</th>
-                    <th align="center" valign="middle">Patent Granted</th>
-                    <th align="center" valign="middle">Patent Licensed</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].IPRLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <br />
-        <br />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle">Details of Technology Transfer</th>
-                    <th align="center" valign="middle">Filed</th>
-                    <th align="center" valign="middle">Published</th>
-                    <th align="center" valign="middle">Granted</th>
-                    <th align="center" valign="middle">Licensed</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].TechXferLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <br />
-        <br />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle">Details of Copy Rights</th>
-                    <th align="center" valign="middle">Filed</th>
-                    <th align="center" valign="middle">Published</th>
-                    <th align="center" valign="middle">Granted</th>
-                    <th align="center" valign="middle">Licensed</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].CopyRightsLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <br />
-        <br />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle">Details of Logo/Design Copy Rights</th>
-                    <th align="center" valign="middle">Filed</th>
-                    <th align="center" valign="middle">Published</th>
-                    <th align="center" valign="middle">Granted</th>
-                    <th align="center" valign="middle">Licensed</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.SricDeptData.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.SricDeptData[i].DeptName</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignFiled, new { @class = "form-control edit-value", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignPub, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignGranted, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                        <td>@Html.TextBoxFor(m => m.SricDeptData[i].LogoDesignLicensed, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
 </div>
     <style>
         input.edit-value {
@@ -208,6 +275,10 @@
 
         table > thead > tr > th {
             vertical-align: middle !important;
+        }
+
+        .panel-heading > a {
+            outline: none !important;
         }
     </style>
     @Html.Partial("ConfirmMessagePartail")
