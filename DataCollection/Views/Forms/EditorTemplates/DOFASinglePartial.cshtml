@@ -13,7 +13,7 @@
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.empPAN, new { @class = "form-control edit-value", title = "Add text" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.ExpIndMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.ExpAcadMon, new { @class = "form-control edit-value", type = "number", min = 0, max = Int32.MaxValue, title = "Add Number" })</td>
-<td align="center" valign="middle">@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value", minLength = 1, required = "true", @readonly = "true" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.empDEPT, new { @class = "form-control edit-value empdept", minLength = 1, required = "true", @readonly = "true" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.empDOJ, new { @class = "form-control edit-value datepicker", placeholder = "dd-mmm-yyyy", title = "Add Date" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.empDOL, new { @class = "form-control edit-value datepicker", placeholder = "dd-mmm-yyyy", title = "Add Date" })</td>
 <td align="center" valign="middle">@Html.TextBoxFor(m => m.empType, new { @class = "form-control edit-value", title = "Add text" })</td>

@@ -8,6 +8,7 @@ using DataCollection.ManageSession;
 using DataCollection.FormService;
 using Newtonsoft.Json;
 using DataAccess.Enum;
+using System.Web.Mvc;
 
 namespace DataCollection.Models
 {
@@ -68,12 +69,12 @@ namespace DataCollection.Models
             else if (MenuID == DataAccess.Enum.Menu.DOFA.ToString())
             {
                 dofaViewModel = new DofaViewModel();
-                dofaViewModel.GetDOFAData(DataCaptYM, MenuID);
+                dofaViewModel.GetDOFAData(DataCaptYM);
             }
             else if (MenuID == DataAccess.Enum.Menu.SRICFA.ToString())
             {
                 sricFAViewModel = new SricFAViewModel();
-                sricFAViewModel.GetSRICFAData(DataCaptYM, MenuID);
+                sricFAViewModel.GetSRICFAData(DataCaptYM);
             }
             else if (MenuID == DataAccess.Enum.Menu.SRIC.ToString())
             {
@@ -85,19 +86,19 @@ namespace DataCollection.Models
             this.rankmsg = rankmesg.Message;
         }
 
-        public void GetMultiDataByMenuID(int dataCaptYM, string MenuID)
+        public void GetMultiDataByMenuID(int dataCaptYM, string MenuID, string empDept = "")
         {
             FormsRepository formsRepository = new FormsRepository();
             dataCaptYM = SessionManager.DataCaptYR > 0 ? SessionManager.DataCaptYR : (dataCaptYM > 0 ? dataCaptYM : 0);
             if (MenuID == DataAccess.Enum.Menu.DOFA.ToString())
             {
                 dofaViewModel = new DofaViewModel();
-                dofaViewModel.GetDOFAData(dataCaptYM, MenuID);
+                dofaViewModel.GetDOFAData(dataCaptYM, empDept);
             }
             else if(MenuID == DataAccess.Enum.Menu.SRICFA.ToString())
             {
                 sricFAViewModel = new SricFAViewModel();
-                sricFAViewModel.GetSRICFAData(dataCaptYM, MenuID);
+                sricFAViewModel.GetSRICFAData(dataCaptYM);
             }
             else if (MenuID == DataAccess.Enum.Menu.SRIC.ToString())
             {

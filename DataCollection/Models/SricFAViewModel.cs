@@ -17,7 +17,7 @@ namespace DataCollection.Models
         public int DataStatus { get; set; }
         public string DataStatusName { get; set; }
 
-        public void GetSRICFAData(int _dataCaptYM, string MenuID)
+        public void GetSRICFAData(int _dataCaptYM)
         {
             FormsRepository formsRepository = new FormsRepository();
             DataCaptYM = SessionManager.DataCaptYR > 0 ? SessionManager.DataCaptYR : (_dataCaptYM > 0 ? _dataCaptYM : 0);

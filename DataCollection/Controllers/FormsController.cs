@@ -37,6 +37,15 @@ namespace DataCollection.Controllers
             return PartialView(MenuPartial, DataObject);
         }
 
+        public ActionResult OnDofaDeptChange(int DataCaptYM, string EmpDept, string DeptId)
+        {
+            FormsViewModel viewModel = new FormsViewModel();
+            SessionManager.DataCaptYR = DataCaptYM;
+            SessionManager.DeptID = DeptId;
+            viewModel.GetMultiDataByMenuID(DataCaptYM, "DOFA", EmpDept);
+            return PartialView("DOFAFormPartial", viewModel.dofaViewModel);
+        }
+
         [HttpPost]
         public ActionResult SaveUpdateFormData(CommonSaveUpdateProp data)
         {

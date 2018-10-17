@@ -7,6 +7,7 @@ using DataAccess.Repository;
 using DataCollection.ManageSession;
 using System.Data;
 using System.Reflection;
+using System.Web.Mvc;
 
 namespace DataCollection.Models
 {
@@ -38,6 +39,17 @@ namespace DataCollection.Models
             //put a breakpoint here and check datatable
             return dataTable;
         }
+
+        public List<SelectListItem> GetDOFADeptDropdownData()
+        {
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            List<SelectListItem> DeptDDLList = new List<SelectListItem>()
+            { new SelectListItem() { Text = "-- Select --", Value = "" } };
+
+            DeptDDLList.AddRange(db.Depts.Where(w => w.DeptType == 'A').Select(i => new SelectListItem { Text = i.DeptName, Value = i.DeptID }));
+
+            return DeptDDLList;
+        }
     }
 
     public class DofaViewModel : BaseViewModel
@@ -47,13 +59,17 @@ namespace DataCollection.Models
         public int DataStatus { get; set; }
         public string DataStatusName { get; set; }
 
-        public void GetDOFAData(int _dataCaptYM, string MenuID)
+        public string EmpDept { get; set; }
+
+        public void GetDOFAData(int _dataCaptYM, string empDept = "")
         {
+            EmpDept = empDept;
             FormsRepository formsRepository = new FormsRepository();
             DataCaptYM = SessionManager.DataCaptYR > 0 ? SessionManager.DataCaptYR : (_dataCaptYM > 0 ? _dataCaptYM : 0);
 
-            this.DofaData = formsRepository.GetDOFAFormDataByID(DataCaptYM, SessionManager.DeptID);
+            this.DofaData = formsRepository.GetDOFAFormDataByID(DataCaptYM, SessionManager.DeptID ,empDept);
 
+            
 
             if (DofaData == null || DofaData.Count == 0)
             {
@@ -66,6 +82,11 @@ namespace DataCollection.Models
             {
                 DataStatus = DofaData.First().DataStatus;
                 DataStatusName = DofaData.First().DataStatusName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(EmpDept))
+            {
+                DofaData.ForEach(f => f.empDEPT = EmpDept);
             }
         }
 
@@ -116,7 +137,7 @@ namespace DataCollection.Models
             {
                 FormsRepository formsRepository = new FormsRepository();
                 DataTable dt = ToDataTable(DofaData);
-                success = formsRepository.UpdateBulkDOFAFormData(dt, SessionManager.DataCaptYR, SessionManager.DeptID);
+                success = formsRepository.UpdateBulkDOFAFormData(dt, SessionManager.DataCaptYR, SessionManager.DeptID, EmpDept);
             }
             catch (Exception ex)
             {

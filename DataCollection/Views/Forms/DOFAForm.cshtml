@@ -26,4 +26,24 @@
     $(document).ready(function () {
         bindDataCaptYMChangeEvent();
     });
+
+    function onEmpDeptChange(el) {
+        $("#DataCaptYMhid").val($("#DataCaptYM").val());
+        var empdept = $("#EmpDept").val() || "";
+        $.post("/Forms/OnDofaDeptChange",
+            {
+                DataCaptYM: $("#DataCaptYM").val().toString(),
+                EmpDept: empdept,
+                DeptID: MenuConstant.DeptId
+            },
+            function (data) {
+                $("#DOFATableDiv").html("");
+                $("#DOFATableDiv").html(data);
+                if ($("#DataCaptYM").val() > 0) {
+                    $("#buttonUL").show();
+                } else {
+                    $("#buttonUL").hide();
+                }
+            });
+    }
 </script>

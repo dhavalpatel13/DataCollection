@@ -3,139 +3,156 @@
 @Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
 @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
 
+<div class="panel panel-default">
+    <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
+        <div class="panel-title pull-right">
+            <label class="control-label" style="margin-top:4px;">Select Department for DOFA Form Data :&nbsp;</label>
+            @Html.DropDownListFor(m => m.EmpDept, Model.GetDOFADeptDropdownData(), new { @class = "form-control pull-right", onchange = "onEmpDeptChange(this)" })
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
 @if (Model.DofaData != null || Model.DofaData.Count > 0)
 {
-<div class="table-responsive-xl">
-    <div class="table-responsive-xl " style="overflow-x:auto !important;">
-        <table id="DOFATable" class="table">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle" rowspan="2">Sr.No</th>
-                    <th align="center" valign="middle" rowspan="2">EmpNo</th>
-                    <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
-                    <th align="center" valign="middle" rowspan="2">DOB</th>
-                    <th align="center" valign="middle" rowspan="2">Designation</th>
-                    <th align="center" valign="middle" rowspan="2">Gender</th>
-                    <th align="center" valign="middle" rowspan="2">Nationality</th>
-                    <th align="center" valign="middle" rowspan="1" colspan="3">Highest Qualification</th>
-                    <th align="center" valign="middle" rowspan="2">PAN No.</th>
-                    <th align="center" valign="middle" rowspan="2">Industry Experience (in Years)</th>
-                    <th align="center" valign="middle" rowspan="2">Academic Experience(in Months)</th>
-                    <th align="center" valign="middle" rowspan="2">Department</th>
-                    <th align="center" valign="middle" rowspan="2">Institute Joining Date</th>
-                    <th align="center" valign="middle" rowspan="2">Leaving Date (as on date)</th>
-                    <th align="center" valign="middle" rowspan="2">Association Type **</th>
-                    <th align="center" valign="middle" rowspan="2">Faculty Exchange Inbound **</th>
-                    <th align="center" valign="middle" rowspan="2">Faculty Exchange Outbound **</th>
-                    <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars National</th>
-                    <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars International</th>
-                    <th align="center" valign="middle" rowspan="2">Awards and Honors</th>
-                </tr>
-                <tr>
-                    <th align="center" valign="middle" rowspan="1">Course</th>
-                    <th align="center" valign="middle" rowspan="1">Year</th>
-                    <th align="center" valign="middle" rowspan="1">Institute</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.DofaData.Count; i++)
+    <div class="table-responsive-xl">
+        <div class="table-responsive-xl " style="overflow-x:auto !important;">
+            <table id="DOFATable" class="table">
+                <thead>
+                    <tr>
+                        <th align="center" valign="middle" rowspan="2">Sr.No</th>
+                        <th align="center" valign="middle" rowspan="2">EmpNo</th>
+                        <th align="center" valign="middle" rowspan="2">Name of Faculty Members (FC)</th>
+                        <th align="center" valign="middle" rowspan="2">DOB</th>
+                        <th align="center" valign="middle" rowspan="2">Designation</th>
+                        <th align="center" valign="middle" rowspan="2">Gender</th>
+                        <th align="center" valign="middle" rowspan="2">Nationality</th>
+                        <th align="center" valign="middle" rowspan="1" colspan="3">Highest Qualification</th>
+                        <th align="center" valign="middle" rowspan="2">PAN No.</th>
+                        <th align="center" valign="middle" rowspan="2">Industry Experience (in Years)</th>
+                        <th align="center" valign="middle" rowspan="2">Academic Experience(in Months)</th>
+                        <th align="center" valign="middle" rowspan="2">Department</th>
+                        <th align="center" valign="middle" rowspan="2">Institute Joining Date</th>
+                        <th align="center" valign="middle" rowspan="2">Leaving Date (as on date)</th>
+                        <th align="center" valign="middle" rowspan="2">Association Type **</th>
+                        <th align="center" valign="middle" rowspan="2">Faculty Exchange Inbound **</th>
+                        <th align="center" valign="middle" rowspan="2">Faculty Exchange Outbound **</th>
+                        <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars National</th>
+                        <th align="center" valign="middle" rowspan="2">No. of Conference / Symposia / Seminars International</th>
+                        <th align="center" valign="middle" rowspan="2">Awards and Honors</th>
+                    </tr>
+                    <tr>
+                        <th align="center" valign="middle" rowspan="1">Course</th>
+                        <th align="center" valign="middle" rowspan="1">Year</th>
+                        <th align="center" valign="middle" rowspan="1">Institute</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.DofaData.Count; i++)
+                    {
+                        <tr>
+                            <input type="hidden" value="@i" class="DOFAindex" />
+                            @Html.EditorFor(m => m.DofaData[i], "DOFASinglePartial")
+                        </tr>
+                    }
+                </tbody>
+                @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0 && !string.IsNullOrWhiteSpace(Model.EmpDept) && (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString()))
                 {
-                    <tr>
-                        <input type="hidden" value="@i" class="DOFAindex" />
-                        @Html.EditorFor(m => m.DofaData[i], "DOFASinglePartial")
-                    </tr>
+                    <tfoot>
+                        <tr>
+                            <th scope="col" colspan="22" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
+                        </tr>
+                    </tfoot>
                 }
-            </tbody>
-            @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0 && (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString()))
-            {
-                <tfoot>
-                    <tr>
-                        <th scope="col" colspan="22" width="10%" align="left" valign="middle"><button type="button" class="btn btn-default" onclick="AddNewDOFARow()">Add Row</button></th>
-                    </tr>
-                </tfoot>
-            }
-        </table>
+            </table>
+        </div>
+        <label>Association Type **</label> <span style="margin-right:10px;">R - Regular</span><span style="margin-right:10px;">C - Contractual</span><span style="margin-right:10px;">V - Visiting</span><span style="margin-right:10px;">G - Guest</span><span style="margin-right:10px;">A - Adjunct</span>
+        <br />
+        <label>Faculty Exchange Inbound ** </label> <span style="margin-right:10px;">Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
+        <br />
+        <label>Faculty Exchange Outbound ** </label> <span style="margin-right:10px;">Faculty who have visited another university abroad as a guest faculty on international exchange programmes </span>
+        <br />
     </div>
-    <label>Association Type **</label> <span style="margin-right:10px;">R - Regular</span><span style="margin-right:10px;">C - Contractual</span><span style="margin-right:10px;">V - Visiting</span><span style="margin-right:10px;">G - Guest</span><span style="margin-right:10px;">A - Adjunct</span>
-    <br />
-    <label>Faculty Exchange Inbound ** </label> <span style="margin-right:10px;">Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
-    <br />
-    <label>Faculty Exchange Outbound ** </label> <span style="margin-right:10px;">Faculty who have visited another university abroad as a guest faculty on international exchange programmes </span>
-    <br />
-</div>
-<style>
-    input.edit-value {
-        min-width: 80px;
-    }
-
-    input.datepicker {
-        min-width: 120px !important;
-    }
-
-    table > thead > tr > th {
-        vertical-align: middle !important;
-    }
-
-    body {
-        counter-reset: srnocounter;
-    }
-
-    span.srno {
-        counter-increment: srnocounter;
-    }
-
-        span.srno:after {
-            content: counter(srnocounter);
+    <style>
+        input.edit-value {
+            min-width: 80px;
         }
 
-    .input-validation-error {
-        border: solid 1px red !important;
-    }
+        input.datepicker {
+            min-width: 120px !important;
+        }
 
-    .ui-datepicker{
-        z-index : 9999 !important;
-    }
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
 
-    input[value='0'].idno.new + span.srno:hover + a.deletenew {
-        display: inline !important;
-    }
-    input[value='0'].idno.new + span.srno + a.deletenew:hover {
-        display: inline !important;
-    }
+        body {
+            counter-reset: srnocounter;
+        }
 
-    a.deletenew {
-        color: red;
-        font:bold;
-        cursor:pointer;
-        text-decoration:none;
-    }
+        span.srno {
+            counter-increment: srnocounter;
+        }
 
-</style>
-@Html.Partial("ConfirmMessagePartail")
+            span.srno:after {
+                content: counter(srnocounter);
+            }
+
+        .input-validation-error {
+            border: solid 1px red !important;
+        }
+
+        .ui-datepicker {
+            z-index: 9999 !important;
+        }
+
+        input[value='0'].idno.new + span.srno:hover + a.deletenew {
+            display: inline !important;
+        }
+
+        input[value='0'].idno.new + span.srno + a.deletenew:hover {
+            display: inline !important;
+        }
+
+        a.deletenew {
+            color: red;
+            font: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+    @Html.Partial("ConfirmMessagePartail")
 
 
-<ul class="list-inline" id="buttonUL" style="display:none">
-    <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
-    <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
-    <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
-    @if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString())
-    {
-        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
-        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
-    }
-    else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
-    {
-        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
-        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnFinalizeByHod" class="btn btn-primary">Finalize</button></li>
-    }
-</ul>
+    <ul class="list-inline" id="buttonUL" style="display:none;">
+        <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
+        <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
+        @if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString())
+        {
+            if (string.IsNullOrWhiteSpace(Model.EmpDept))
+            {
+                <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
+            }
+            else
+            {
+                <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+            }
+        }
+        else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString() && string.IsNullOrWhiteSpace(Model.EmpDept))
+        {
+            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
+            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnFinalizeByHod" class="btn btn-primary">Finalize</button></li>
+        }
+    </ul>
 
-<script>
+    <script>
     $(document).ready(function () {
         $(".table td input[type='number']").forceNumeric();
         if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
             $(".table td input").attr('readonly', true);
         }
+
         setTooltip();
         LoadDatepicker();
     });
@@ -162,9 +179,9 @@
         }
     }
 
-</script>
+    </script>
 
-<script>
+    <script>
     var UrlConstant = {
         Menu: '@DataAccess.Enum.Menu.DOFA.ToString()',
         SerializeFormID: '#DOFATableform',
@@ -181,7 +198,10 @@
             if (_el.attr("name")) {
                 _el.attr("name", _el.attr("name").replace(dofaIndexVal, dofaIndexVal + 1));
             }
-            if (_el.attr("readonly") != true) {
+            if (_el.hasClass("empdept")) {
+                _el.val($("#EmpDept").val());
+            }
+            else {
                 _el.val("");
             }
             if (_el.hasClass("idno")) {
@@ -213,5 +233,5 @@
         });
     }
 
-</script>
+    </script>
 }

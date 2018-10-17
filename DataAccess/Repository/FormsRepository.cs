@@ -43,11 +43,12 @@ namespace DataAccess.Repository
             return this.GetEntity<stInfo>(info, _SELECT_DOAA1_INFO);
         }
 
-        public List<DofaInfo> GetDOFAFormDataByID(int DataCaptYM, string DeptID)
+        public List<DofaInfo> GetDOFAFormDataByID(int DataCaptYM, string DeptID, string empDept = "")
         {
             Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
             sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
             sqlParamDictionary.Add("DeptID", DeptID);
+            sqlParamDictionary.Add("empDept", empDept);
             IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_DOFA_Data);
             SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
             command.Connection = connection;
@@ -56,7 +57,7 @@ namespace DataAccess.Repository
             return dofaInfos;
         }
 
-        public bool UpdateBulkDOFAFormData(DataTable data, int DataCaptYM, string DeptID)
+        public bool UpdateBulkDOFAFormData(DataTable data, int DataCaptYM, string DeptID, string empDept = "")
         {
             SqlConnection connection = null;
             try
@@ -65,6 +66,7 @@ namespace DataAccess.Repository
                 sqlParamDictionary.Add("dofaData", data);
                 sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
                 sqlParamDictionary.Add("DeptID", DeptID);
+                sqlParamDictionary.Add("empDept", empDept);
                 IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_DOFA_Data);
                 connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
                 command.Connection = connection;
