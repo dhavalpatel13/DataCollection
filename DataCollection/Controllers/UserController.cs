@@ -62,6 +62,7 @@ namespace DataCollection.Controllers
                 rankUser.UserMob = user.MobileNo;
                 rankUser.DeptID = user.DeptID;
                 rankUser.UserWork = user.UserWork;
+                rankUser.UserRemarks = user.UserRemarks;
                 rankUser.UserValid = "N";
                 rankUser.UserRole = UserRoles.User.ToString();
                 rankUser.IsEmailVerified = false;
@@ -184,10 +185,19 @@ namespace DataCollection.Controllers
                             if (Convert.ToString(RankUser.UserValid).ToUpper().Trim() == "N" && RankUser.UserDisabledOn != null)
                             {
                                 ViewBag.Message = "Your account is blocked. Please Contact Admin";
+                                ViewBag.Status = false;
                             }
-                            else
+                            else if (Convert.ToString(RankUser.UserValid).ToUpper().Trim() == "N" && (!RankUser.IsEmailVerified ?? !false))
                             {
-                                ViewBag.Message = "Your registration is under process";
+                                ViewBag.Message = "Email link sent. kindly click on the link to complete registration";
+                                ViewBag.Status = false;
+                            }
+                            else if (Convert.ToString(RankUser.UserValid).ToUpper().Trim() == "N" && (RankUser.IsEmailVerified ?? false))
+                            {
+                                string href = Url.Action("Index", "Contact", null);
+                                var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, href);
+                                 ViewBag.Message = "Activation pending from Admin , IRD-SRIC. Kindly wait for some more time or Contact through <a href='" + link + "'> Contact Us </a>";
+                                 ViewBag.Status = false;
                             }
                             return View();
                         }

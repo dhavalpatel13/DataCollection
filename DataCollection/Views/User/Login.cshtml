@@ -26,7 +26,7 @@
             if (ViewBag.Status != null && !Convert.ToBoolean(ViewBag.Status))
             {
                 <div class="alert alert-danger">
-                    <strong>Error! </strong>@ViewBag.Message                
+                    <strong>Error! </strong> @Html.Raw(ViewBag.Message)
                 </div>
             }
         }
