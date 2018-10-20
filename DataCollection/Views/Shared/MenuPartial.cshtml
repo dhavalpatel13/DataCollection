@@ -6,11 +6,14 @@
                 @if (DataCollection.ManageSession.SessionManager.IsUserLogin == true
                                 && DataCollection.ManageSession.SessionManager.MenuList != null && DataCollection.ManageSession.SessionManager.MenuList.Count > 0)
                 {
-                    foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
-                    {
-                        <li>
-                            <a class="navnew" href="@Menu.MenuUrl">@Menu.MenuDetails</a>
-                        </li>
+                    if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.User.ToString().ToLower())
+                    { 
+                        foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
+                        {
+                            <li>
+                                <a class="navnew" href="@Menu.MenuUrl">@Menu.MenuDetails</a>
+                            </li>
+                        }
                     }
                 }
 
@@ -34,36 +37,50 @@
 {
     <marquee id="marquee" class="no-print" style="color:  #933; font-size: medium; font-weight:bold;"></marquee>
 
-    
-        <div class="navbar navbar-default" role="navigation">
-            <div class="container">
-                <div class="no-hover" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a class="navnew">User: @DataCollection.ManageSession.SessionManager.UserName</a></li>
-                        @if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
-                        {
-                            <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
-                        }
-                        else 
-                        { 
-                            <li><a class="navnew">Department: </a></li>
-                            <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle"></select></li>
-                        }
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="no-hover" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="navnew">User: @DataCollection.ManageSession.SessionManager.UserName</a></li>
+                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.User.ToString().ToLower())
+                    {
                         <li><a class="navnew">Role: @DataCollection.ManageSession.SessionManager.UserWork</a></li>
-                        <li><a class="navnew">Data Captured for :</a></li>
-                        <li>
-                            <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle">
-                                <option value="0">-Select-</option>
-                                <option value="201801">Jan-2018</option>
-                                <option value="201804">Jul-2018</option>
-                                <option value="201807">Dec-2018</option>
-                            </select>
-                        </li>
-                    </ul>
-                </div>
+                    }
+                    @if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
+                    {
+                        <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="navnew">Department: </a></li>
+                        <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; width: 165px;" class="btn btn-secondary dropdown-toggle"></select></li>
+                    }
+                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower())
+                    {
+                    <li><a class="navnew">Select Menu:</a></li>
+                    <li>
+                        <select id="MenuSelect" onchange="MenuChange();" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; float: left;" class="btn btn-secondary dropdown-toggle">
+                            @foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
+                            {
+                                <option value="@Menu.MenuUrl">@Menu.MenuDetails</option>
+                            }
+                        </select>
+                    </li>
+                    }
+                    <li><a class="navnew">Data Captured for :</a></li>
+                    <li>
+                        <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle">
+                            <option value="0">-Select-</option>
+                            <option value="201801">Jan-2018</option>
+                            <option value="201804">Jul-2018</option>
+                            <option value="201807">Dec-2018</option>
+                        </select>
+                    </li>
+                </ul>
             </div>
         </div>
-    
+    </div>
+
 }
 
 <script>
@@ -82,9 +99,20 @@
             MenuConstant.DeptId = $("#DepartmentsDDL").val();
             getDataCaptYearData();
         });
+
+        var CurrentMenu = localStorage.getItem("CurrentMenu");
+        if (CurrentMenu != null && CurrentMenu != '') {
+            $("#MenuSelect").val(CurrentMenu);
+        }
     });
 
     var MenuConstant = {
         DeptId: '@DataCollection.ManageSession.SessionManager.DeptID'
     };
+
+    function MenuChange() {
+        var menuUrl = $("#MenuSelect").val();
+        localStorage.setItem("CurrentMenu", menuUrl);
+        window.location = menuUrl;
+    }
 </script>
