@@ -97,7 +97,7 @@
                 });
             });
 
-            var CurrentMenu = localStorage.getItem("CurrentMenu");
+            var CurrentMenu = sessionStorage.getItem("CurrentMenu");
             $("#MenuSelect").val(CurrentMenu);            
             if (CurrentMenu != null && CurrentMenu != '' && '@Url.RequestContext.HttpContext.Request.Url.LocalPath' != CurrentMenu) {               
                 window.location = CurrentMenu;
@@ -116,7 +116,7 @@
 
     function MenuChange() {
         var menuUrl = $("#MenuSelect").val();
-        localStorage.setItem("CurrentMenu", menuUrl);
+        sessionStorage.setItem("CurrentMenu", menuUrl);
         window.location = menuUrl;
     }
 </script>

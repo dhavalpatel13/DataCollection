@@ -24,7 +24,7 @@ namespace DataCollection.Security
             {
                 base.OnAuthorization(filterContext);
 
-                if (EntityName != null && HttpContext.Current.User.Identity.IsAuthenticated && SessionManager.IsUserLogin && (SessionManager.MenuList != null && SessionManager.MenuList.Count() > 0))
+                if (HttpContext.Current.User.Identity.IsAuthenticated && SessionManager.IsUserLogin && (SessionManager.MenuList != null && SessionManager.MenuList.Count() > 0))
                 {
                     if (SessionManager.MenuList.Where(a => a.MenuID1.ToLower().Equals(EntityName.ToString().ToLower())).FirstOrDefault() == null)
                     {

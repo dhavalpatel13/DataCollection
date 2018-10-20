@@ -1,0 +1,169 @@
+﻿@model DataCollection.Models.FormsViewModel
+
+@{
+    ViewBag.Title = "Reports";
+}
+<div class="direction">
+    <h3>Reports</h3>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
+        <div class="panel-title">
+            <label class="control-label" style="margin-top:4px;display:inline;">From type :&nbsp;</label>
+            <select style="margin-right:10px !important; display:inline;" class="form-control" id="deptFormType">
+                <option value="">-- Select --</option>
+                <option value="ADIR">ADIR</option>
+                <option value="DOAA">DOAA</option>
+                <option value="DOFA">DOFA</option>
+                <option value="DOSW">DOSW</option>
+                <option value="LIBFORM">LIBFORM</option>
+                <option value="SRIC">SRIC</option>
+                <option value="SRICFA">SRICFA</option>
+            </select>
+
+            <label class="control-label" style="margin-top:4px;display:inline;">Report Type :&nbsp;</label>
+            <select style="margin-right:10px !important; display:inline;" class="form-control" id="reportType">
+                <option selected="selected" value="1">Excel</option>
+                <option value="2">CSV</option>
+            </select>
+            <button style="display:inline;" class="btn btn-default" type="button" disabled="true" id="generateReport">Generate Report</button>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div id="reportTableDiv" class="table-responsive-xl"></div>
+
+<div class="modal fade" id="ErrorAlertModel" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Error!</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <div class="alert alert-danger">
+                        <strong><span id="alertMsgSpan"></span></strong>
+                    </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<form id="downloadfileform" action="@Url.Action("DownloadFile","Forms")" method="post" style="display:none !important;">
+    <input type="hidden" id="downloadfileHdn" name="fileName" value="" />
+</form>
+
+@Html.Partial("AlertMessagePartail")
+
+<script type="text/javascript">
+
+    //"SRIC"
+
+    var rptArr = ["ADIR", "DOAA", "DOFA", "DOSW", "LIBFORM", "SRICFA"];
+    $("#deptFormType, #DataCaptYM").on("change", showHideAddReportbutton);
+    $("#generateReport").on("click", generateReportEvent);
+
+    var arrRpt = [];
+
+    function showHideAddReportbutton(e) {
+        var _elDept = $("#deptFormType").val() || "";
+        var _elYearMonth = $("#DataCaptYM").val() || "0";
+
+        if (parseInt(_elYearMonth) > 0 && rptArr.indexOf(_elDept.toUpperCase()) != -1) {
+            $("#generateReport").prop("disabled", false);
+        }
+        else {
+            $("#generateReport").prop("disabled", true);
+        }
+    }
+
+    function DownloadReport(el) {
+        var $el = $(el);
+        $("#downloadfileHdn").val($el.attr("data-file"));
+        $("#downloadfileform").submit();
+        $("#downloadfileHdn").val("");
+    }
+
+    function generateReportEvent() {
+        var _elDept = $("#deptFormType").val() || "";
+        var _elYearMonth = $("#DataCaptYM").val() || 0;
+
+        if (!(parseInt(_elYearMonth) > 0 && rptArr.indexOf(_elDept.toUpperCase()) != -1)) {
+            alert("Please Select required fields");
+            return false;
+        }
+
+        var myData = {};
+        myData.reportType = $("#reportType").val();
+        myData.yearMonth = _elYearMonth;
+        myData.deptId = _elDept;
+        myData.otherData = "";
+        myData.otherData = $("#DepartmentsDDL").val();
+
+        $.ajax({
+            url: '@(Url.Action("GenerateReport","Forms"))',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(myData), //data,
+            success: function (data, textStatus, jqXHR) {
+                if (data.success == true) {
+                    myData.fileName = data.fileName;
+                    arrRpt.push(myData);
+                    GenerateTableFromArray();
+                    //console.log(arrRpt);
+                } else {
+                    if (data.msg && data.msg.length > 0) {
+                        if ($("#alertMsgSpan").length > 0) {
+                            $("#alertMsgSpan").html(data.msg);
+                            $("#ErrorAlertModel").modal("show");
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                    else {
+                        if ($("#alertMsgSpan").length > 0) {
+                            $("#alertMsgSpan").html("Report Not Generated.. Error occurs on the Database level!");
+                            $("#ErrorAlertModel").modal("show");
+                        }
+                        else {
+                            alert("Report Not Generated.. Error occurs on the Database level!");
+                        }
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("An error has occured!!!");
+            }
+        });
+    }
+
+    function GenerateTableFromArray() {
+        
+        var _html = '<table class="table"><thead><tr><th align="center" valign="middle">Sr. No</th><th align="center" valign="middle">Department</th><th align="center" valign="middle">Data For</th><th align="center" valign="middle">ReportType</th><th align="center" valign="middle"></th></tr></thead><tbody>';
+
+        for (var i = 0; i < arrRpt.length; i++) {
+            var rpt = arrRpt[i];
+            _html += '<tr><td align="center" valign="middle">' + (i + 1) + '</td>';
+            _html += '<td align="center" valign="middle">' + rpt.deptId + '</td>';
+            _html += '<td align="center" valign="middle">' + rpt.yearMonth + '</td>';
+            _html += '<td align="center" valign="middle">' + (rpt.reportType == 1 ? "Excel" : "CSV") + '</td>';
+            _html += '<td align="center" valign="middle"><a href="javascript:;" onclick="DownloadReport(this)" data-file="' + rpt.fileName + '">Download</a></td><tr>';
+        }
+        _html = _html + '</tbody></table>';
+
+        $("#reportTableDiv").html(_html);
+    }
+
+</script>
+

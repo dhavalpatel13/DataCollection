@@ -26,6 +26,7 @@ namespace DataAccess.Repository
         const string _Bulk_Update_SricFA_Data = "Bulk_Update_SricFA_DATA_BY_DataCaptYM_DeptID";
         const string _SELECT_SricDept_Data = "SRIC_DEPT_DATA_SELECT_BY_DataCaptYM";
         const string _Bulk_Update_SricDept_Data = "Bulk_Update_SRIC_DEPT_BY_DataCaptYM";
+        const string _Rpt_SELECT_BY_DataCaptYM_DeptID = "Rpt_SELECT_BY_DataCaptYM_DeptID";
 
         /// <summary>
         /// 
@@ -282,6 +283,30 @@ namespace DataAccess.Repository
             command.ExecuteNonQuery();
             DBConnectionHelper.CloseSqlConnection(connection);
             return true;
+        }
+
+        public DataTable GetReportData(int DataCaptYM, string DeptID, string empDept = "")
+        {
+            Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+            sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+            sqlParamDictionary.Add("DeptID", DeptID);
+            sqlParamDictionary.Add("empDept", empDept);
+
+            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+            IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Rpt_SELECT_BY_DataCaptYM_DeptID);
+            SqlConnection sqlConnection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+            command.Connection = sqlConnection;
+            dataAdapter.SelectCommand = (SqlCommand)command;
+            DataSet dataSet = new DataSet();
+            dataAdapter.Fill(dataSet);
+            if (dataSet.Tables.Count > 0)
+            {
+                return dataSet.Tables[0];
+            }
+            else
+            {
+                return new DataTable();
+            }
         }
     }
 }
