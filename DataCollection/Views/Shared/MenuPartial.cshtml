@@ -46,15 +46,7 @@
                     {
                         <li><a class="navnew">Role: @DataCollection.ManageSession.SessionManager.UserWork</a></li>
                     }
-                    @if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
-                    {
-                        <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
-                    }
-                    else
-                    {
-                        <li><a class="navnew">Department: </a></li>
-                        <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; width: 165px;" class="btn btn-secondary dropdown-toggle"></select></li>
-                    }
+                    
                     @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower())
                     {
                     <li><a class="navnew">Select Menu:</a></li>
@@ -65,8 +57,19 @@
                                 <option value="@Menu.MenuUrl">@Menu.MenuDetails</option>
                             }
                         </select>
-                    </li>
+                    </li>                        
                     }
+                    
+                    @if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
+                    {
+                        <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="navnew">Department: </a></li>
+                        <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; width: 165px;" class="btn btn-secondary dropdown-toggle"></select></li>
+                    }
+
                     <li><a class="navnew">Data Captured for :</a></li>
                     <li>
                         <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle">
@@ -93,17 +96,18 @@
                     $("#DepartmentsDDL").append($('<option></option>').text(item.Text).val(item.Value));
                 });
             });
+
+            var CurrentMenu = localStorage.getItem("CurrentMenu");
+            $("#MenuSelect").val(CurrentMenu);            
+            if (CurrentMenu != null && CurrentMenu != '' && '@Url.RequestContext.HttpContext.Request.Url.LocalPath' != CurrentMenu) {               
+                window.location = CurrentMenu;
+            }
         }
 
         $("#DepartmentsDDL").change(function () {
             MenuConstant.DeptId = $("#DepartmentsDDL").val();
             getDataCaptYearData();
-        });
-
-        var CurrentMenu = localStorage.getItem("CurrentMenu");
-        if (CurrentMenu != null && CurrentMenu != '') {
-            $("#MenuSelect").val(CurrentMenu);
-        }
+        });        
     });
 
     var MenuConstant = {

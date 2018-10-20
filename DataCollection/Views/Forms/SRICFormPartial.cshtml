@@ -16,6 +16,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    <i class="more-less glyphicon glyphicon-minus"></i>
                     <h4 class="panel-title">Sponsored Research Projects (Deptt.-wise)</h4>
                 </a>
             </div>
@@ -52,6 +53,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    <i class="more-less glyphicon glyphicon-plus"></i>
                     <h4 class="panel-title">Consultancy Projects (Deptt.-wise)</h4>
                 </a>
             </div>
@@ -88,6 +90,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    <i class="more-less glyphicon glyphicon-plus"></i>
                     <h4 class="panel-title">Conference / Symposia / Seminars</h4>
                 </a>
             </div>
@@ -124,6 +127,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                    <i class="more-less glyphicon glyphicon-plus"></i>
                     <h4 class="panel-title">Details of Intellectual Property</h4>
                 </a>
             </div>
@@ -160,6 +164,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                    <i class="more-less glyphicon glyphicon-plus"></i>
                     <h4 class="panel-title">Details of Technology Transfer</h4>
                 </a>
             </div>
@@ -196,6 +201,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                    <i class="more-less glyphicon glyphicon-plus"></i>
                     <h4 class="panel-title">Details of Copy Rights</h4>
                 </a>
             </div>
@@ -232,6 +238,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                    <i class="more-less glyphicon glyphicon-plus"></i>
                     <h4 class="panel-title">Details of Logo/Design Copy Rights</h4>
                 </a>
             </div>
@@ -324,7 +331,15 @@
         Menu: '@DataAccess.Enum.Menu.SRIC.ToString()',
         SerializeFormID: '#SRICTableform',
         TableDivID: '#SRICTableDiv'
-    };
+        };
 
+    function toggleIcon(e) {
+        $(e.target)
+            .prev('.panel-heading')
+            .find(".more-less")
+            .toggleClass('glyphicon-plus glyphicon-minus');
+    }
+    $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+    $('.panel-group').on('shown.bs.collapse', toggleIcon);
     </script>
 }

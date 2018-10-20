@@ -164,7 +164,8 @@ namespace DataCollection.Controllers
             }
             ViewBag.Message = Convert.ToString(TempData["Message"]);
             ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
-            return View();
+
+            return View(new LoginViewModel());
         }
 
         //Login POST

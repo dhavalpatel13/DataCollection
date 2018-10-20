@@ -114,6 +114,7 @@ div.content{width:1000px;height:1000px;}
 .panel-default {border-color: #97bad8;}
 #DOFATableform .table-responsive-xl {overflow:auto !important;}
 #SRICTableDiv table tr td:first-child {width: 50%;}
+.more-less {float: right;}
 
  @media print{
     .no-print, .no-print *{display:none !important;}   
