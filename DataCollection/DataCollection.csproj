@@ -212,6 +212,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\deflogo.jpg" />
     <Content Include="Images\IITRNewLogo.jpg" />
+    <Content Include="Images\IRDBanner1.png" />
+    <Content Include="Images\IRDBanner2.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\loading1.gif" />
     <Content Include="Images\loading2.gif" />
