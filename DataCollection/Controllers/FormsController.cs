@@ -98,7 +98,7 @@ namespace DataCollection.Controllers
 
         #endregion Common Methods
 
-        #region  DOAA Form      
+        #region  DOAA Form
         [CustomAuthorize(EntityName = Menu.DOAA)]
         public ActionResult DOAAForm(string DataCaptYM)
         {

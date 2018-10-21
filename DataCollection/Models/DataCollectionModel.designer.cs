@@ -42,12 +42,12 @@ namespace DataCollection.Models
     partial void InsertUserMenu(UserMenu instance);
     partial void UpdateUserMenu(UserMenu instance);
     partial void DeleteUserMenu(UserMenu instance);
-    partial void InsertMenuID(MenuID instance);
-    partial void UpdateMenuID(MenuID instance);
-    partial void DeleteMenuID(MenuID instance);
     partial void InsertRankUser(RankUser instance);
     partial void UpdateRankUser(RankUser instance);
     partial void DeleteRankUser(RankUser instance);
+    partial void InsertMenuID(MenuID instance);
+    partial void UpdateMenuID(MenuID instance);
+    partial void DeleteMenuID(MenuID instance);
     #endregion
 		
 		public DataCollectionModelDataContext() : 
@@ -120,19 +120,19 @@ namespace DataCollection.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<MenuID> MenuIDs
-		{
-			get
-			{
-				return this.GetTable<MenuID>();
-			}
-		}
-		
 		public System.Data.Linq.Table<RankUser> RankUsers
 		{
 			get
 			{
 				return this.GetTable<RankUser>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MenuID> MenuIDs
+		{
+			get
+			{
+				return this.GetTable<MenuID>();
 			}
 		}
 	}
@@ -604,116 +604,6 @@ namespace DataCollection.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MenuIDs")]
-	public partial class MenuID : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _MenuID1;
-		
-		private string _MenuDetails;
-		
-		private string _MenuUrl;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMenuID1Changing(string value);
-    partial void OnMenuID1Changed();
-    partial void OnMenuDetailsChanging(string value);
-    partial void OnMenuDetailsChanged();
-    partial void OnMenuUrlChanging(string value);
-    partial void OnMenuUrlChanged();
-    #endregion
-		
-		public MenuID()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MenuID", Storage="_MenuID1", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string MenuID1
-		{
-			get
-			{
-				return this._MenuID1;
-			}
-			set
-			{
-				if ((this._MenuID1 != value))
-				{
-					this.OnMenuID1Changing(value);
-					this.SendPropertyChanging();
-					this._MenuID1 = value;
-					this.SendPropertyChanged("MenuID1");
-					this.OnMenuID1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuDetails", DbType="NVarChar(100)")]
-		public string MenuDetails
-		{
-			get
-			{
-				return this._MenuDetails;
-			}
-			set
-			{
-				if ((this._MenuDetails != value))
-				{
-					this.OnMenuDetailsChanging(value);
-					this.SendPropertyChanging();
-					this._MenuDetails = value;
-					this.SendPropertyChanged("MenuDetails");
-					this.OnMenuDetailsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuUrl", DbType="NVarChar(500)")]
-		public string MenuUrl
-		{
-			get
-			{
-				return this._MenuUrl;
-			}
-			set
-			{
-				if ((this._MenuUrl != value))
-				{
-					this.OnMenuUrlChanging(value);
-					this.SendPropertyChanging();
-					this._MenuUrl = value;
-					this.SendPropertyChanged("MenuUrl");
-					this.OnMenuUrlChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RankUsers")]
 	public partial class RankUser : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1111,6 +1001,140 @@ namespace DataCollection.Models
 					this._ResetPasswordCode = value;
 					this.SendPropertyChanged("ResetPasswordCode");
 					this.OnResetPasswordCodeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MenuIDs")]
+	public partial class MenuID : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _MenuID1;
+		
+		private string _MenuDetails;
+		
+		private string _MenuUrl;
+		
+		private System.Nullable<bool> _IsAdminMenu;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMenuID1Changing(string value);
+    partial void OnMenuID1Changed();
+    partial void OnMenuDetailsChanging(string value);
+    partial void OnMenuDetailsChanged();
+    partial void OnMenuUrlChanging(string value);
+    partial void OnMenuUrlChanged();
+    partial void OnIsAdminMenuChanging(System.Nullable<bool> value);
+    partial void OnIsAdminMenuChanged();
+    #endregion
+		
+		public MenuID()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MenuID", Storage="_MenuID1", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MenuID1
+		{
+			get
+			{
+				return this._MenuID1;
+			}
+			set
+			{
+				if ((this._MenuID1 != value))
+				{
+					this.OnMenuID1Changing(value);
+					this.SendPropertyChanging();
+					this._MenuID1 = value;
+					this.SendPropertyChanged("MenuID1");
+					this.OnMenuID1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuDetails", DbType="NVarChar(100)")]
+		public string MenuDetails
+		{
+			get
+			{
+				return this._MenuDetails;
+			}
+			set
+			{
+				if ((this._MenuDetails != value))
+				{
+					this.OnMenuDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._MenuDetails = value;
+					this.SendPropertyChanged("MenuDetails");
+					this.OnMenuDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuUrl", DbType="NVarChar(500)")]
+		public string MenuUrl
+		{
+			get
+			{
+				return this._MenuUrl;
+			}
+			set
+			{
+				if ((this._MenuUrl != value))
+				{
+					this.OnMenuUrlChanging(value);
+					this.SendPropertyChanging();
+					this._MenuUrl = value;
+					this.SendPropertyChanged("MenuUrl");
+					this.OnMenuUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAdminMenu", DbType="Bit")]
+		public System.Nullable<bool> IsAdminMenu
+		{
+			get
+			{
+				return this._IsAdminMenu;
+			}
+			set
+			{
+				if ((this._IsAdminMenu != value))
+				{
+					this.OnIsAdminMenuChanging(value);
+					this.SendPropertyChanging();
+					this._IsAdminMenu = value;
+					this.SendPropertyChanged("IsAdminMenu");
+					this.OnIsAdminMenuChanged();
 				}
 			}
 		}

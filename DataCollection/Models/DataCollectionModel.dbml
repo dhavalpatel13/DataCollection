@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RANK" Class="DataCollectionModelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PC;Initial Catalog=RANK;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PC;Initial Catalog=RANK;Integrated Security=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Depts" Member="Depts">
     <Type Name="Dept">
       <Column Name="SNo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
@@ -33,13 +33,6 @@
       <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.MenuIDs" Member="MenuIDs">
-    <Type Name="MenuID">
-      <Column Name="MenuID" Member="MenuID1" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MenuDetails" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="MenuUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.RankUsers" Member="RankUsers">
     <Type Name="RankUser">
       <Column Name="UserID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -58,6 +51,14 @@
       <Column Name="IsEmailVerified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="ActivationCode" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="ResetPasswordCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MenuIDs" Member="MenuIDs">
+    <Type Name="MenuID">
+      <Column Name="MenuID" Member="MenuID1" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MenuDetails" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MenuUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsAdminMenu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

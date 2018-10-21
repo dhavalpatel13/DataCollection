@@ -15,6 +15,15 @@
                             </li>
                         }
                     }
+                    else
+                    {
+                        foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList.Where(a => a.IsAdminMenu == true).ToList())
+                        {
+                            <li>
+                                <a class="navnew" href="@Menu.MenuUrl">@Menu.MenuDetails</a>
+                            </li>
+                        }
+                    }
                 }
 
                 @if (DataCollection.ManageSession.SessionManager.IsUserLogin == true)
@@ -47,12 +56,12 @@
                         <li><a class="navnew">Role: @DataCollection.ManageSession.SessionManager.UserWork</a></li>
                     }
                     
-                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower())
+                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower() && @Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Forms/ReportsForm".ToString().ToLower())
                     {
                     <li><a class="navnew">Select Menu:</a></li>
                     <li>
                         <select id="MenuSelect" onchange="MenuChange();" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; float: left;" class="btn btn-secondary dropdown-toggle">
-                            @foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
+                            @foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList.Where(a => a.IsAdminMenu == false).ToList())
                             {
                                 <option value="@Menu.MenuUrl">@Menu.MenuDetails</option>
                             }
@@ -96,9 +105,13 @@
                     $("#DepartmentsDDL").append($('<option></option>').text(item.Text).val(item.Value));
                 });
             });
-
+            
             var CurrentMenu = sessionStorage.getItem("CurrentMenu");
-            $("#MenuSelect").val(CurrentMenu);            
+            if (CurrentMenu == null || CurrentMenu == "") {
+                $("#MenuSelect").val($("#MenuSelect option:first").val());
+            } else {
+                $("#MenuSelect").val(CurrentMenu);
+            }
             if (CurrentMenu != null && CurrentMenu != '' && '@Url.RequestContext.HttpContext.Request.Url.LocalPath' != CurrentMenu) {               
                 window.location = CurrentMenu;
             }
