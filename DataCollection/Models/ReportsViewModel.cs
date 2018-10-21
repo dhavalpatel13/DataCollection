@@ -13,9 +13,8 @@ namespace DataCollection.Models
 {
     public class ReportsViewModel
     {
-        public static string DataTableToCSV(DataTable datatable, char seperator)
+        private static StringBuilder DataTableToCSV(DataTable datatable, char seperator, StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < datatable.Columns.Count; i++)
             {
                 sb.Append(datatable.Columns[i]);
@@ -34,10 +33,12 @@ namespace DataCollection.Models
                 }
                 sb.AppendLine();
             }
-            return sb.ToString();
+            sb.AppendLine();
+            sb.AppendLine();
+            return sb;
         }
 
-        public static void GenerateExcelFromDataTable(string sheetName,DataTable dt, string filename, int fileType)
+        public static void GenerateExcelFromDataTable(string sheetName,DataSet dataSet, string filename, int fileType)
         {
             switch (fileType)
             {
@@ -45,7 +46,12 @@ namespace DataCollection.Models
                     {
                         using (XLWorkbook wb = new XLWorkbook())
                         {
-                            wb.Worksheets.Add(dt, string.IsNullOrWhiteSpace(sheetName) ? "Sheet1" : sheetName);
+                            for (int i = 0; i < dataSet.Tables.Count; i++)
+                            {
+                                var sName = (string.IsNullOrWhiteSpace(sheetName) ? "Sheet" : sheetName) + (dataSet.Tables.Count > 1 ? (i + 1).ToString() : "");
+                                wb.Worksheets.Add(dataSet.Tables[i], sName);
+                            }
+
                             MemoryStream stream = new MemoryStream();
                             wb.SaveAs(filename, false);
                         }
@@ -53,12 +59,18 @@ namespace DataCollection.Models
                     break;
                 case 2:
                     {
-                        string csvData = DataTableToCSV(dt, ',');
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < dataSet.Tables.Count; i++)
+                        {
+                            sb = DataTableToCSV(dataSet.Tables[i], ',', sb);
+                        }
+
                         using (FileStream fs = File.Create(filename))
                         {
-                            byte[] info = new UTF8Encoding(true).GetBytes(csvData);
+                            byte[] info = new UTF8Encoding(true).GetBytes(sb.ToString());
                             fs.Write(info, 0, info.Length);
                         }
+                        
                     }
                     break;
             }            
@@ -75,14 +87,17 @@ namespace DataCollection.Models
                 try
                 {
                     var data = GetReportData(item);
-                    if (data == null || data.Columns.Count == 0)
+                    if (data == null || data.Tables.Count == 0)
                     {
                         result.msg = "No result";
                     }
-                    var fileName = (Guid.NewGuid()).ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + item.deptId + (result.reportType == 1 ? ".xlsx" : ".csv");
-                    GenerateExcelFromDataTable(item.deptId,data, Path.Combine(dirPath, fileName), result.reportType);
-                    result.fileName = fileName;
-                    result.success = true;
+                    else
+                    {
+                        var fileName = (Guid.NewGuid()).ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + item.menuId + (result.reportType == 1 ? ".xlsx" : ".csv");
+                        GenerateExcelFromDataTable(item.menuId, data, Path.Combine(dirPath, fileName), result.reportType);
+                        result.fileName = fileName;
+                        result.success = true;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -99,11 +114,11 @@ namespace DataCollection.Models
 
         }
 
-        public DataTable GetReportData(ReportRequestData data)
+        public DataSet GetReportData(ReportRequestData data)
         {
             FormsRepository formsRepository = new FormsRepository();
-            DataTable dt = formsRepository.GetReportData(data.yearMonth, data.deptId, data.otherData);
-            return dt;
+            DataSet dataSet = formsRepository.GetReportData(data.yearMonth, data.menuId, data.deptId);
+            return dataSet;
         }
     }
 
@@ -111,8 +126,8 @@ namespace DataCollection.Models
     {
         public int reportType { get; set; }
         public int yearMonth { get; set; }
+        public string menuId { get; set; }
         public string deptId { get; set; }
-        public string otherData { get; set; }
     }
 
     public class ReportResponseData

@@ -398,7 +398,7 @@
   </sproc>
   <sproc name="Rpt_SELECT_BY_DataCaptYM_DeptID">
     <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+    <param name="MenuID" SqlDbType="12" direction="1"></param>
     <param name="DeptID" SqlDbType="12" direction="1"></param>
-    <param name="empDept" SqlDbType="12" direction="1"></param>
   </sproc>
 </sprocs>

@@ -47,7 +47,7 @@
             <div class="modal-body">
                 <p>
                     <div class="alert alert-danger">
-                        <strong><span id="alertMsgSpan"></span></strong>
+                        <span id="alertMsgSpan"></span>
                     </div>
                 </p>
             </div>
@@ -106,9 +106,11 @@
         var myData = {};
         myData.reportType = $("#reportType").val();
         myData.yearMonth = _elYearMonth;
-        myData.deptId = _elDept;
-        myData.otherData = "";
-        myData.otherData = $("#DepartmentsDDL").val();
+        myData.yearMonthName = _elYearMonth > 0 ? ($("#DataCaptYM option:selected").text() || "") : "";
+        myData.menuId = _elDept;
+        myData.MenuName = _elDept != "" ? ($("#deptFormType option:selected").text() || "") : "";
+        myData.deptId = $("#DepartmentsDDL").val() != "0" ? ($("#DepartmentsDDL").val() || "") : "";
+        myData.deptName = $("#DepartmentsDDL").val() != "0" ? ($("#DepartmentsDDL option:selected").text() || "") : "";
 
         $.ajax({
             url: '@(Url.Action("GenerateReport","Forms"))',
@@ -150,13 +152,14 @@
 
     function GenerateTableFromArray() {
         
-        var _html = '<table class="table"><thead><tr><th align="center" valign="middle">Sr. No</th><th align="center" valign="middle">Department</th><th align="center" valign="middle">Data For</th><th align="center" valign="middle">ReportType</th><th align="center" valign="middle"></th></tr></thead><tbody>';
+        var _html = '<table class="table"><thead><tr><th align="center" valign="middle">Sr. No</th><th align="center" valign="middle">Form Type</th><th align="center" valign="middle">Data For</th><th align="center" valign="middle">Department</th><th align="center" valign="middle">ReportType</th><th align="center" valign="middle"></th></tr></thead><tbody>';
 
         for (var i = 0; i < arrRpt.length; i++) {
             var rpt = arrRpt[i];
             _html += '<tr><td align="center" valign="middle">' + (i + 1) + '</td>';
-            _html += '<td align="center" valign="middle">' + rpt.deptId + '</td>';
-            _html += '<td align="center" valign="middle">' + rpt.yearMonth + '</td>';
+            _html += '<td align="center" valign="middle">' + rpt.MenuName + '</td>';
+            _html += '<td align="center" valign="middle">' + rpt.yearMonthName + '</td>';
+            _html += '<td align="center" valign="middle">' + rpt.deptName + '</td>';
             _html += '<td align="center" valign="middle">' + (rpt.reportType == 1 ? "Excel" : "CSV") + '</td>';
             _html += '<td align="center" valign="middle"><a href="javascript:;" onclick="DownloadReport(this)" data-file="' + rpt.fileName + '">Download</a></td><tr>';
         }

@@ -285,12 +285,12 @@ namespace DataAccess.Repository
             return true;
         }
 
-        public DataTable GetReportData(int DataCaptYM, string DeptID, string empDept = "")
+        public DataSet GetReportData(int DataCaptYM, string MenuID, string DeptID = "")
         {
             Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
             sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+            sqlParamDictionary.Add("MenuID", MenuID);
             sqlParamDictionary.Add("DeptID", DeptID);
-            sqlParamDictionary.Add("empDept", empDept);
 
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Rpt_SELECT_BY_DataCaptYM_DeptID);
@@ -299,14 +299,7 @@ namespace DataAccess.Repository
             dataAdapter.SelectCommand = (SqlCommand)command;
             DataSet dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
-            if (dataSet.Tables.Count > 0)
-            {
-                return dataSet.Tables[0];
-            }
-            else
-            {
-                return new DataTable();
-            }
+            return dataSet;
         }
     }
 }
