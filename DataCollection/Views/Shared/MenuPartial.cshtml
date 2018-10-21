@@ -61,6 +61,7 @@
                     <li><a class="navnew">Select Menu:</a></li>
                     <li>
                         <select id="MenuSelect" onchange="MenuChange();" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; float: left;" class="btn btn-secondary dropdown-toggle">
+                            <option value="">-- select --</option>
                             @foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList.Where(a => a.IsAdminMenu == false).ToList())
                             {
                                 <option value="@Menu.MenuUrl">@Menu.MenuDetails</option>
@@ -106,19 +107,20 @@
                 });
             });
             
-            var CurrentMenu = sessionStorage.getItem("CurrentMenu");
-            if (CurrentMenu == null || CurrentMenu == "") {
-                $("#MenuSelect").val($("#MenuSelect option:first").val());
-            } else {
-                $("#MenuSelect").val(CurrentMenu);
-            }
-            if (CurrentMenu != null && CurrentMenu != '' && '@Url.RequestContext.HttpContext.Request.Url.LocalPath' != CurrentMenu) {               
-                window.location = CurrentMenu;
+            if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Forms/ReportsForm').toLowerCase() && '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase()) {
+                var CurrentMenu = sessionStorage.getItem("CurrentMenu");
+                if (CurrentMenu == null || CurrentMenu == "") {
+                    $("#MenuSelect").val($("#MenuSelect option:first").val());
+                } else {
+                    $("#MenuSelect").val(CurrentMenu);
+                }
+                if (CurrentMenu != null && CurrentMenu != '' && '@Url.RequestContext.HttpContext.Request.Url.LocalPath' != CurrentMenu) {
+                    window.location = CurrentMenu;
+                }
             }
         }
 
         $("#DepartmentsDDL").change(function () {
-            MenuConstant.DeptId = $("#DepartmentsDDL").val();
             getDataCaptYearData();
         });        
     });
