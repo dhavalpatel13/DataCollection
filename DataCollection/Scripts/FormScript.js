@@ -14,11 +14,12 @@
 function getDataCaptYearData()
 {
     $("#DataCaptYMhid").val($("#DataCaptYM").val());
+
     $.post("/Forms/OnDAtaCaptYMChange",
     {
         DataCaptYM: $("#DataCaptYM").val().toString(),
         Menu: UrlConstant.Menu,
-        DeptID: MenuConstant.DeptId
+        DeptID: MenuConstant.IsAdmin ? $("#DepartmentsDDL").val() : MenuConstant.DeptId
     },
     function (data) {
         var tableDivId = UrlConstant.TableDivID;

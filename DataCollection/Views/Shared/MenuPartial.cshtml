@@ -107,7 +107,7 @@
                 });
             });
             
-            if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Forms/ReportsForm').toLowerCase() && '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase()) {
+            if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/ReportsForm').toLowerCase() && '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase()) {
                 var CurrentMenu = sessionStorage.getItem("CurrentMenu");
                 if (CurrentMenu == null || CurrentMenu == "") {
                     $("#MenuSelect").val($("#MenuSelect option:first").val());
@@ -126,7 +126,8 @@
     });
 
     var MenuConstant = {
-        DeptId: '@DataCollection.ManageSession.SessionManager.DeptID'
+        DeptId: '@DataCollection.ManageSession.SessionManager.DeptID',
+        IsAdmin: ('@DataCollection.ManageSession.SessionManager.UserRole.ToLower()' == '@DataAccess.Enum.UserRoles.Admin.ToString().ToLower()')
     };
 
     function MenuChange() {
