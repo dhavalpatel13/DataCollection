@@ -308,7 +308,7 @@
     <Content Include="Views\Contact\Contact.cshtml" />
     <Content Include="Views\AboutUs\AboutUs.cshtml" />
     <Content Include="Views\Forms\EditorTemplates\SricFASinglePartial.cshtml" />
-    <Content Include="Views\Forms\ReportsForm.cshtml" />
+    <Content Include="Views\Admin\ReportsForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -56,7 +56,7 @@
                         <li><a class="navnew">Role: @DataCollection.ManageSession.SessionManager.UserWork</a></li>
                     }
                     
-                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower() && @Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Forms/ReportsForm".ToString().ToLower())
+                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower() && @Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Admin/ReportsForm".ToString().ToLower())
                     {
                     <li><a class="navnew">Select Menu:</a></li>
                     <li>

@@ -11,7 +11,6 @@ using DataCollection.FormService;
 using Newtonsoft.Json.Linq;
 using DataCollection.Security;
 using DataAccess.Enum;
-using System.IO;
 
 namespace DataCollection.Controllers
 {
@@ -197,37 +196,5 @@ namespace DataCollection.Controllers
         }
         #endregion DOSW Form
 
-        public ActionResult ReportsForm(string DataCaptYM)
-        {
-            FormsViewModel vm = new FormsViewModel();
-            return View(vm);
-        }
-
-        public JsonResult GenerateReport(ReportRequestData model)
-        {
-            var dirPath = Server.MapPath("~/Uploads");
-            ReportsViewModel vm = new ReportsViewModel();
-            var data = vm.GenerateReport(model, dirPath);
-            return Json(data);
-        }
-
-        [HttpPost]
-        public ActionResult DownloadFile(string fileName)
-        {
-            string fullPath = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-            if (System.IO.File.Exists(fullPath))
-            {
-                if (fileName.ToLower().EndsWith(".xlsx"))
-                {
-                    return File(fullPath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
-
-                }
-                else if (fileName.ToLower().EndsWith(".csv"))
-                {
-                    return File(fullPath, "application/csv", fileName);
-                }
-            }
-            return HttpNotFound();
-        }
     }
 }

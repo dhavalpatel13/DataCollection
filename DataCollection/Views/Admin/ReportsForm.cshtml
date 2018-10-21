@@ -27,7 +27,7 @@
                 <option selected="selected" value="1">Excel</option>
                 <option value="2">CSV</option>
             </select>
-            <button style="display:inline;" class="btn btn-default" type="button" disabled="true" id="generateReport">Generate Report</button>
+            <button style="display:inline;" class="btn btn-primary" type="button" disabled="true" id="generateReport">Generate Report</button>
         </div>
     </div>
 </div>
@@ -59,7 +59,7 @@
     </div>
 </div>
 
-<form id="downloadfileform" action="@Url.Action("DownloadFile","Forms")" method="post" style="display:none !important;">
+<form id="downloadfileform" action="@Url.Action("DownloadFile","Admin")" method="post" style="display:none !important;">
     <input type="hidden" id="downloadfileHdn" name="fileName" value="" />
 </form>
 
@@ -67,9 +67,7 @@
 
 <script type="text/javascript">
 
-    //"SRIC"
-
-    var rptArr = ["ADIR", "DOAA", "DOFA", "DOSW", "LIBFORM", "SRICFA"];
+    var rptArr = ["ADIR", "DOAA", "DOFA", "DOSW", "LIBFORM", "SRICFA", "SRIC"];
     $("#deptFormType, #DataCaptYM").on("change", showHideAddReportbutton);
     $("#generateReport").on("click", generateReportEvent);
 
@@ -113,7 +111,7 @@
         myData.deptName = $("#DepartmentsDDL").val() != "0" ? ($("#DepartmentsDDL option:selected").text() || "") : "";
 
         $.ajax({
-            url: '@(Url.Action("GenerateReport","Forms"))',
+            url: '@(Url.Action("GenerateReport", "Admin"))',
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(myData), //data,
