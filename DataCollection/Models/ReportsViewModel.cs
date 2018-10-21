@@ -89,7 +89,7 @@ namespace DataCollection.Models
                     var data = GetReportData(item);
                     if (data == null || data.Tables.Count == 0)
                     {
-                        result.msg = "No result";
+                        result.msg = "No Data Available for Selected Report.";
                     }
                     else
                     {
