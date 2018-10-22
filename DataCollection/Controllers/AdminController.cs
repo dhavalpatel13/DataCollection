@@ -126,7 +126,7 @@ namespace DataCollection.Controllers
 
         public JsonResult GenerateReport(ReportRequestData model)
         {
-            var dirPath = Server.MapPath("~/Uploads");
+            var dirPath = System.Web.Configuration.WebConfigurationManager.AppSettings["ReportPath"].ToString();
             ReportsViewModel vm = new ReportsViewModel();
             var data = vm.GenerateReport(model, dirPath);
             return Json(data);
@@ -135,7 +135,7 @@ namespace DataCollection.Controllers
         [HttpPost]
         public ActionResult DownloadFile(string fileName)
         {
-            string fullPath = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+            string fullPath = Path.Combine(System.Web.Configuration.WebConfigurationManager.AppSettings["ReportPath"].ToString(), fileName);
             if (System.IO.File.Exists(fullPath))
             {
                 if (fileName.ToLower().EndsWith(".xlsx"))

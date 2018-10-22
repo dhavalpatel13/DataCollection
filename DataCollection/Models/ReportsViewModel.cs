@@ -93,7 +93,7 @@ namespace DataCollection.Models
                     }
                     else
                     {
-                        var fileName = (Guid.NewGuid()).ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + item.menuId + (result.reportType == 1 ? ".xlsx" : ".csv");
+                        var fileName = item.menuId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + (result.reportType == 1 ? ".xlsx" : ".csv");
                         GenerateExcelFromDataTable(item.menuId, data, Path.Combine(dirPath, fileName), result.reportType);
                         result.fileName = fileName;
                         result.success = true;
