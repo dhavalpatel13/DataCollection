@@ -15,22 +15,24 @@ function getDataCaptYearData()
 {
     $("#DataCaptYMhid").val($("#DataCaptYM").val());
 
-    $.post("/Forms/OnDAtaCaptYMChange",
-    {
-        DataCaptYM: $("#DataCaptYM").val().toString(),
-        Menu: UrlConstant.Menu,
-        DeptID: MenuConstant.IsAdmin ? $("#DepartmentsDDL").val() : MenuConstant.DeptId
-    },
-    function (data) {
-        var tableDivId = UrlConstant.TableDivID;
-        $(tableDivId).html("");
-        $(tableDivId).html(data);
-        if ($("#DataCaptYM").val() > 0) {
-            $("#buttonUL").show();
-        } else {
-            $("#buttonUL").hide();
-        }        
-    });
+    if (UrlConstant.Menu != '-1' && UrlConstant.Menu != '') {
+        $.post("/Forms/OnDAtaCaptYMChange",
+        {
+            DataCaptYM: $("#DataCaptYM").val().toString(),
+            Menu: UrlConstant.Menu,
+            DeptID: MenuConstant.IsAdmin ? $("#DepartmentsDDL").val() : MenuConstant.DeptId
+        },
+        function (data) {
+            var tableDivId = UrlConstant.TableDivID;
+            $(tableDivId).html("");
+            $(tableDivId).html(data);
+            if ($("#DataCaptYM").val() > 0) {
+                $("#buttonUL").show();
+            } else {
+                $("#buttonUL").hide();
+            }
+        });
+    }
 }
 
 function bindCalculateTotal(obj)

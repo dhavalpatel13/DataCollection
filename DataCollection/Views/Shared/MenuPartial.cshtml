@@ -70,25 +70,28 @@
                     </li>                        
                     }
                     
-                    @if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
-                    {
-                        <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
-                    }
-                    else
-                    {
-                        <li><a class="navnew">Department: </a></li>
-                        <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; width: 165px;" class="btn btn-secondary dropdown-toggle"></select></li>
-                    }
+                    @if (Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Admin/ReportsForm".ToString().ToLower()) 
+                    { 
+                        if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
+                        {
+                            <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navnew">Department: </a></li>
+                            <li><select id="DepartmentsDDL" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; width: 165px;" class="btn btn-secondary dropdown-toggle"></select></li>
+                        }
 
-                    <li><a class="navnew">Data Captured for :</a></li>
-                    <li>
-                        <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle">
-                            <option value="0">-Select-</option>
-                            <option value="201801">Jan-2018</option>
-                            <option value="201804">Jul-2018</option>
-                            <option value="201807">Dec-2018</option>
-                        </select>
-                    </li>
+                        <li><a class="navnew">Data Captured for :</a></li>
+                        <li>
+                            <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle">
+                                <option value="0">-Select-</option>
+                                <option value="201801">Jan-2018</option>
+                                <option value="201804">Jul-2018</option>
+                                <option value="201807">Dec-2018</option>
+                            </select>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -107,7 +110,10 @@
                 });
             });
             
-            if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/ReportsForm').toLowerCase() && '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase()) {
+            if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/ReportsForm').toLowerCase() &&
+                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase() &&
+                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/User/ChangePassword').toLowerCase())
+            {
                 var CurrentMenu = sessionStorage.getItem("CurrentMenu");
                 if (CurrentMenu == null || CurrentMenu == "") {
                     $("#MenuSelect").val($("#MenuSelect option:first").val());
@@ -122,7 +128,7 @@
 
         $("#DepartmentsDDL").change(function () {
             getDataCaptYearData();
-        });        
+        });
     });
 
     var MenuConstant = {

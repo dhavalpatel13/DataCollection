@@ -10,8 +10,8 @@
 <div class="panel panel-default">
     <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
         <div class="panel-title">
-            <label class="control-label" style="margin-top:4px;display:inline;">From type :&nbsp;</label>
-            <select style="margin-right:10px !important; display:inline;" class="form-control" id="deptFormType">
+            <label class="control-label" style="margin-top: 4px; display: inline; font-size: 14px;">From type :&nbsp;</label>
+            <select style="margin-right: 10px !important; display: inline; width: 125px;" class="form-control" id="deptFormType">
                 <option value="">-- Select --</option>
                 <option value="ADIR">ADIR</option>
                 <option value="DOAA">DOAA</option>
@@ -22,8 +22,19 @@
                 <option value="SRICFA">SRICFA</option>
             </select>
 
-            <label class="control-label" style="margin-top:4px;display:inline;">Report Type :&nbsp;</label>
-            <select style="margin-right:10px !important; display:inline;" class="form-control" id="reportType">
+            <label class="control-label" style="margin-top: 4px; display: inline; font-size: 14px;">Department: &nbsp;</label>
+            <select id="DepartmentsDDL" style="margin-right: 10px !important; display: inline;width:125px;" class="form-control"></select>
+
+            <label class="control-label" style="margin-top: 4px; display: inline; font-size: 14px;">Data Captured for: &nbsp;</label>
+            <select id="DataCaptYM" style="margin-right: 10px !important; display: inline; width: 125px;" class="form-control">
+                <option value="0">-Select-</option>
+                <option value="201801">Jan-2018</option>
+                <option value="201804">Jul-2018</option>
+                <option value="201807">Dec-2018</option>
+            </select>  
+
+            <label class="control-label" style="margin-top: 4px; display: inline; font-size: 14px;">Report Type :&nbsp;</label>
+            <select style="margin-right: 10px !important; display: inline; width: 125px;" class="form-control" id="reportType">
                 <option selected="selected" value="1">Excel</option>
                 <option value="2">CSV</option>
             </select>
@@ -67,6 +78,8 @@
 
 <script type="text/javascript">
 
+    var UrlConstant = { Menu: '' };
+
     var rptArr = ["ADIR", "DOAA", "DOFA", "DOSW", "LIBFORM", "SRICFA", "SRIC"];
     $("#deptFormType, #DataCaptYM").on("change", showHideAddReportbutton);
     $("#generateReport").on("click", generateReportEvent);
@@ -76,6 +89,8 @@
     function showHideAddReportbutton(e) {
         var _elDept = $("#deptFormType").val() || "";
         var _elYearMonth = $("#DataCaptYM").val() || "0";
+
+        UrlConstant.Menu = $("#deptFormType").val() == '' ? '-1' : $("#deptFormType").val();
 
         if (parseInt(_elYearMonth) > 0 && rptArr.indexOf(_elDept.toUpperCase()) != -1) {
             $("#generateReport").prop("disabled", false);
