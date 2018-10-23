@@ -21,7 +21,7 @@ namespace DataCollection.Controllers
 
         public ActionResult SendEnquiry(ContactUsViewModels ContactUsViewModels)
         {
-            string body = ("Message: " + ContactUsViewModels.Message +
+            string body = ("Message:<br/>" + ContactUsViewModels.Message +
                           "<br/>From:- " +
                           "<br/> Name:" + ContactUsViewModels.Name +
                           "<br/> EmpNo:" + ContactUsViewModels.EmpNo +
@@ -29,6 +29,7 @@ namespace DataCollection.Controllers
                           "<br/> Email:" + ContactUsViewModels.Email +
                           "<br/> <br /> Sent by: IRD-SRIC, IIT Roorkee");
 
+            body = body.Replace("\r\n", "<br/>");
             FormServices formServices = new FormServices();
             formServices.SendEmail("sric@iitr.ac.in", ContactUsViewModels.Email, ContactUsViewModels.Subject, body);
             ViewBag.Status = true;

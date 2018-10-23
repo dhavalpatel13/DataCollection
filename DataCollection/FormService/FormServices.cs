@@ -44,8 +44,7 @@ namespace DataCollection.FormService
             MailMessage message = new MailMessage();
             message.From = FromAddress;
             message.To.Add(ToAddress);
-            if (!string.IsNullOrWhiteSpace(CcAddress))
-                message.CC.Add(CcAddress);
+            if (!string.IsNullOrWhiteSpace(CcAddress)) message.CC.Add(CcAddress);
             message.Bcc.Add("sric@iitr.ac.in");
             message.Subject = Subject;
             message.IsBodyHtml = true;
