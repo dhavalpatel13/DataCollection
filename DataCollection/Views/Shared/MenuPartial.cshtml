@@ -6,7 +6,9 @@
                 @if (DataCollection.ManageSession.SessionManager.IsUserLogin == true
                                 && DataCollection.ManageSession.SessionManager.MenuList != null && DataCollection.ManageSession.SessionManager.MenuList.Count > 0)
                 {
-                    if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.User.ToString().ToLower())
+                    if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.User.ToString().ToLower() &&
+                        DataCollection.ManageSession.SessionManager.UserWork != DataAccess.Enum.UserWork.DSRIC.ToString() &&
+                        DataCollection.ManageSession.SessionManager.UserWork != DataAccess.Enum.UserWork.ADSRIC.ToString())
                     { 
                         foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
                         {
@@ -56,7 +58,10 @@
                         <li><a class="navnew">Role: @DataCollection.ManageSession.SessionManager.UserWork</a></li>
                     }
                     
-                    @if (DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower() && @Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Admin/ReportsForm".ToString().ToLower())
+                    @if ((DataCollection.ManageSession.SessionManager.UserRole.ToLower() == DataAccess.Enum.UserRoles.Admin.ToString().ToLower() ||
+                        DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString() ||
+                        DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
+                        && @Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Admin/ReportsForm".ToString().ToLower())
                     {
                     <li><a class="navnew">Select Menu:</a></li>
                     <li>
@@ -72,7 +77,9 @@
                     
                     @if (Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() != "/Admin/ReportsForm".ToString().ToLower()) 
                     { 
-                        if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString())
+                        if (DataCollection.ManageSession.SessionManager.UserRole == DataAccess.Enum.UserRoles.User.ToString() &&
+                            DataCollection.ManageSession.SessionManager.UserWork != DataAccess.Enum.UserWork.DSRIC.ToString() &&
+                            DataCollection.ManageSession.SessionManager.UserWork != DataAccess.Enum.UserWork.ADSRIC.ToString())
                         {
                             <li><a class="navnew">Department: @((string)typeof(DataAccess.Enum.DeptEnumClass).GetField(DataCollection.ManageSession.SessionManager.DeptID.ToUpper()).GetValue(null))</a></li>
                         }
@@ -84,7 +91,7 @@
 
                         <li><a class="navnew">Data Captured for :</a></li>
                         <li>
-                            <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0;" class="btn btn-secondary dropdown-toggle">
+                            <select id="DataCaptYM" style="border: 1px solid rgb(169, 169, 169); margin: 10px 10px 0 0; width: 128px;" class="btn btn-secondary dropdown-toggle">
                                 <option value="0">-Select-</option>
                                 <option value="201801">Calendar Year :Jan-2018</option>
                                 <option value="201804">Financial Year :Apr-2018</option>
@@ -101,19 +108,23 @@
 
 <script>
     $(document).ready(function () {
-        if ('@DataCollection.ManageSession.SessionManager.UserRole.ToLower()' == '@DataAccess.Enum.UserRoles.Admin.ToString().ToLower()') {
+        if ('@DataCollection.ManageSession.SessionManager.UserRole.ToLower()' == '@DataAccess.Enum.UserRoles.Admin.ToString().ToLower()' ||
+            '@DataCollection.ManageSession.SessionManager.UserWork' == '@DataAccess.Enum.UserWork.DSRIC.ToString()' ||
+            '@DataCollection.ManageSession.SessionManager.UserWork' == '@DataAccess.Enum.UserWork.ADSRIC.ToString()') {
             $.post("/Forms/GetDepartmentList", null,
             function (data) {
                 $("#DepartmentsDDL").append($('<option></option>').text("-- Select --").val("0"));
                 $.each(data, function (index, item) { // item is now an object containing properties ID and Text
                     $("#DepartmentsDDL").append($('<option></option>').text(item.Text).val(item.Value));
                 });
+                if ($("#DepartmentsDDL").find("[value='@DataCollection.ManageSession.SessionManager.DeptID']").length > 0) {
+                    $("#DepartmentsDDL").val('@DataCollection.ManageSession.SessionManager.DeptID');
+                }
             });
-            
+
             if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/ReportsForm').toLowerCase() &&
                 '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase() &&
-                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/User/ChangePassword').toLowerCase())
-            {
+                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/User/ChangePassword').toLowerCase()) {
                 var CurrentMenu = sessionStorage.getItem("CurrentMenu");
                 if (CurrentMenu == null || CurrentMenu == "") {
                     $("#MenuSelect").val($("#MenuSelect option:first").val());
@@ -133,7 +144,9 @@
 
     var MenuConstant = {
         DeptId: '@DataCollection.ManageSession.SessionManager.DeptID',
-        IsAdmin: ('@DataCollection.ManageSession.SessionManager.UserRole.ToLower()' == '@DataAccess.Enum.UserRoles.Admin.ToString().ToLower()')
+        IsAdmin: ('@DataCollection.ManageSession.SessionManager.UserRole.ToLower()' == '@DataAccess.Enum.UserRoles.Admin.ToString().ToLower()' ||
+                  '@DataCollection.ManageSession.SessionManager.UserWork' == '@DataAccess.Enum.UserWork.DSRIC.ToString()' ||
+                  '@DataCollection.ManageSession.SessionManager.UserWork' == '@DataAccess.Enum.UserWork.ADSRIC.ToString()')
     };
 
     function MenuChange() {

@@ -1,6 +1,7 @@
 ﻿using DataAccess.Entity;
 using DataAccess.Enum;
 using DataAccess.Repository;
+using DataCollection.ManageSession;
 using DataCollection.Models;
 using System;
 using System.Collections.Generic;
@@ -123,8 +124,18 @@ namespace DataCollection.FormService
         public static List<MenuID> GetCurrentUserMenu(string UserID, string UserRole)
         {
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
-            if (UserRole.ToLower().Trim() == UserRoles.Admin.ToString().ToLower())
-                return db.MenuIDs.ToList();
+            var UserMenu = db.UserMenus.Where(UID => UID.UserID.ToLower().Equals(UserID.ToLower()) && UID.MenuID.ToLower().Equals("all")).ToList();
+            if (UserMenu.Count > 0)
+            {
+                if (UserID.ToLower().Equals(UserRoles.Admin.ToString().ToLower()))
+                { 
+                    return db.MenuIDs.ToList(); 
+                }
+                else
+                {
+                    return db.MenuIDs.Where(a => a.MenuID1 != "USERS").ToList();
+                }
+            }
             else
                 return (from menu in db.MenuIDs
                         join um in db.UserMenus on menu.MenuID1 equals um.MenuID
@@ -136,6 +147,28 @@ namespace DataCollection.FormService
         {
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
             return db.RankMesgs.FirstOrDefault();
+        }
+
+        public static int GetStatusByAction(string action)
+        {
+            if (action == "Finalize")
+            {
+                return (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator;
+            }
+            else if (action == "FinalizedByHod")
+            {
+                return (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD;
+            }
+            else if (action == "FinalizedByAssoDean")
+            {
+                return (int)DataAccess.Enum.DataStatus.DataCheckedbyAssoDEAN;
+            }
+            else if (action == "FinalizedByDean")
+            {
+                return (int)DataAccess.Enum.DataStatus.DataLocked;
+            }
+
+            return (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
         }
 
         public static DataAccess.Entity.RankUser ToEntityRankUserMap(DataCollection.Models.RankUser rankUser)
@@ -156,6 +189,50 @@ namespace DataCollection.FormService
             eRankUser.UserWork = rankUser.UserWork;
 
             return eRankUser;
+        }
+
+        public static bool SendFinallizeEmail(string Action, int DataCaptYM, string DeptId)
+        {
+            string subject = "IRD Data Entry updated by " + SessionManager.UserName;
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            string tomail = "webtechrk@gmail.com";
+
+            string body = "The User: " + SessionManager.UserName + ", Dept: " + DeptId + " , DataCapt: " + DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
+                                    + "Time Stamp: DateTime Stamp: " + DateTime.Now
+                                    + "This is a System generated Email.";
+
+            if (Action == "Finalize")
+            {
+                var hod = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() &&
+                                                  a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                                                  a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
+                if (hod != null)
+                {
+                    tomail = hod.UserEmail;
+                }
+            }
+            else if (Action == "FinalizedByHod")
+            {
+                var adsric = db.RankUsers.Where(a => a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                                                  a.UserWork.ToLower() == DataAccess.Enum.UserWork.ADSRIC.ToString().ToLower()).FirstOrDefault();
+                if (adsric != null)
+                {
+                    tomail = adsric.UserEmail;
+                }
+            }
+            else if(Action == "FinalizedByAssoDean")
+            {
+                var dsric = db.RankUsers.Where(a => a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                                                  a.UserWork.ToLower() == DataAccess.Enum.UserWork.DSRIC.ToString().ToLower()).FirstOrDefault();
+                if (dsric != null)
+                {
+                    tomail = dsric.UserEmail;
+                }
+            }
+
+
+            FormServices formServices = new FormServices();
+            return formServices.SendEmail(tomail, "", subject, body);
         }
     }
 }

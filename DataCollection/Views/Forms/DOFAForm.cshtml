@@ -34,7 +34,7 @@
             {
                 DataCaptYM: $("#DataCaptYM").val().toString(),
                 EmpDept: empdept,
-                DeptID: MenuConstant.DeptId
+                DeptID: MenuConstant.IsAdmin ? $("#DepartmentsDDL").val() : MenuConstant.DeptId
             },
             function (data) {
                 $("#DOFATableDiv").html("");

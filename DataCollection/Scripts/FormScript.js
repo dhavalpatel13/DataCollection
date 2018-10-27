@@ -99,6 +99,14 @@ function SaveFormData(e, obj) {
     {
         Action = 'FinalizedByHod';
     }
+    else if(obj.id == "btnFinalizeByAssoDean")
+    {
+        Action = 'FinalizedByAssoDean';
+    }
+    else if (obj.id == "btnFinalizeByDean")
+    {
+        Action = 'FinalizedByDean';
+    }
     var element = obj;
 
     var SerializeFormId = UrlConstant.SerializeFormID;

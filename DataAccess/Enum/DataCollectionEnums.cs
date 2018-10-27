@@ -29,7 +29,9 @@ namespace DataAccess.Enum
     {
         Admin,
         DO,
-        HOD
+        HOD,
+        DSRIC,
+        ADSRIC
     }
 
     public enum DataStatus : int
@@ -51,7 +53,7 @@ namespace DataAccess.Enum
         [StringValue("Reserved")]
         Reserved = 8,
         [StringValue("Data Locked")]
-        DataLocked = 9
+        DataLocked = 10
     }    
 
     //public enum Department : int

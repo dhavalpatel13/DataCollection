@@ -13,6 +13,14 @@ else if (TempData["isSaveSuccessfully"] != null && Convert.ToBoolean(TempData["i
         <strong>Error!</strong> Failed To Save Data
     </div>
 }
+
+@if (TempData["isFailedToSentEmail"] != null && Convert.ToBoolean(TempData["isFailedToSentEmail"]) == true)
+{
+    <div id="errorEmailDiv" class="alert alert-danger">
+        <a href="javascript:void(0);" class="close" onclick="$('#errorEmailDiv').hide();">×</a>
+        <strong>Error!</strong> Failed To Send Email.
+    </div>
+}
 @*else if (ViewBag.Status != null && ViewBag.Status == true && ViewBag.Message != null && ViewBag.Message != "")
 {
     <div class="alert alert-success" id="succDiv">

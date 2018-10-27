@@ -6,6 +6,7 @@ using DataAccess.Entity;
 using DataAccess.Repository;
 using DataCollection.ManageSession;
 using System.Data;
+using DataCollection.FormService;
 
 namespace DataCollection.Models
 {
@@ -68,15 +69,7 @@ namespace DataCollection.Models
                 item.DataUser = SessionManager.UserName;
                 item.DataUpdatedOn = DateTime.Now;
                 item.DataCaptYM = SessionManager.DataCaptYR;
-                item.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                if (action == "Finalize")
-                {
-                    item.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator;
-                }
-                else if (action == "FinalizedByHod")
-                {
-                    item.DataStatus = (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD;
-                }
+                item.DataStatus = FormCommonMethods.GetStatusByAction(action);
                 item.DataValid = "Y";
                 item.DataLocked = "N";
                 item.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");

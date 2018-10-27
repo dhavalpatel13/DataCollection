@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,8 +11,9 @@ namespace DataCollection.FormService
     public class FormServices
     {
         //public void SendEmail(string FromEmailAddress, string FromName, string ToAddress, string Subject, string MailBody, string CcAddress = "")
-        public void SendEmail(string ToAddress, string CcAddress, string Subject, string MailBody)
+        public bool SendEmail(string ToAddress, string CcAddress, string Subject, string MailBody)
         {
+            bool isEmailSucc = true;
             string ServerName;
             int PortNumber;
             string UserName;
@@ -48,11 +49,19 @@ namespace DataCollection.FormService
             message.Bcc.Add("sric@iitr.ac.in");
             message.Subject = Subject;
             message.IsBodyHtml = true;
-            message.Body = MailBody;            
+            message.Body = MailBody;
 
-            //Step 5 - Send Email
-            client.Send(message);
+            try
+            {
+                //Step 5 - Send Email
+                client.Send(message);
+            }
+            catch
+            {
+                isEmailSucc = false;
+            }
 
+            return isEmailSucc;
         }
     }
 }

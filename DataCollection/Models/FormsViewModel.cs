@@ -164,32 +164,28 @@ namespace DataCollection.Models
         }
         #endregion LIB Form
         
-        public bool SaveUpdateFormData(object objectData, string action, string menu, out string msg)
+        public Tuple<bool, bool> SaveUpdateFormData(object objectData, string action, string menu, out string msg)
         {
             msg = string.Empty;
             FormsViewModel formsViewModel = new FormsViewModel();
-            
+            int DataCaptYM = 0; 
+            string DeptID = string.Empty;
+            bool IsEmailSent = false;
+
             if (menu == DataAccess.Enum.Menu.DOSW.ToString() || menu == DataAccess.Enum.Menu.ADIR.ToString())
             {
                 stInfo2 info2 = new stInfo2();
                 info2 = JsonConvert.DeserializeObject<stInfo2>(objectData.ToString());
 
                 info2.DataUpdatedOn = DateTime.Now;
-                info2.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                if (action == "Finalize")
-                {
-                    info2.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator;
-                }
-                else if (action == "FinalizedByHod")
-                {
-                    info2.DataStatus = (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD;
-                }
-
+                info2.DataStatus = FormCommonMethods.GetStatusByAction(action);
                 info2.DataUser = SessionManager.UserName;
                 info2.DeptID = SessionManager.DeptID;
                 info2.DataValid = "Y";
                 info2.DataLocked = "N";
                 info2.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss"); //DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt");
+                DeptID = info2.DeptID;
+                DataCaptYM = info2.DataCaptYM;
                 if (menu == DataAccess.Enum.Menu.ADIR.ToString())
                 {
                     info2.MenuID = DataAccess.Enum.Menu.ADIR.ToString();
@@ -216,23 +212,15 @@ namespace DataCollection.Models
                 info = JsonConvert.DeserializeObject<stInfo>(objectData.ToString());
 
                 info.DataUpdatedOn = DateTime.Now;
-                info.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                if (action == "Finalize")
-                {
-                    info.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator;
-                }
-                else if (action == "FinalizedByHod")
-                {
-                    info.DataStatus = (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD;
-                }
-
+                info.DataStatus = FormCommonMethods.GetStatusByAction(action);
                 info.DataUser = SessionManager.UserName;
                 info.DeptID = SessionManager.DeptID;
                 info.DataValid = "Y";
                 info.DataLocked = "N";
                 info.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
                 info.MenuID = DataAccess.Enum.Menu.DOAA.ToString();
-
+                DataCaptYM = info.DataCaptYM;
+                DeptID = info.DeptID;
 
                 formsViewModel.info = info;
 
@@ -251,22 +239,15 @@ namespace DataCollection.Models
                 libInfo = JsonConvert.DeserializeObject<LibInfo>(objectData.ToString());
 
                 libInfo.DataUpdatedOn = DateTime.Now;
-                libInfo.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                if (action == "Finalize")
-                {
-                    libInfo.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator;
-                }
-                else if (action == "FinalizedByHod")
-                {
-                    libInfo.DataStatus = (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD;
-                }
-
+                libInfo.DataStatus = FormCommonMethods.GetStatusByAction(action);
                 libInfo.DataUser = SessionManager.UserName;
                 libInfo.DeptID = SessionManager.DeptID;
                 libInfo.DataValid = "Y";
                 libInfo.DataLocked = "N";
                 libInfo.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
                 libInfo.MenuID = DataAccess.Enum.Menu.LIBFORM.ToString();
+                DataCaptYM = libInfo.DataCaptYM;
+                DeptID = libInfo.DeptID;
 
                 formsViewModel.libInfo = libInfo;
 
@@ -284,6 +265,8 @@ namespace DataCollection.Models
                 if (objectData != null && typeof(DofaViewModel) == objectData.GetType())
                 {
                     DofaViewModel dvm = (DofaViewModel)objectData;
+                    DataCaptYM = dvm.DataCaptYM;
+                    DeptID = "DOFA";
                     formsViewModel.isSaveSuccessfully = dvm.SaveDOFAData(action, out msg);
                 }
                 else
@@ -296,6 +279,8 @@ namespace DataCollection.Models
                 if (objectData != null && typeof(SricFAViewModel) == objectData.GetType())
                 {
                     SricFAViewModel sfvm = (SricFAViewModel)objectData;
+                    DataCaptYM = sfvm.DataCaptYM;
+                    DeptID = "SRIC Agency";
                     formsViewModel.isSaveSuccessfully = sfvm.SaveSricFAData(action, out msg);
                 }
                 else
@@ -308,6 +293,8 @@ namespace DataCollection.Models
                 if (objectData != null && typeof(SricDeptViewModel) == objectData.GetType())
                 {
                     SricDeptViewModel sdvm = (SricDeptViewModel)objectData;
+                    DataCaptYM = sdvm.DataCaptYM;
+                    DeptID = "SRIC";
                     formsViewModel.isSaveSuccessfully = sdvm.SaveSricDeptData(action, out msg);
                 }
                 else
@@ -315,31 +302,33 @@ namespace DataCollection.Models
                     formsViewModel.isSaveSuccessfully = false;
                 }
             }
-            if (formsViewModel.isSaveSuccessfully && action == "Finalize")
+            if (formsViewModel.isSaveSuccessfully)
             {
-                try
-                {
-                    string body = "The User: " + SessionManager.UserName + ", Dept: " + SessionManager.DeptID + " , DataCapt: " + info.DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
-                                 + "Time Stamp: DateTime Stamp: " + DateTime.Now
-                                 + "This is a System generated Email.";
+                //try
+                //{
+                //    string body = "The User: " + SessionManager.UserName + ", Dept: " + SessionManager.DeptID + " , DataCapt: " + info.DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
+                //                 + "Time Stamp: DateTime Stamp: " + DateTime.Now
+                //                 + "This is a System generated Email.";
 
-                    string subject = "IRD Data Entry updated by " + SessionManager.UserName;
+                //    string subject = "IRD Data Entry updated by " + SessionManager.UserName;
 
-                    DataCollectionModelDataContext db = new DataCollectionModelDataContext();
-                    var hod = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() && a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() && a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
-                    string tomail = "webtechrk@gmail.com";
-                    if(hod != null)
-                    {
-                        tomail = hod.UserEmail;
-                    }
+                //    DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+                //    var hod = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() && a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() && a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
+                //    string tomail = "webtechrk@gmail.com";
+                //    if(hod != null)
+                //    {
+                //        tomail = hod.UserEmail;
+                //    }
 
-                    FormServices formServices = new FormServices();
-                    formServices.SendEmail(tomail, "", subject, body);
-                }
-                catch (Exception ex) { }
-            } 
+                //    FormServices formServices = new FormServices();
+                //    formServices.SendEmail(tomail, "", subject, body);
+                //}
+                //catch (Exception ex) { }
 
-            return formsViewModel.isSaveSuccessfully;
+                IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID);
+            }
+
+            return new Tuple<bool, bool>(formsViewModel.isSaveSuccessfully, IsEmailSent);
         }
     }
 }

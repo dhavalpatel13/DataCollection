@@ -162,6 +162,11 @@ namespace DataCollection.Controllers
             {
                 return Redirect(SessionManager.MenuList.FirstOrDefault().MenuUrl);
             }
+            else
+            {
+                Session.Abandon();
+                FormsAuthentication.SignOut();
+            }
             ViewBag.Message = Convert.ToString(TempData["Message"]);
             ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
 

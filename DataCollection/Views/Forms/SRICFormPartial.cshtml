@@ -308,6 +308,14 @@
             <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
             <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByHodCfrm" class="btn btn-primary">Finalize</button></li>
         }
+        else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
+        {
+            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByAssoDeanCfrm" class="btn btn-primary">Finalize</button></li>
+        }
+        else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckedbyAssoDEAN && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
+        {
+            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByDeanCfrm" class="btn btn-primary">Finalize</button></li>
+        }
     </ul>
 
     <script>
@@ -339,7 +347,7 @@
         });        
     });
 
-    $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod').click(function (e) {
+        $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod, #btnFinalizeByAssoDean, #btnFinalizeByDean').click(function (e) {
         SaveFormData(e, this);
     });
 
