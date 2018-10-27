@@ -142,7 +142,7 @@
         else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString() && string.IsNullOrWhiteSpace(Model.EmpDept))
         {
             <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
-            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnFinalizeByHod" class="btn btn-primary">Finalize</button></li>
+            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByHodCfrm" class="btn btn-primary">Finalize</button></li>
         }
     </ul>
 
