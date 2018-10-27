@@ -5,6 +5,7 @@ using DataCollection.ManageSession;
 using DataCollection.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -283,6 +284,26 @@ namespace DataCollection.FormService
 
             FormServices formServices = new FormServices();
             return formServices.SendEmail(tomail, "", subject, body);
+        }
+
+        public static string ConvertDataTableToHTML(DataTable dt)
+        {
+            string html = "<table class=\"table\">";
+            //add header row
+            html += "<thead><tr>";
+            for (int i = 0; i < dt.Columns.Count; i++)
+                html += "<th>" + dt.Columns[i].ColumnName + "</th>";
+            html += "</tr></thead><tbody>";
+            //add rows
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                html += "<tr>";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                    html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                html += "</tr>";
+            }
+            html += "</tbody></table>";
+            return html;
         }
     }
 }

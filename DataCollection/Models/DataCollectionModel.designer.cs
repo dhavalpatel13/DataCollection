@@ -22,7 +22,7 @@ namespace DataCollection.Models
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="RANK")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="RANK1")]
 	public partial class DataCollectionModelDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -48,6 +48,9 @@ namespace DataCollection.Models
     partial void InsertMenuID(MenuID instance);
     partial void UpdateMenuID(MenuID instance);
     partial void DeleteMenuID(MenuID instance);
+    partial void InsertRankMesg(RankMesg instance);
+    partial void UpdateRankMesg(RankMesg instance);
+    partial void DeleteRankMesg(RankMesg instance);
     #endregion
 		
 		public DataCollectionModelDataContext() : 
@@ -112,14 +115,6 @@ namespace DataCollection.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<RankMesg> RankMesgs
-		{
-			get
-			{
-				return this.GetTable<RankMesg>();
-			}
-		}
-		
 		public System.Data.Linq.Table<RankUser> RankUsers
 		{
 			get
@@ -134,6 +129,21 @@ namespace DataCollection.Models
 			{
 				return this.GetTable<MenuID>();
 			}
+		}
+		
+		public System.Data.Linq.Table<RankMesg> RankMesgs
+		{
+			get
+			{
+				return this.GetTable<RankMesg>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Get_All_Table")]
+		public ISingleResult<Get_All_TableResult> Get_All_Table()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<Get_All_TableResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -573,33 +583,6 @@ namespace DataCollection.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RankMesg")]
-	public partial class RankMesg
-	{
-		
-		private string _Message;
-		
-		public RankMesg()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
-		public string Message
-		{
-			get
-			{
-				return this._Message;
-			}
-			set
-			{
-				if ((this._Message != value))
-				{
-					this._Message = value;
-				}
 			}
 		}
 	}
@@ -1156,6 +1139,118 @@ namespace DataCollection.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RankMesg")]
+	public partial class RankMesg : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Message;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    #endregion
+		
+		public RankMesg()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
+					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	public partial class Get_All_TableResult
+	{
+		
+		private string _Name;
+		
+		public Get_All_TableResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
 			}
 		}
 	}

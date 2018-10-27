@@ -1,0 +1,50 @@
+﻿@model DataCollection.Models.RankMessageViewModel
+
+@{
+    ViewBag.Title = "RankMessage";
+}
+
+<div class="direction">
+    <h3>RankMessage</h3>
+</div>
+
+<div class="bd-example">
+    <div class="table-responsive-xl">
+        <label class="control-label" style="margin-top:4px;">Update Rank Message :&nbsp;</label>
+        @Html.TextAreaFor(a => a.RankMessage, new { @id = "RankMessage", @class = "form-control", @style = "max-width: 618px;", @rows="8" })
+        <br />
+        <a id="btnMessage" class="btn btn-primary">Update Message</a>
+    </div>
+</div>
+<div id="jsErrorDiv" class="alert alert-danger" style="display:none">
+    <a href="javascript:void(0);" class="close" onclick="$('#jsErrorDiv').hide();">×</a>
+    <strong>Error!</strong>
+</div>
+<div id="jsSuccDiv" class="alert alert-success" style="display:none">
+    <a href="javascript:void(0);" class="close" onclick="$('#jsSuccDiv').hide();">×</a>
+    <strong>Success!</strong>
+</div>
+<script>
+    $("#btnMessage").click(function () {
+        $.post("/Admin/SaveRankMessage",
+        {
+            RankMessageId: '@Model.RankMessageId',
+            RankMessage: $("#RankMessage").val()
+        },
+        function (data) {
+            debugger;
+            if(data == 'True')
+            {
+                $("#jsSuccDiv strong").html("Message has been updated");
+                $("#jsSuccDiv").show();
+                $("#jsErrorDiv").hide();
+            }
+            else
+            {
+                $("#jsErrorDiv strong").html("Failed to udpate message");
+                $("#jsSuccDiv").hide();
+                $("#jsErrorDiv").show();
+            }
+        });
+    });
+</script>

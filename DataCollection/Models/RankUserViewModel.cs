@@ -35,5 +35,14 @@ namespace DataCollection.Models
         }
     }
 
+    public class TableViewModel
+    {
+        public IEnumerable<SelectListItem> Tables { get; set; }
+    }
 
+    public class RankMessageViewModel
+    {
+        public int RankMessageId { get; set; }
+        public string RankMessage { get; set; }
+    }
 }

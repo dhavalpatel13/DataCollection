@@ -1,7 +1,9 @@
-﻿using DataCollection.FormService;
+﻿using DataAccess.Repository;
+using DataCollection.FormService;
 using DataCollection.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,6 +21,65 @@ namespace DataCollection.Controllers
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
             IEnumerable<DataCollection.Models.RankUser> RankUser = db.RankUsers.Where(a => (a.DeptID.ToLower().Trim() != "admin" || a.DeptID == null) && a.IsEmailVerified == true).ToList();
             return View(RankUser);
+        }
+
+        public ActionResult Table()
+        {
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            var AllTables = db.Get_All_Table().ToList();
+
+            TableViewModel TableViewModel = new TableViewModel();
+            TableViewModel.Tables = AllTables.Select(i => new SelectListItem() { Text = i.Name, Value = i.Name }).AsEnumerable();
+            return View(TableViewModel);
+        }
+
+        public string GetTableDetail(string TableName)
+        {
+            RankUserRepository rankUser = new RankUserRepository();
+            DataTable TableDetail = rankUser.GetTableDetail(TableName);
+            return FormCommonMethods.ConvertDataTableToHTML(TableDetail);
+        }
+
+        public ActionResult RankMessage()
+        {
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            RankMessageViewModel rankMessageViewModel = new RankMessageViewModel();
+            var RankMesgs = db.RankMesgs.FirstOrDefault();
+            if (RankMesgs != null)
+            {
+                rankMessageViewModel.RankMessageId = RankMesgs.Id;
+                rankMessageViewModel.RankMessage = RankMesgs.Message;
+            }
+            return View(rankMessageViewModel);
+        }
+
+        public bool SaveRankMessage(string RankMessageId, string RankMessage)
+        {
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            try
+            {
+                if (Convert.ToInt32(RankMessageId) > 0)
+                {
+                    var RankMesgs = db.RankMesgs.Where(a => a.Id == Convert.ToInt32(RankMessageId)).FirstOrDefault();
+                    if (RankMesgs != null)
+                    {
+                        RankMesgs.Message = RankMessage;
+                    }
+                    db.SubmitChanges();
+                }
+                else
+                {
+                    RankMesg rankMesgs = new RankMesg();
+                    rankMesgs.Message = RankMessage;
+                    db.RankMesgs.InsertOnSubmit(rankMesgs);
+                    db.SubmitChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public ActionResult EditUserDetail(string UserId)

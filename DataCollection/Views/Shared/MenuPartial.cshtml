@@ -124,7 +124,9 @@
 
             if ('@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/ReportsForm').toLowerCase() &&
                 '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Index').toLowerCase() &&
-                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/User/ChangePassword').toLowerCase()) {
+                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/User/ChangePassword').toLowerCase() &&
+                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/RankMessage').toLowerCase() && 
+                '@Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower()' != ('/Admin/Table').toLowerCase()) {
                 var CurrentMenu = sessionStorage.getItem("CurrentMenu");
                 if (CurrentMenu == null || CurrentMenu == "") {
                     $("#MenuSelect").val($("#MenuSelect option:first").val());

@@ -19,6 +19,7 @@ namespace DataAccess.Repository
         const string _insert_Rank_User = "ADD_RANK_USER";
         const string _update_Rank_User = "UPDATE_RANK_USER";
         const string _check_user_is_exist_ByEmail = "CHECK_USER_EXIST_BY_EMAIL_EMPNO";
+        const string _get_Table_Detail = "Get_Table_Detail";
 
         public RankUser GetLoginUser(string UserName, string Password)
         {
@@ -94,6 +95,28 @@ namespace DataAccess.Repository
         public int CheckUserExistByEmailEmpNo(RankUser rankUser)
         {
             return Convert.ToInt32(this.GetScalarValue(rankUser, _check_user_is_exist_ByEmail));
+        }
+
+        public DataTable GetTableDetail(string TableName)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                Dictionary<string, object> sqlParameterDictionary = new Dictionary<string, object>();
+                sqlParameterDictionary.Add("TableName", TableName);
+                IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParameterDictionary, _get_Table_Detail);
+                connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+                command.Connection = connection;
+                SqlDataAdapter dataAdapter = new SqlDataAdapter();
+                DataSet TableDetailDataset = new DataSet();
+                dataAdapter.SelectCommand = (SqlCommand)command;
+                dataAdapter.Fill(TableDetailDataset);
+                return TableDetailDataset.Tables[0];
+            }
+            finally
+            {
+                DBConnectionHelper.CloseSqlConnection(connection);
+            }
         }
     }
 }

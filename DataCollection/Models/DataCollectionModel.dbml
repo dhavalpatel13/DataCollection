@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RANK" Class="DataCollectionModelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PC;Initial Catalog=RANK;Integrated Security=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RANK1" Class="DataCollectionModelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PC;Initial Catalog=RANK1;Integrated Security=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Depts" Member="Depts">
     <Type Name="Dept">
       <Column Name="SNo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
@@ -26,11 +26,6 @@
       <Column Name="UserMenuID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="UserID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="MenuID" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.RankMesg" Member="RankMesgs">
-    <Type Name="RankMesg">
-      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.RankUsers" Member="RankUsers">
@@ -61,4 +56,15 @@
       <Column Name="IsAdminMenu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.RankMesg" Member="RankMesgs">
+    <Type Name="RankMesg">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.Get_All_Table" Method="Get_All_Table">
+    <ElementType Name="Get_All_TableResult">
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>

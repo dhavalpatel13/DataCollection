@@ -401,4 +401,7 @@
     <param name="MenuID" SqlDbType="12" direction="1"></param>
     <param name="DeptID" SqlDbType="12" direction="1"></param>
   </sproc>
+  <sproc name="Get_Table_Detail">
+    <param name="TableName" SqlDbType="12" direction="1"></param>
+  </sproc>
 </sprocs>
