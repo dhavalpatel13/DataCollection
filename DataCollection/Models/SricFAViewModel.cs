@@ -94,5 +94,6 @@ namespace DataCollection.Models
         public SricFAViewModel formData { get; set; }
         public string action { get; set; }
         public string menu { get; set; }
+        public string needModificationMSG { get; set; }
     }
 }

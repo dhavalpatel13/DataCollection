@@ -128,19 +128,21 @@ namespace DataCollection.FormService
             if (UserMenu.Count > 0)
             {
                 if (UserID.ToLower().Equals(UserRoles.Admin.ToString().ToLower()))
-                { 
-                    return db.MenuIDs.ToList(); 
+                {
+                    return db.MenuIDs.ToList();
                 }
                 else
                 {
-                    return db.MenuIDs.Where(a => a.MenuID1 != "USERS").ToList();
+                    return db.MenuIDs.Where(a => a.MenuID1 != "USERS" && a.MenuID1 != "REPORTS").ToList();
                 }
             }
             else
+            {
                 return (from menu in db.MenuIDs
                         join um in db.UserMenus on menu.MenuID1 equals um.MenuID
                         where um.UserID == UserID
                         select menu).ToList();
+            }
         }
 
         public static DataCollection.Models.RankMesg GetCurrentRankMesg()
@@ -167,6 +169,15 @@ namespace DataCollection.FormService
             {
                 return (int)DataAccess.Enum.DataStatus.DataLocked;
             }
+            else if (action == "ModificationNeededHod") {
+                return (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
+            }
+            else if (action == "ModificationNeededADean") {
+                return (int)DataAccess.Enum.DataStatus.DataCheckingbyHOD;
+            }
+            else if (action == "ModificationNeededDean") {
+                return (int)DataAccess.Enum.DataStatus.DataSenttoAssoDEAN;
+            }
 
             return (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
         }
@@ -191,15 +202,25 @@ namespace DataCollection.FormService
             return eRankUser;
         }
 
-        public static bool SendFinallizeEmail(string Action, int DataCaptYM, string DeptId)
+        public static bool SendFinallizeEmail(string Action, int DataCaptYM, string DeptId, string needModificationMSG)
         {
             string subject = "IRD Data Entry updated by " + SessionManager.UserName;
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
             string tomail = "webtechrk@gmail.com";
+            string body = string.Empty;
 
-            string body = "The User: " + SessionManager.UserName + ", Dept: " + DeptId + " , DataCapt: " + DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
+            if (Action == "Finalize" || Action == "FinalizedByHod" || Action == "FinalizedByAssoDean")
+            {
+                body = "The User: " + SessionManager.UserName + ", Dept: " + DeptId + " , DataCapt: " + DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
                                     + "Time Stamp: DateTime Stamp: " + DateTime.Now
                                     + "This is a System generated Email.";
+            }
+            else if (Action == "ModificationNeededHod" || Action == "ModificationNeededADean" || Action == "ModificationNeededDean")
+            {
+                body = "The User: " + SessionManager.UserName + ", Dept: " + DeptId + " , DataCapt: " + DataCaptYM + ", IRD Data has been sent for Modification.  Kindly Check Modification Note for data changes. <br /> Modification Note: " + needModificationMSG
+                                    + "Time Stamp: DateTime Stamp: " + DateTime.Now
+                                    + "<br /> This is a System generated Email.";
+            }
 
             if (Action == "Finalize")
             {
@@ -227,6 +248,35 @@ namespace DataCollection.FormService
                 if (dsric != null)
                 {
                     tomail = dsric.UserEmail;
+                }
+            }
+            else if (Action == "ModificationNeededHod")
+            {
+                var doModification = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() &&
+                                                             a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                                                             a.UserWork.ToLower() == DataAccess.Enum.UserWork.DO.ToString().ToLower()).ToList();
+                if (doModification != null && doModification.Count > 0)
+                {
+                    tomail = string.Join(",", doModification.Select(i => i.UserEmail));
+                }
+            }
+            else if (Action == "ModificationNeededADean")
+            {
+                var hodModification = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() &&
+                                                              a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                                                              a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
+                if (hodModification != null)
+                {
+                    tomail = hodModification.UserEmail;
+                }
+            }
+            else if (Action == "ModificationNeededDean")
+            {
+                var adeanModification = db.RankUsers.Where(a => a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                                                                a.UserWork.ToLower() == DataAccess.Enum.UserWork.ADSRIC.ToString().ToLower()).FirstOrDefault();
+                if (adeanModification != null)
+                {
+                    tomail = adeanModification.UserEmail;
                 }
             }
 

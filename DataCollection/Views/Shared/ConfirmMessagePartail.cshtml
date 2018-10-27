@@ -1,16 +1,20 @@
 ﻿@{
-    string buttonId = "btnFinalize";
+    string buttonId = "btnFinalize", modificationButtonId = "btnModificationHod";
+    
     if (DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
     {
-        buttonId = "btnFinalizeByHod";
+        buttonId = "btnFinalizedByHod";
+        modificationButtonId = "btnModificationHod";
     }
     else if (DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
     {
-        buttonId = "btnFinalizeByAssoDean";
+        buttonId = "btnFinalizedByAssoDean";
+        modificationButtonId = "btnModificationADean";
     }
     else if (DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
     {
-        buttonId = "btnFinalizeByDean";
+        buttonId = "btnFinalizedByDean";
+        modificationButtonId = "btnModificationDean";
     }
 }
 
@@ -33,6 +37,26 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="NeedModificationModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modification Note</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="NeedModificationMSG" name="NeedModification" rows="5" cols="20" style="max-width:540px !important" placeholder="Modification Note"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="@modificationButtonId" class="btn btn-default" data-dismiss="modal">Modification Needed</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="ErrorAlertModel" role="dialog">
     <div class="modal-dialog">
 

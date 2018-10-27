@@ -164,7 +164,7 @@ namespace DataCollection.Models
         }
         #endregion LIB Form
         
-        public Tuple<bool, bool> SaveUpdateFormData(object objectData, string action, string menu, out string msg)
+        public Tuple<bool, bool> SaveUpdateFormData(object objectData, string action, string menu, string needModificationMSG, out string msg)
         {
             msg = string.Empty;
             FormsViewModel formsViewModel = new FormsViewModel();
@@ -325,7 +325,7 @@ namespace DataCollection.Models
                 //}
                 //catch (Exception ex) { }
 
-                IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID);
+                IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID, needModificationMSG);
             }
 
             return new Tuple<bool, bool>(formsViewModel.isSaveSuccessfully, IsEmailSent);

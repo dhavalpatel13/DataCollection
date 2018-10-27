@@ -9,18 +9,24 @@
         <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
         <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
     }
-    else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
+    else if ((Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator || Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingbyHOD) && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
     {
-        <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnModification" class="btn btn-primary">Modification Needed</button></li>
-        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByHodCfrm" class="btn btn-primary">Finalize</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationHodCfrm" class="btn btn-primary">Modification Needed</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByHodCfrm" class="btn btn-primary">Finalize</button></li>
     }
-    else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
+    else if ((Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD || Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataSenttoAssoDEAN) && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
     {
-        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByAssoDeanCfrm" class="btn btn-primary">Finalize</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationADeanCfrm" class="btn btn-primary">Modification Needed</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByAssoDeanCfrm" class="btn btn-primary">Finalize</button></li>
     }
     else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckedbyAssoDEAN && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
     {
-        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeByDeanCfrm" class="btn btn-primary">Finalize</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByDeanCfrm" class="btn btn-primary">Finalize</button></li>
+    }
+    else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataLocked && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
+    {
+        <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
     }
 </ul>
 
@@ -32,7 +38,9 @@
         }
     });
 
-    $('#btnSave, #btnFinalize, #btnModification, #btnFinalizeByHod, #btnFinalizeByAssoDean, #btnFinalizeByDean').click(function (e) {
+    var buttonId = '#btnSave, #btnFinalize, #btnModification, #btnFinalizedByHod, #btnFinalizedByAssoDean, #btnFinalizedByDean, #btnModificationHod, #btnModificationADean, #btnModificationDean';
+
+    $(buttonId).click(function (e) {
         SaveFormData(e, this);
     });
 

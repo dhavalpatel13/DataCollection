@@ -54,7 +54,8 @@ namespace DataCollection.Controllers
             object objectData = data.formData;
             string action = data.action;
             string menu = data.menu;
-            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(objectData, action, menu, out msg);
+            string needModificationMSG = data.needModificationMSG;
+            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(objectData, action, menu, needModificationMSG, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess.Item1;
             TempData["isFailedToSentEmail"] = !IsSuccess.Item2;
             return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);
@@ -67,7 +68,8 @@ namespace DataCollection.Controllers
             FormsViewModel formsViewModel = new FormsViewModel();
             string action = data.action;
             string menu = data.menu;
-            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, out msg);
+            string needModificationMSG = data.needModificationMSG;
+            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, needModificationMSG, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess.Item1;
             TempData["isFailedToSentEmail"] = !IsSuccess.Item2;
             return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);
@@ -80,7 +82,8 @@ namespace DataCollection.Controllers
             FormsViewModel formsViewModel = new FormsViewModel();
             string action = data.action;
             string menu = data.menu;
-            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, out msg);
+            string needModificationMSG = data.needModificationMSG;
+            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, needModificationMSG, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess.Item1;
             TempData["isFailedToSentEmail"] = !IsSuccess.Item2;
             return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);
@@ -93,7 +96,8 @@ namespace DataCollection.Controllers
             FormsViewModel formsViewModel = new FormsViewModel();
             string action = data.action;
             string menu = data.menu;
-            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, out msg);
+            string needModificationMSG = data.needModificationMSG;
+            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, needModificationMSG, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess.Item1;
             TempData["isFailedToSentEmail"] = !IsSuccess.Item2;
             return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);

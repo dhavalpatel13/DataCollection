@@ -145,5 +145,6 @@ namespace DataCollection.Models
         public DofaViewModel formData { get; set; }
         public string action { get; set; }
         public string menu { get; set; }
+        public string needModificationMSG { get; set; }
     }
 }

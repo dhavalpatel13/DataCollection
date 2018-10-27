@@ -73,6 +73,37 @@ function CalculateTotal() {
     $('#PgptTotal').val(result[3]);
 }
 
+function setAction(obj)
+{
+    debugger;
+    var Action = "Save";
+    if (obj.id == "btnFinalize") {
+        Action = 'Finalize';
+    }
+    else if (obj.id == "btnModificationHod") {
+        Action = 'ModificationNeededHod';
+    }
+    else if (obj.id == "btnModificationADean") {
+        Action = 'ModificationNeededADean';
+    }
+    else if (obj.id == "btnModificationDean") {
+        Action = 'ModificationNeededDean';
+    }
+    else if (obj.id == "btnFinalizedByHod") {
+        Action = 'FinalizedByHod';
+    }
+    else if (obj.id == "btnFinalizedByAssoDean") {
+        Action = 'FinalizedByAssoDean';
+    }
+    else if (obj.id == "btnFinalizedByDean") {
+        Action = 'FinalizedByDean';
+    }
+    else if (obj.id == "btnFinalizedByDean") {
+        Action = 'FinalizedByDean';
+    }
+
+    return Action;
+}
 
 function SaveFormData(e, obj) {
     $("#jsErrorDiv").hide();
@@ -88,33 +119,14 @@ function SaveFormData(e, obj) {
         return false;
     }
 
-    var Action = "Save";
-    if (obj.id == "btnFinalize") {
-        Action = 'Finalize';
-    }
-    else if (obj.id == "btnModification") {
-        Action = 'ModificationNeeded';
-    }
-    else if (obj.id == "btnFinalizeByHod")
-    {
-        Action = 'FinalizedByHod';
-    }
-    else if(obj.id == "btnFinalizeByAssoDean")
-    {
-        Action = 'FinalizedByAssoDean';
-    }
-    else if (obj.id == "btnFinalizeByDean")
-    {
-        Action = 'FinalizedByDean';
-    }
+    var Action = setAction(obj);
     var element = obj;
-
     var SerializeFormId = UrlConstant.SerializeFormID;
-    //var data = $(SerializeFormId).serialize() + "&action=" + Action + "&menu=" + UrlConstant.Menu;
 
     var myData = {};
     myData.action = Action;
     myData.menu = UrlConstant.Menu;
+    myData.needModificationMSG = $("#NeedModificationMSG").val();
 
     if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC") {
         myData.formData = $(SerializeFormId).serializeObject();
@@ -126,9 +138,8 @@ function SaveFormData(e, obj) {
     $.ajax({
         url: SaveUrlConstant.SaveUrl,
         type: "POST",
-        contentType: 'application/json; charset=utf-8',
-        //dataType: "json",
-        data: JSON.stringify(myData), //data,
+        contentType: 'application/json; charset=utf-8',        
+        data: JSON.stringify(myData), 
         success: function (data, textStatus, jqXHR) {
             if (data.status == true) {
                 setTimeout(function () {
