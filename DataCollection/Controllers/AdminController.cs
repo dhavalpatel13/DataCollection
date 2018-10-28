@@ -160,7 +160,7 @@ namespace DataCollection.Controllers
                                 string body = "Dear " + rankUserViewModel.RankUser.UserName + ",<br /> You have been authorised by admin now. You can access the system by logging in. <br /><br /> Admin <br /> IRD SRIC";
 
                                 FormServices formServices = new FormServices();
-                                //formServices.SendEmail("noReply@email.com", "scir", rankUserViewModel.RankUser.UserEmail, "test", body);
+                                body = body.Replace("\r\n", "<br />");
                                 string subject = "User Authorised by Admin, IRD-SRIC, IITR";
                                 formServices.SendEmail(rankUserViewModel.RankUser.UserEmail, "", subject, body);
                             }

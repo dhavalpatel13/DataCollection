@@ -134,7 +134,7 @@ namespace DataCollection.FormService
                 }
                 else
                 {
-                    return db.MenuIDs.Where(a => a.MenuID1 != "USERS" && a.MenuID1 != "REPORTS").ToList();
+                    return db.MenuIDs.Where(a => a.MenuID1 != "USERS" && a.MenuID1 != "REPORTS" && a.MenuID1 != "" && a.MenuID1 != "TABLE" && a.MenuID1 != "MESSAGE").ToList();
                 }
             }
             else
@@ -281,7 +281,7 @@ namespace DataCollection.FormService
                 }
             }
 
-
+            body = body.Replace("\r\n", "<br />");
             FormServices formServices = new FormServices();
             return formServices.SendEmail(tomail, "", subject, body);
         }
