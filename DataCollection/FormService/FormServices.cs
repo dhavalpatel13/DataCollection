@@ -41,6 +41,8 @@ namespace DataCollection.FormService
             //Step 3- Configure From
             MailAddress FromAddress = new MailAddress(FromEmailAddress, FromName);
 
+            MailBody = MailBody.Replace("\r\n", "<br />");
+
             //Step 4 - Create Message to be sent
             MailMessage message = new MailMessage();
             message.From = FromAddress;
