@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,36 +58,18 @@ namespace DataAccess.Enum
         DataLocked = 10
     }    
 
-    //public enum Department : int
-    //{
-            //ASE = "Applied Science & Engineering",
-            //ARCH = "Architecture & Planning",
-            //BIO = "Biotechnology",
-            //CHED = "Chemical Engineering",
-            //CHY = "Chemistry",
-            //CIVIL = "CIVIL ENGG",
-            //CSE = "Computer Science & Engineering",
-            //ESC = "Earth Sciences",
-            //EQD = "Earthquake Engineering",
-            //EED = "Electrical Engineering",
-            //ECE = "Electronics & Communication Engineering",
-            //HSS = "Humanities and Social Sciences",
-            //HYD = "Hydrology",
-            //MATHS = "Mathematics",
-            //MIED = "Mechanical & Industrial Engineering",
-            //MET = "Metallurgical & Materials Engineering",
-            //PHY = "Physics",
-            //PPE = "Polymar & Process Engineering",
-            //PPT = "Pulp & Paper Technology",
-            //WRDM = "Water Resources Development & Management",
-            //CTS = "Center for Transportation Systems",
-            //AHEC = "Alternate Hydro Energy Center",
-            //CCE = "Centre for Continuing Education",
-            //COEDMM = "Centre of Excellence in Disaster Mitigation & Management",
-            //NANO = "Centre of Nanotechnology",
-            //QIP = "Quality Improvement Program Centre",
-            //ICC = "Institute Computer Center",
-            //IIC = "Institute Instrumentation Centre",
-            //DOMS = "Management Studies"
-   // } 
+}
+
+public static class ExtenstionClass
+{
+    public static string GetStringValue(this Enum value)
+    {
+        Type type = value.GetType();
+        FieldInfo fieldInfo = type.GetField(value.ToString());
+        // Get the stringvalue attributes
+        StringValueAttribute[] attribs = fieldInfo.GetCustomAttributes(
+             typeof(StringValueAttribute), false) as StringValueAttribute[];
+        // Return the first if there was a match.
+        return attribs.Length > 0 ? attribs[0].StringValue : null;
+    }
 }

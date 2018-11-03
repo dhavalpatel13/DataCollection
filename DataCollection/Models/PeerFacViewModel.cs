@@ -32,12 +32,12 @@ namespace DataCollection.Models
                 DofaPeerData = new List<DofaPeer>();
                 DofaPeerData.Add(new DofaPeer());
                 DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                DataStatusName = "Data Entry Started by Operator";
+                DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
             }
             else
             {
                 DataStatus = (int)DofaPeerData.First().DataStatus;
-                DataStatusName = ((DataAccess.Enum.DataStatus)DataStatus).ToString();
+                DataStatusName = ((DataAccess.Enum.DataStatus)DataStatus).GetStringValue();
             }
         }
 
