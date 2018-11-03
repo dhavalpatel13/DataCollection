@@ -62,6 +62,71 @@
       <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DofaPeer" Member="DofaPeers">
+    <Type Name="DofaPeer">
+      <Column Name="IDNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DataCaptYM" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MenuID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DataUser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DataUpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DataStatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DataStatusLog" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DataValid" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="DataLocked" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="empNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PeerNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PeerType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerTitle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerFName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerLName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerJob" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PeerDept" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PeerInst" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PeerCountry" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PeerMob" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerDetails" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PeerRemarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.dofaInfo" Member="dofaInfos">
+    <Type Name="dofaInfo">
+      <Column Name="IDNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DataCaptYM" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MenuID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DataUser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DataUpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DataStatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DataStatusLog" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DataValid" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="DataLocked" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="empNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="empName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="empDOB" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="empDOR" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="empDOJ" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="empDOL" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="empGender" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="empDESG" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="empDEPT" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="empPAN" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="empType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="empCat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="empNation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="QualHighYear" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QualHighCourse" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="QualHighInst" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ExpAcadMon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpIndMon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FacExcgIn" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="FacExcgOut" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ConfSymSemNat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ConfSymSemInt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AwardHonors" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.Get_All_Table" Method="Get_All_Table">
     <ElementType Name="Get_All_TableResult">
       <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />

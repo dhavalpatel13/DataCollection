@@ -27,6 +27,7 @@ namespace DataAccess.Repository
         const string _SELECT_SricDept_Data = "SRIC_DEPT_DATA_SELECT_BY_DataCaptYM";
         const string _Bulk_Update_SricDept_Data = "Bulk_Update_SRIC_DEPT_BY_DataCaptYM";
         const string _Rpt_SELECT_BY_DataCaptYM_DeptID = "Rpt_SELECT_BY_DataCaptYM_DeptID";
+        const string _Bulk_Update_DofaPeer_Data = "Bulk_Update_DofaPeer_DATA_BY_DataCaptYM_DeptID";
 
         /// <summary>
         /// 
@@ -149,6 +150,34 @@ namespace DataAccess.Repository
                 sqlParamDictionary.Add("sricDeptData", data);
                 sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
                 IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_SricDept_Data);
+                connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+                command.Connection = connection;
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DBConnectionHelper.CloseSqlConnection(connection);
+            }
+        }
+
+        public bool UpdateBulkDofaPeerFormData(DataTable data, int DataCaptYM, string DeptID)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+                sqlParamDictionary.Add("DofaPeerInfo", data);
+                sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+                sqlParamDictionary.Add("DeptID", DeptID);
+                IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_DofaPeer_Data);
                 connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
                 command.Connection = connection;
                 int result = command.ExecuteNonQuery();

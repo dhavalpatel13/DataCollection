@@ -41,6 +41,9 @@ namespace DataCollection.FormService
                 case "SRIC":
                     MenuPartial = "SRICFormPartial";
                     break;
+                case "DOFAPEER":
+                    MenuPartial = "DOFAPEERFormPartial";
+                    break;
                 default:
                     break;
             }
@@ -78,6 +81,9 @@ namespace DataCollection.FormService
                     break;
                 case "SRIC":
                     FormsDataViewModel = FormsViewModel.sricDeptViewModel;
+                    break;
+                case "DOFAPEER":
+                    FormsDataViewModel = FormsViewModel.dofaPeerViewModel;
                     break;
                 default:
                     break;

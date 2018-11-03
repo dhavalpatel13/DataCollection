@@ -20,6 +20,7 @@ namespace DataCollection.Models
 
         public DofaViewModel dofaViewModel { get; set; }
         public SricFAViewModel sricFAViewModel { get; set; }
+        public DofaPeerViewModel dofaPeerViewModel { get; set; }
 
         public SricDeptViewModel sricDeptViewModel { get; set; }
 
@@ -81,6 +82,11 @@ namespace DataCollection.Models
                 sricDeptViewModel = new SricDeptViewModel();
                 sricDeptViewModel.GetSRICData(DataCaptYM);
             }
+            else if (MenuID == DataAccess.Enum.Menu.DOFAPEER.ToString())
+            {
+                dofaPeerViewModel = new DofaPeerViewModel();
+                dofaPeerViewModel.GetDofaPeerData(DataCaptYM);
+            }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
             this.rankmsg = rankmesg.Message;
@@ -104,6 +110,11 @@ namespace DataCollection.Models
             {
                 sricDeptViewModel = new SricDeptViewModel();
                 sricDeptViewModel.GetSRICData(dataCaptYM);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.DOFAPEER.ToString())
+            {
+                dofaPeerViewModel = new DofaPeerViewModel();
+                dofaPeerViewModel.GetDofaPeerData(dataCaptYM);
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
@@ -302,29 +313,22 @@ namespace DataCollection.Models
                     formsViewModel.isSaveSuccessfully = false;
                 }
             }
+            else if (menu == DataAccess.Enum.Menu.DOFAPEER.ToString())
+            {
+                if (objectData != null && typeof(DofaPeerViewModel) == objectData.GetType())
+                {
+                    DofaPeerViewModel sdvm = (DofaPeerViewModel)objectData;
+                    DataCaptYM = sdvm.DataCaptYM;
+                    DeptID = "DOFA";
+                    formsViewModel.isSaveSuccessfully = sdvm.SaveDofaPeerData(action, out msg);
+                }
+                else
+                {
+                    formsViewModel.isSaveSuccessfully = false;
+                }
+            }
             if (formsViewModel.isSaveSuccessfully)
             {
-                //try
-                //{
-                //    string body = "The User: " + SessionManager.UserName + ", Dept: " + SessionManager.DeptID + " , DataCapt: " + info.DataCaptYM + ", IRD Data has been finalised & sent for your Authorization.  Kindly Check & Authorize/Approve the data."
-                //                 + "Time Stamp: DateTime Stamp: " + DateTime.Now
-                //                 + "This is a System generated Email.";
-
-                //    string subject = "IRD Data Entry updated by " + SessionManager.UserName;
-
-                //    DataCollectionModelDataContext db = new DataCollectionModelDataContext();
-                //    var hod = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() && a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() && a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
-                //    string tomail = "webtechrk@gmail.com";
-                //    if(hod != null)
-                //    {
-                //        tomail = hod.UserEmail;
-                //    }
-
-                //    FormServices formServices = new FormServices();
-                //    formServices.SendEmail(tomail, "", subject, body);
-                //}
-                //catch (Exception ex) { }
-
                 IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID, needModificationMSG);
             }
 

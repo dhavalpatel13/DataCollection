@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.625, 8.5" name="DataCollectionModel">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.625, 10.375" name="DataCollectionModel">
   <DataContextMoniker Name="/DataCollectionModelDataContext" />
   <nestedChildShapes>
     <classShape Id="68831d44-df43-4671-88dc-a1bc919cc3a7" absoluteBounds="0.75, 2.75, 2, 1.7708968098958327">
@@ -42,6 +42,18 @@
       <DataClassMoniker Name="/DataCollectionModelDataContext/RankMesg" />
       <nestedChildShapes>
         <elementListCompartment Id="71d4b248-b3eb-484f-9b58-4eda242c3c99" absoluteBounds="10.39, 2.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="35889f4b-2cbf-40d0-bd13-6117d1f30248" absoluteBounds="7.5, 3.625, 2, 5.4246240234375">
+      <DataClassMoniker Name="/DataCollectionModelDataContext/DofaPeer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1649ffa2-b09d-48c1-aec6-347c45c5cca2" absoluteBounds="7.5150000000000006, 4.085, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9b4e3578-6832-4d23-8385-547d2d4423e3" absoluteBounds="4.125, 3, 2, 7.1553369140625">
+      <DataClassMoniker Name="/DataCollectionModelDataContext/dofaInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="db378202-862f-4306-8c65-06e7a58770df" absoluteBounds="4.14, 3.46, 1.9700000000000002, 6.5953369140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

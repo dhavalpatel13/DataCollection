@@ -1,0 +1,23 @@
+﻿@model DataCollection.Models.DofaPeer
+
+
+<td align="center" valign="middle">@Html.HiddenFor(m => m.IDNo, new { @class = "idno" })<span class="srno">&nbsp;</span><a style="display:none;" class="deletenew" title="Remove row" href="javascript:;" onclick="removeDOFAPEERRow(event)"> X </a></td>
+<td align="center" valign="middle">
+    @*@Html.TextBox("empNo", Model.empNo, new { @class = "form-control edit-value big-text autocomplete", required = "true", minLenght = 1, maxLenght = 100, title = "Add text", name = "empNo" })*@
+    <input class="form-control edit-value big-text autocomplete ui-autocomplete-input"
+           data-val="true" data-val-number="The field empNo must be a number."
+           data-val-required="The empNo field is required." id="empNo"
+           maxlength="100" minlength="1" name="empNo" required="true"
+           title="Add text" type="text" value="@Model.empNo" autocomplete="off" />
+    @Html.HiddenFor(m => m.empNo)
+</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerTitle, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerFName, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerLName, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerJob, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerDept, new { @class = "form-control edit-value", title = "Add Text", disabled = "disabled" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerInst, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerCountry, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerEmail, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerMob, new { @class = "form-control edit-value", title = "Add Text" })</td>
+<td align="center" valign="middle">@Html.TextBoxFor(m => m.PeerType, new { @class = "form-control edit-value", title = "Add Text" })</td>

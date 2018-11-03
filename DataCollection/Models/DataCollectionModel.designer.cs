@@ -51,6 +51,12 @@ namespace DataCollection.Models
     partial void InsertRankMesg(RankMesg instance);
     partial void UpdateRankMesg(RankMesg instance);
     partial void DeleteRankMesg(RankMesg instance);
+    partial void InsertDofaPeer(DofaPeer instance);
+    partial void UpdateDofaPeer(DofaPeer instance);
+    partial void DeleteDofaPeer(DofaPeer instance);
+    partial void InsertdofaInfo(dofaInfo instance);
+    partial void UpdatedofaInfo(dofaInfo instance);
+    partial void DeletedofaInfo(dofaInfo instance);
     #endregion
 		
 		public DataCollectionModelDataContext() : 
@@ -136,6 +142,22 @@ namespace DataCollection.Models
 			get
 			{
 				return this.GetTable<RankMesg>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DofaPeer> DofaPeers
+		{
+			get
+			{
+				return this.GetTable<DofaPeer>();
+			}
+		}
+		
+		public System.Data.Linq.Table<dofaInfo> dofaInfos
+		{
+			get
+			{
+				return this.GetTable<dofaInfo>();
 			}
 		}
 		
@@ -1204,6 +1226,1450 @@ namespace DataCollection.Models
 					this._Message = value;
 					this.SendPropertyChanged("Message");
 					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DofaPeer")]
+	public partial class DofaPeer : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDNo;
+		
+		private int _DataCaptYM;
+		
+		private string _DeptID;
+		
+		private string _MenuID;
+		
+		private string _DataUser;
+		
+		private System.Nullable<System.DateTime> _DataUpdatedOn;
+		
+		private System.Nullable<short> _DataStatus;
+		
+		private string _DataStatusLog;
+		
+		private System.Nullable<char> _DataValid;
+		
+		private System.Nullable<char> _DataLocked;
+		
+		private int _empNo;
+		
+		private int _PeerNo;
+		
+		private string _PeerType;
+		
+		private string _PeerTitle;
+		
+		private string _PeerFName;
+		
+		private string _PeerLName;
+		
+		private string _PeerJob;
+		
+		private string _PeerDept;
+		
+		private string _PeerInst;
+		
+		private string _PeerCountry;
+		
+		private string _PeerEmail;
+		
+		private string _PeerMob;
+		
+		private string _PeerDetails;
+		
+		private string _PeerRemarks;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDNoChanging(int value);
+    partial void OnIDNoChanged();
+    partial void OnDataCaptYMChanging(int value);
+    partial void OnDataCaptYMChanged();
+    partial void OnDeptIDChanging(string value);
+    partial void OnDeptIDChanged();
+    partial void OnMenuIDChanging(string value);
+    partial void OnMenuIDChanged();
+    partial void OnDataUserChanging(string value);
+    partial void OnDataUserChanged();
+    partial void OnDataUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnDataUpdatedOnChanged();
+    partial void OnDataStatusChanging(System.Nullable<short> value);
+    partial void OnDataStatusChanged();
+    partial void OnDataStatusLogChanging(string value);
+    partial void OnDataStatusLogChanged();
+    partial void OnDataValidChanging(System.Nullable<char> value);
+    partial void OnDataValidChanged();
+    partial void OnDataLockedChanging(System.Nullable<char> value);
+    partial void OnDataLockedChanged();
+    partial void OnempNoChanging(int value);
+    partial void OnempNoChanged();
+    partial void OnPeerNoChanging(int value);
+    partial void OnPeerNoChanged();
+    partial void OnPeerTypeChanging(string value);
+    partial void OnPeerTypeChanged();
+    partial void OnPeerTitleChanging(string value);
+    partial void OnPeerTitleChanged();
+    partial void OnPeerFNameChanging(string value);
+    partial void OnPeerFNameChanged();
+    partial void OnPeerLNameChanging(string value);
+    partial void OnPeerLNameChanged();
+    partial void OnPeerJobChanging(string value);
+    partial void OnPeerJobChanged();
+    partial void OnPeerDeptChanging(string value);
+    partial void OnPeerDeptChanged();
+    partial void OnPeerInstChanging(string value);
+    partial void OnPeerInstChanged();
+    partial void OnPeerCountryChanging(string value);
+    partial void OnPeerCountryChanged();
+    partial void OnPeerEmailChanging(string value);
+    partial void OnPeerEmailChanged();
+    partial void OnPeerMobChanging(string value);
+    partial void OnPeerMobChanged();
+    partial void OnPeerDetailsChanging(string value);
+    partial void OnPeerDetailsChanged();
+    partial void OnPeerRemarksChanging(string value);
+    partial void OnPeerRemarksChanged();
+    #endregion
+		
+		public DofaPeer()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDNo", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int IDNo
+		{
+			get
+			{
+				return this._IDNo;
+			}
+			set
+			{
+				if ((this._IDNo != value))
+				{
+					this.OnIDNoChanging(value);
+					this.SendPropertyChanging();
+					this._IDNo = value;
+					this.SendPropertyChanged("IDNo");
+					this.OnIDNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataCaptYM", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int DataCaptYM
+		{
+			get
+			{
+				return this._DataCaptYM;
+			}
+			set
+			{
+				if ((this._DataCaptYM != value))
+				{
+					this.OnDataCaptYMChanging(value);
+					this.SendPropertyChanging();
+					this._DataCaptYM = value;
+					this.SendPropertyChanged("DataCaptYM");
+					this.OnDataCaptYMChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string DeptID
+		{
+			get
+			{
+				return this._DeptID;
+			}
+			set
+			{
+				if ((this._DeptID != value))
+				{
+					this.OnDeptIDChanging(value);
+					this.SendPropertyChanging();
+					this._DeptID = value;
+					this.SendPropertyChanged("DeptID");
+					this.OnDeptIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MenuID
+		{
+			get
+			{
+				return this._MenuID;
+			}
+			set
+			{
+				if ((this._MenuID != value))
+				{
+					this.OnMenuIDChanging(value);
+					this.SendPropertyChanging();
+					this._MenuID = value;
+					this.SendPropertyChanged("MenuID");
+					this.OnMenuIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataUser", DbType="NVarChar(50)")]
+		public string DataUser
+		{
+			get
+			{
+				return this._DataUser;
+			}
+			set
+			{
+				if ((this._DataUser != value))
+				{
+					this.OnDataUserChanging(value);
+					this.SendPropertyChanging();
+					this._DataUser = value;
+					this.SendPropertyChanged("DataUser");
+					this.OnDataUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataUpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DataUpdatedOn
+		{
+			get
+			{
+				return this._DataUpdatedOn;
+			}
+			set
+			{
+				if ((this._DataUpdatedOn != value))
+				{
+					this.OnDataUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._DataUpdatedOn = value;
+					this.SendPropertyChanged("DataUpdatedOn");
+					this.OnDataUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataStatus", DbType="SmallInt")]
+		public System.Nullable<short> DataStatus
+		{
+			get
+			{
+				return this._DataStatus;
+			}
+			set
+			{
+				if ((this._DataStatus != value))
+				{
+					this.OnDataStatusChanging(value);
+					this.SendPropertyChanging();
+					this._DataStatus = value;
+					this.SendPropertyChanged("DataStatus");
+					this.OnDataStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataStatusLog", DbType="NVarChar(MAX)")]
+		public string DataStatusLog
+		{
+			get
+			{
+				return this._DataStatusLog;
+			}
+			set
+			{
+				if ((this._DataStatusLog != value))
+				{
+					this.OnDataStatusLogChanging(value);
+					this.SendPropertyChanging();
+					this._DataStatusLog = value;
+					this.SendPropertyChanged("DataStatusLog");
+					this.OnDataStatusLogChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataValid", DbType="Char(1)")]
+		public System.Nullable<char> DataValid
+		{
+			get
+			{
+				return this._DataValid;
+			}
+			set
+			{
+				if ((this._DataValid != value))
+				{
+					this.OnDataValidChanging(value);
+					this.SendPropertyChanging();
+					this._DataValid = value;
+					this.SendPropertyChanged("DataValid");
+					this.OnDataValidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataLocked", DbType="Char(1)")]
+		public System.Nullable<char> DataLocked
+		{
+			get
+			{
+				return this._DataLocked;
+			}
+			set
+			{
+				if ((this._DataLocked != value))
+				{
+					this.OnDataLockedChanging(value);
+					this.SendPropertyChanging();
+					this._DataLocked = value;
+					this.SendPropertyChanged("DataLocked");
+					this.OnDataLockedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empNo", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int empNo
+		{
+			get
+			{
+				return this._empNo;
+			}
+			set
+			{
+				if ((this._empNo != value))
+				{
+					this.OnempNoChanging(value);
+					this.SendPropertyChanging();
+					this._empNo = value;
+					this.SendPropertyChanged("empNo");
+					this.OnempNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerNo", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int PeerNo
+		{
+			get
+			{
+				return this._PeerNo;
+			}
+			set
+			{
+				if ((this._PeerNo != value))
+				{
+					this.OnPeerNoChanging(value);
+					this.SendPropertyChanging();
+					this._PeerNo = value;
+					this.SendPropertyChanged("PeerNo");
+					this.OnPeerNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerType", DbType="NVarChar(50)")]
+		public string PeerType
+		{
+			get
+			{
+				return this._PeerType;
+			}
+			set
+			{
+				if ((this._PeerType != value))
+				{
+					this.OnPeerTypeChanging(value);
+					this.SendPropertyChanging();
+					this._PeerType = value;
+					this.SendPropertyChanged("PeerType");
+					this.OnPeerTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerTitle", DbType="NVarChar(50)")]
+		public string PeerTitle
+		{
+			get
+			{
+				return this._PeerTitle;
+			}
+			set
+			{
+				if ((this._PeerTitle != value))
+				{
+					this.OnPeerTitleChanging(value);
+					this.SendPropertyChanging();
+					this._PeerTitle = value;
+					this.SendPropertyChanged("PeerTitle");
+					this.OnPeerTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerFName", DbType="NVarChar(50)")]
+		public string PeerFName
+		{
+			get
+			{
+				return this._PeerFName;
+			}
+			set
+			{
+				if ((this._PeerFName != value))
+				{
+					this.OnPeerFNameChanging(value);
+					this.SendPropertyChanging();
+					this._PeerFName = value;
+					this.SendPropertyChanged("PeerFName");
+					this.OnPeerFNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerLName", DbType="NVarChar(50)")]
+		public string PeerLName
+		{
+			get
+			{
+				return this._PeerLName;
+			}
+			set
+			{
+				if ((this._PeerLName != value))
+				{
+					this.OnPeerLNameChanging(value);
+					this.SendPropertyChanging();
+					this._PeerLName = value;
+					this.SendPropertyChanged("PeerLName");
+					this.OnPeerLNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerJob", DbType="NVarChar(100)")]
+		public string PeerJob
+		{
+			get
+			{
+				return this._PeerJob;
+			}
+			set
+			{
+				if ((this._PeerJob != value))
+				{
+					this.OnPeerJobChanging(value);
+					this.SendPropertyChanging();
+					this._PeerJob = value;
+					this.SendPropertyChanged("PeerJob");
+					this.OnPeerJobChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerDept", DbType="NVarChar(100)")]
+		public string PeerDept
+		{
+			get
+			{
+				return this._PeerDept;
+			}
+			set
+			{
+				if ((this._PeerDept != value))
+				{
+					this.OnPeerDeptChanging(value);
+					this.SendPropertyChanging();
+					this._PeerDept = value;
+					this.SendPropertyChanged("PeerDept");
+					this.OnPeerDeptChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerInst", DbType="NVarChar(100)")]
+		public string PeerInst
+		{
+			get
+			{
+				return this._PeerInst;
+			}
+			set
+			{
+				if ((this._PeerInst != value))
+				{
+					this.OnPeerInstChanging(value);
+					this.SendPropertyChanging();
+					this._PeerInst = value;
+					this.SendPropertyChanged("PeerInst");
+					this.OnPeerInstChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerCountry", DbType="NVarChar(50)")]
+		public string PeerCountry
+		{
+			get
+			{
+				return this._PeerCountry;
+			}
+			set
+			{
+				if ((this._PeerCountry != value))
+				{
+					this.OnPeerCountryChanging(value);
+					this.SendPropertyChanging();
+					this._PeerCountry = value;
+					this.SendPropertyChanged("PeerCountry");
+					this.OnPeerCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerEmail", DbType="NVarChar(100)")]
+		public string PeerEmail
+		{
+			get
+			{
+				return this._PeerEmail;
+			}
+			set
+			{
+				if ((this._PeerEmail != value))
+				{
+					this.OnPeerEmailChanging(value);
+					this.SendPropertyChanging();
+					this._PeerEmail = value;
+					this.SendPropertyChanged("PeerEmail");
+					this.OnPeerEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerMob", DbType="NVarChar(50)")]
+		public string PeerMob
+		{
+			get
+			{
+				return this._PeerMob;
+			}
+			set
+			{
+				if ((this._PeerMob != value))
+				{
+					this.OnPeerMobChanging(value);
+					this.SendPropertyChanging();
+					this._PeerMob = value;
+					this.SendPropertyChanged("PeerMob");
+					this.OnPeerMobChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerDetails", DbType="NVarChar(500)")]
+		public string PeerDetails
+		{
+			get
+			{
+				return this._PeerDetails;
+			}
+			set
+			{
+				if ((this._PeerDetails != value))
+				{
+					this.OnPeerDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._PeerDetails = value;
+					this.SendPropertyChanged("PeerDetails");
+					this.OnPeerDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeerRemarks", DbType="NVarChar(500)")]
+		public string PeerRemarks
+		{
+			get
+			{
+				return this._PeerRemarks;
+			}
+			set
+			{
+				if ((this._PeerRemarks != value))
+				{
+					this.OnPeerRemarksChanging(value);
+					this.SendPropertyChanging();
+					this._PeerRemarks = value;
+					this.SendPropertyChanged("PeerRemarks");
+					this.OnPeerRemarksChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.dofaInfo")]
+	public partial class dofaInfo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDNo;
+		
+		private int _DataCaptYM;
+		
+		private string _DeptID;
+		
+		private string _MenuID;
+		
+		private string _DataUser;
+		
+		private System.Nullable<System.DateTime> _DataUpdatedOn;
+		
+		private System.Nullable<short> _DataStatus;
+		
+		private string _DataStatusLog;
+		
+		private System.Nullable<char> _DataValid;
+		
+		private System.Nullable<char> _DataLocked;
+		
+		private int _empNo;
+		
+		private string _empName;
+		
+		private System.Nullable<System.DateTime> _empDOB;
+		
+		private System.Nullable<System.DateTime> _empDOR;
+		
+		private System.Nullable<System.DateTime> _empDOJ;
+		
+		private System.Nullable<System.DateTime> _empDOL;
+		
+		private System.Nullable<char> _empGender;
+		
+		private string _empDESG;
+		
+		private string _empDEPT;
+		
+		private string _empPAN;
+		
+		private string _empType;
+		
+		private string _empCat;
+		
+		private string _empNation;
+		
+		private System.Nullable<int> _QualHighYear;
+		
+		private string _QualHighCourse;
+		
+		private string _QualHighInst;
+		
+		private System.Nullable<int> _ExpAcadMon;
+		
+		private System.Nullable<int> _ExpIndMon;
+		
+		private string _FacExcgIn;
+		
+		private string _FacExcgOut;
+		
+		private System.Nullable<int> _ConfSymSemNat;
+		
+		private System.Nullable<int> _ConfSymSemInt;
+		
+		private string _AwardHonors;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDNoChanging(int value);
+    partial void OnIDNoChanged();
+    partial void OnDataCaptYMChanging(int value);
+    partial void OnDataCaptYMChanged();
+    partial void OnDeptIDChanging(string value);
+    partial void OnDeptIDChanged();
+    partial void OnMenuIDChanging(string value);
+    partial void OnMenuIDChanged();
+    partial void OnDataUserChanging(string value);
+    partial void OnDataUserChanged();
+    partial void OnDataUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnDataUpdatedOnChanged();
+    partial void OnDataStatusChanging(System.Nullable<short> value);
+    partial void OnDataStatusChanged();
+    partial void OnDataStatusLogChanging(string value);
+    partial void OnDataStatusLogChanged();
+    partial void OnDataValidChanging(System.Nullable<char> value);
+    partial void OnDataValidChanged();
+    partial void OnDataLockedChanging(System.Nullable<char> value);
+    partial void OnDataLockedChanged();
+    partial void OnempNoChanging(int value);
+    partial void OnempNoChanged();
+    partial void OnempNameChanging(string value);
+    partial void OnempNameChanged();
+    partial void OnempDOBChanging(System.Nullable<System.DateTime> value);
+    partial void OnempDOBChanged();
+    partial void OnempDORChanging(System.Nullable<System.DateTime> value);
+    partial void OnempDORChanged();
+    partial void OnempDOJChanging(System.Nullable<System.DateTime> value);
+    partial void OnempDOJChanged();
+    partial void OnempDOLChanging(System.Nullable<System.DateTime> value);
+    partial void OnempDOLChanged();
+    partial void OnempGenderChanging(System.Nullable<char> value);
+    partial void OnempGenderChanged();
+    partial void OnempDESGChanging(string value);
+    partial void OnempDESGChanged();
+    partial void OnempDEPTChanging(string value);
+    partial void OnempDEPTChanged();
+    partial void OnempPANChanging(string value);
+    partial void OnempPANChanged();
+    partial void OnempTypeChanging(string value);
+    partial void OnempTypeChanged();
+    partial void OnempCatChanging(string value);
+    partial void OnempCatChanged();
+    partial void OnempNationChanging(string value);
+    partial void OnempNationChanged();
+    partial void OnQualHighYearChanging(System.Nullable<int> value);
+    partial void OnQualHighYearChanged();
+    partial void OnQualHighCourseChanging(string value);
+    partial void OnQualHighCourseChanged();
+    partial void OnQualHighInstChanging(string value);
+    partial void OnQualHighInstChanged();
+    partial void OnExpAcadMonChanging(System.Nullable<int> value);
+    partial void OnExpAcadMonChanged();
+    partial void OnExpIndMonChanging(System.Nullable<int> value);
+    partial void OnExpIndMonChanged();
+    partial void OnFacExcgInChanging(string value);
+    partial void OnFacExcgInChanged();
+    partial void OnFacExcgOutChanging(string value);
+    partial void OnFacExcgOutChanged();
+    partial void OnConfSymSemNatChanging(System.Nullable<int> value);
+    partial void OnConfSymSemNatChanged();
+    partial void OnConfSymSemIntChanging(System.Nullable<int> value);
+    partial void OnConfSymSemIntChanged();
+    partial void OnAwardHonorsChanging(string value);
+    partial void OnAwardHonorsChanged();
+    #endregion
+		
+		public dofaInfo()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDNo", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int IDNo
+		{
+			get
+			{
+				return this._IDNo;
+			}
+			set
+			{
+				if ((this._IDNo != value))
+				{
+					this.OnIDNoChanging(value);
+					this.SendPropertyChanging();
+					this._IDNo = value;
+					this.SendPropertyChanged("IDNo");
+					this.OnIDNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataCaptYM", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int DataCaptYM
+		{
+			get
+			{
+				return this._DataCaptYM;
+			}
+			set
+			{
+				if ((this._DataCaptYM != value))
+				{
+					this.OnDataCaptYMChanging(value);
+					this.SendPropertyChanging();
+					this._DataCaptYM = value;
+					this.SendPropertyChanged("DataCaptYM");
+					this.OnDataCaptYMChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string DeptID
+		{
+			get
+			{
+				return this._DeptID;
+			}
+			set
+			{
+				if ((this._DeptID != value))
+				{
+					this.OnDeptIDChanging(value);
+					this.SendPropertyChanging();
+					this._DeptID = value;
+					this.SendPropertyChanged("DeptID");
+					this.OnDeptIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MenuID
+		{
+			get
+			{
+				return this._MenuID;
+			}
+			set
+			{
+				if ((this._MenuID != value))
+				{
+					this.OnMenuIDChanging(value);
+					this.SendPropertyChanging();
+					this._MenuID = value;
+					this.SendPropertyChanged("MenuID");
+					this.OnMenuIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataUser", DbType="NVarChar(50)")]
+		public string DataUser
+		{
+			get
+			{
+				return this._DataUser;
+			}
+			set
+			{
+				if ((this._DataUser != value))
+				{
+					this.OnDataUserChanging(value);
+					this.SendPropertyChanging();
+					this._DataUser = value;
+					this.SendPropertyChanged("DataUser");
+					this.OnDataUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataUpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DataUpdatedOn
+		{
+			get
+			{
+				return this._DataUpdatedOn;
+			}
+			set
+			{
+				if ((this._DataUpdatedOn != value))
+				{
+					this.OnDataUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._DataUpdatedOn = value;
+					this.SendPropertyChanged("DataUpdatedOn");
+					this.OnDataUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataStatus", DbType="SmallInt")]
+		public System.Nullable<short> DataStatus
+		{
+			get
+			{
+				return this._DataStatus;
+			}
+			set
+			{
+				if ((this._DataStatus != value))
+				{
+					this.OnDataStatusChanging(value);
+					this.SendPropertyChanging();
+					this._DataStatus = value;
+					this.SendPropertyChanged("DataStatus");
+					this.OnDataStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataStatusLog", DbType="NVarChar(MAX)")]
+		public string DataStatusLog
+		{
+			get
+			{
+				return this._DataStatusLog;
+			}
+			set
+			{
+				if ((this._DataStatusLog != value))
+				{
+					this.OnDataStatusLogChanging(value);
+					this.SendPropertyChanging();
+					this._DataStatusLog = value;
+					this.SendPropertyChanged("DataStatusLog");
+					this.OnDataStatusLogChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataValid", DbType="Char(1)")]
+		public System.Nullable<char> DataValid
+		{
+			get
+			{
+				return this._DataValid;
+			}
+			set
+			{
+				if ((this._DataValid != value))
+				{
+					this.OnDataValidChanging(value);
+					this.SendPropertyChanging();
+					this._DataValid = value;
+					this.SendPropertyChanged("DataValid");
+					this.OnDataValidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataLocked", DbType="Char(1)")]
+		public System.Nullable<char> DataLocked
+		{
+			get
+			{
+				return this._DataLocked;
+			}
+			set
+			{
+				if ((this._DataLocked != value))
+				{
+					this.OnDataLockedChanging(value);
+					this.SendPropertyChanging();
+					this._DataLocked = value;
+					this.SendPropertyChanged("DataLocked");
+					this.OnDataLockedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empNo", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int empNo
+		{
+			get
+			{
+				return this._empNo;
+			}
+			set
+			{
+				if ((this._empNo != value))
+				{
+					this.OnempNoChanging(value);
+					this.SendPropertyChanging();
+					this._empNo = value;
+					this.SendPropertyChanged("empNo");
+					this.OnempNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empName", DbType="NVarChar(50)")]
+		public string empName
+		{
+			get
+			{
+				return this._empName;
+			}
+			set
+			{
+				if ((this._empName != value))
+				{
+					this.OnempNameChanging(value);
+					this.SendPropertyChanging();
+					this._empName = value;
+					this.SendPropertyChanged("empName");
+					this.OnempNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empDOB", DbType="DateTime")]
+		public System.Nullable<System.DateTime> empDOB
+		{
+			get
+			{
+				return this._empDOB;
+			}
+			set
+			{
+				if ((this._empDOB != value))
+				{
+					this.OnempDOBChanging(value);
+					this.SendPropertyChanging();
+					this._empDOB = value;
+					this.SendPropertyChanged("empDOB");
+					this.OnempDOBChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empDOR", DbType="DateTime")]
+		public System.Nullable<System.DateTime> empDOR
+		{
+			get
+			{
+				return this._empDOR;
+			}
+			set
+			{
+				if ((this._empDOR != value))
+				{
+					this.OnempDORChanging(value);
+					this.SendPropertyChanging();
+					this._empDOR = value;
+					this.SendPropertyChanged("empDOR");
+					this.OnempDORChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empDOJ", DbType="DateTime")]
+		public System.Nullable<System.DateTime> empDOJ
+		{
+			get
+			{
+				return this._empDOJ;
+			}
+			set
+			{
+				if ((this._empDOJ != value))
+				{
+					this.OnempDOJChanging(value);
+					this.SendPropertyChanging();
+					this._empDOJ = value;
+					this.SendPropertyChanged("empDOJ");
+					this.OnempDOJChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empDOL", DbType="DateTime")]
+		public System.Nullable<System.DateTime> empDOL
+		{
+			get
+			{
+				return this._empDOL;
+			}
+			set
+			{
+				if ((this._empDOL != value))
+				{
+					this.OnempDOLChanging(value);
+					this.SendPropertyChanging();
+					this._empDOL = value;
+					this.SendPropertyChanged("empDOL");
+					this.OnempDOLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empGender", DbType="Char(1)")]
+		public System.Nullable<char> empGender
+		{
+			get
+			{
+				return this._empGender;
+			}
+			set
+			{
+				if ((this._empGender != value))
+				{
+					this.OnempGenderChanging(value);
+					this.SendPropertyChanging();
+					this._empGender = value;
+					this.SendPropertyChanged("empGender");
+					this.OnempGenderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empDESG", DbType="NVarChar(50)")]
+		public string empDESG
+		{
+			get
+			{
+				return this._empDESG;
+			}
+			set
+			{
+				if ((this._empDESG != value))
+				{
+					this.OnempDESGChanging(value);
+					this.SendPropertyChanging();
+					this._empDESG = value;
+					this.SendPropertyChanged("empDESG");
+					this.OnempDESGChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empDEPT", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		public string empDEPT
+		{
+			get
+			{
+				return this._empDEPT;
+			}
+			set
+			{
+				if ((this._empDEPT != value))
+				{
+					this.OnempDEPTChanging(value);
+					this.SendPropertyChanging();
+					this._empDEPT = value;
+					this.SendPropertyChanged("empDEPT");
+					this.OnempDEPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empPAN", DbType="NVarChar(10)")]
+		public string empPAN
+		{
+			get
+			{
+				return this._empPAN;
+			}
+			set
+			{
+				if ((this._empPAN != value))
+				{
+					this.OnempPANChanging(value);
+					this.SendPropertyChanging();
+					this._empPAN = value;
+					this.SendPropertyChanged("empPAN");
+					this.OnempPANChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empType", DbType="NVarChar(50)")]
+		public string empType
+		{
+			get
+			{
+				return this._empType;
+			}
+			set
+			{
+				if ((this._empType != value))
+				{
+					this.OnempTypeChanging(value);
+					this.SendPropertyChanging();
+					this._empType = value;
+					this.SendPropertyChanged("empType");
+					this.OnempTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empCat", DbType="NVarChar(50)")]
+		public string empCat
+		{
+			get
+			{
+				return this._empCat;
+			}
+			set
+			{
+				if ((this._empCat != value))
+				{
+					this.OnempCatChanging(value);
+					this.SendPropertyChanging();
+					this._empCat = value;
+					this.SendPropertyChanged("empCat");
+					this.OnempCatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_empNation", DbType="NVarChar(50)")]
+		public string empNation
+		{
+			get
+			{
+				return this._empNation;
+			}
+			set
+			{
+				if ((this._empNation != value))
+				{
+					this.OnempNationChanging(value);
+					this.SendPropertyChanging();
+					this._empNation = value;
+					this.SendPropertyChanged("empNation");
+					this.OnempNationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QualHighYear", DbType="Int")]
+		public System.Nullable<int> QualHighYear
+		{
+			get
+			{
+				return this._QualHighYear;
+			}
+			set
+			{
+				if ((this._QualHighYear != value))
+				{
+					this.OnQualHighYearChanging(value);
+					this.SendPropertyChanging();
+					this._QualHighYear = value;
+					this.SendPropertyChanged("QualHighYear");
+					this.OnQualHighYearChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QualHighCourse", DbType="NVarChar(100)")]
+		public string QualHighCourse
+		{
+			get
+			{
+				return this._QualHighCourse;
+			}
+			set
+			{
+				if ((this._QualHighCourse != value))
+				{
+					this.OnQualHighCourseChanging(value);
+					this.SendPropertyChanging();
+					this._QualHighCourse = value;
+					this.SendPropertyChanged("QualHighCourse");
+					this.OnQualHighCourseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QualHighInst", DbType="NVarChar(100)")]
+		public string QualHighInst
+		{
+			get
+			{
+				return this._QualHighInst;
+			}
+			set
+			{
+				if ((this._QualHighInst != value))
+				{
+					this.OnQualHighInstChanging(value);
+					this.SendPropertyChanging();
+					this._QualHighInst = value;
+					this.SendPropertyChanged("QualHighInst");
+					this.OnQualHighInstChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpAcadMon", DbType="Int")]
+		public System.Nullable<int> ExpAcadMon
+		{
+			get
+			{
+				return this._ExpAcadMon;
+			}
+			set
+			{
+				if ((this._ExpAcadMon != value))
+				{
+					this.OnExpAcadMonChanging(value);
+					this.SendPropertyChanging();
+					this._ExpAcadMon = value;
+					this.SendPropertyChanged("ExpAcadMon");
+					this.OnExpAcadMonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpIndMon", DbType="Int")]
+		public System.Nullable<int> ExpIndMon
+		{
+			get
+			{
+				return this._ExpIndMon;
+			}
+			set
+			{
+				if ((this._ExpIndMon != value))
+				{
+					this.OnExpIndMonChanging(value);
+					this.SendPropertyChanging();
+					this._ExpIndMon = value;
+					this.SendPropertyChanged("ExpIndMon");
+					this.OnExpIndMonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FacExcgIn", DbType="NVarChar(200)")]
+		public string FacExcgIn
+		{
+			get
+			{
+				return this._FacExcgIn;
+			}
+			set
+			{
+				if ((this._FacExcgIn != value))
+				{
+					this.OnFacExcgInChanging(value);
+					this.SendPropertyChanging();
+					this._FacExcgIn = value;
+					this.SendPropertyChanged("FacExcgIn");
+					this.OnFacExcgInChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FacExcgOut", DbType="NVarChar(200)")]
+		public string FacExcgOut
+		{
+			get
+			{
+				return this._FacExcgOut;
+			}
+			set
+			{
+				if ((this._FacExcgOut != value))
+				{
+					this.OnFacExcgOutChanging(value);
+					this.SendPropertyChanging();
+					this._FacExcgOut = value;
+					this.SendPropertyChanged("FacExcgOut");
+					this.OnFacExcgOutChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfSymSemNat", DbType="Int")]
+		public System.Nullable<int> ConfSymSemNat
+		{
+			get
+			{
+				return this._ConfSymSemNat;
+			}
+			set
+			{
+				if ((this._ConfSymSemNat != value))
+				{
+					this.OnConfSymSemNatChanging(value);
+					this.SendPropertyChanging();
+					this._ConfSymSemNat = value;
+					this.SendPropertyChanged("ConfSymSemNat");
+					this.OnConfSymSemNatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfSymSemInt", DbType="Int")]
+		public System.Nullable<int> ConfSymSemInt
+		{
+			get
+			{
+				return this._ConfSymSemInt;
+			}
+			set
+			{
+				if ((this._ConfSymSemInt != value))
+				{
+					this.OnConfSymSemIntChanging(value);
+					this.SendPropertyChanging();
+					this._ConfSymSemInt = value;
+					this.SendPropertyChanged("ConfSymSemInt");
+					this.OnConfSymSemIntChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AwardHonors", DbType="NVarChar(200)")]
+		public string AwardHonors
+		{
+			get
+			{
+				return this._AwardHonors;
+			}
+			set
+			{
+				if ((this._AwardHonors != value))
+				{
+					this.OnAwardHonorsChanging(value);
+					this.SendPropertyChanging();
+					this._AwardHonors = value;
+					this.SendPropertyChanged("AwardHonors");
+					this.OnAwardHonorsChanged();
 				}
 			}
 		}

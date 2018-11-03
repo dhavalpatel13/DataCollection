@@ -404,4 +404,9 @@
   <sproc name="Get_Table_Detail">
     <param name="TableName" SqlDbType="12" direction="1"></param>
   </sproc>
+  <sproc name="Bulk_Update_DofaPeer_DATA_BY_DataCaptYM_DeptID">
+    <param name="DofaPeerInfo" SqlDbType="30" direction="1"></param>
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+    <param name="DeptID" SqlDbType="12" direction="1"></param>
+  </sproc>
 </sprocs>

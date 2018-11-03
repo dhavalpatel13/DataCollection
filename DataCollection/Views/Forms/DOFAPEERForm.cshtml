@@ -1,0 +1,28 @@
+﻿@model DataCollection.Models.FormsViewModel
+
+@{
+    ViewBag.Title = "PEER-FAC";
+}
+@Html.Hidden("RankMsgHdn", Model.rankmsg)
+<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet"></link>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<div class="direction">
+    <h3>FACULTY DATA PROFORMA FOR RANKING (PEER List)</h3>
+</div>
+<form id="DOFAPEERTableform">
+    <div class="bd-example">
+        @Html.AntiForgeryToken()
+        <div id="messageDiv"></div>
+        <div class="table-responsive-xl" id="DOFAPEERTableDiv">
+            @Html.Partial("DOFAPEERFormPartial", Model.dofaPeerViewModel)
+        </div>
+    </div>
+
+</form>
+@Html.Partial("AlertMessagePartail")
+
+<script>
+    $(document).ready(function () {
+        bindDataCaptYMChangeEvent();
+    });
+</script>

@@ -103,6 +103,19 @@ namespace DataCollection.Controllers
             return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult SaveDofaPeerFormData(DofaPeerRequestViewModel data)
+        {
+            string msg = string.Empty;
+            FormsViewModel formsViewModel = new FormsViewModel();
+            string action = data.action;
+            string menu = data.menu;
+            string needModificationMSG = data.needModificationMSG;
+            Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, needModificationMSG, out msg);
+            TempData["isSaveSuccessfully"] = IsSuccess.Item1;
+            TempData["isFailedToSentEmail"] = !IsSuccess.Item2;
+            return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
         #endregion Common Methods
 
         #region  DOAA Form
@@ -196,6 +209,18 @@ namespace DataCollection.Controllers
             return View(viewModel);
         }
 
+        [CustomAuthorize(EntityName = Menu.DOFAPEER)]
+        public ActionResult DOFAPEERForm(string DataCaptYM)
+        {
+            FormsViewModel dofaViewModel = new FormsViewModel();
+            int dataCaptYM = 0;
+            int.TryParse(DataCaptYM, out dataCaptYM);
+            dofaViewModel.GetMultiDataByMenuID(dataCaptYM, Menu.DOFAPEER.ToString());
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Status = Convert.ToBoolean(TempData["Status"]);
+            return View(dofaViewModel);
+        }
+
         public JsonResult GetDepartmentList()
         {
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
@@ -203,6 +228,24 @@ namespace DataCollection.Controllers
             return Json(DeptDDLList, JsonRequestBehavior.AllowGet);
         }
         #endregion DOSW Form
+
+        [HttpPost]
+        public JsonResult DofaPeerAutoComplete(string prefix)
+        {
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+
+            var dofaInfos = (from dofa in db.dofaInfos
+                             where dofa.empNo.ToString().StartsWith(prefix)
+                             select new
+                             {
+                                 empNo = dofa.empNo,
+                                 empDEPT = dofa.empDEPT,
+                                 empName = dofa.empName
+
+                             }).ToList();
+
+            return Json(dofaInfos);
+        }
 
     }
 }

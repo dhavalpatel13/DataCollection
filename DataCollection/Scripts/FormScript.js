@@ -105,7 +105,7 @@ function setAction(obj)
     return Action;
 }
 
-function SaveFormData(e, obj) {
+function SaveFormData(e, obj) {   
     $("#jsErrorDiv").hide();
     e.preventDefault(); //stop default behaviour of button
     var DataCaptYMhid = $("#DataCaptYMhid").val();
@@ -128,7 +128,7 @@ function SaveFormData(e, obj) {
     myData.menu = UrlConstant.Menu;
     myData.needModificationMSG = $("#NeedModificationMSG").val();
 
-    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC") {
+    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC" || UrlConstant.Menu == "DOFAPEER") {
         myData.formData = $(SerializeFormId).serializeObject();
     }
     else {
