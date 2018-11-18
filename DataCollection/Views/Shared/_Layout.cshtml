@@ -68,10 +68,7 @@
                 <div class="col-sm-6">
                     <ul class="social-link pull-right" style="margin: 0;">
                         <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
-                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
-                        @*<li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
-                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>
-                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>*@
+                        <li><a href=""><span class="glyphicon glyphicon-heart-empty"></span></a></li>                        
                     </ul>
                 </div>
                 <!-- End Col -->
@@ -120,7 +117,31 @@
 
         $(document).ready(function () {
             $("#marquee").html($("#RankMsgHdn").val());
+            decimalFormat();
         });
+
+        function decimalFormat()
+        {
+            $('.decimal').each(function () {
+                var value = parseFloat(this.value);// some mathematical equation to work out value
+                if ($(this).val().indexOf('.') != -1) {
+                    if ($(this).val().split(".")[1].length > 2) {
+                        if (isNaN(parseFloat(this.value))) return;
+                        $(this).val((value).toFixed(2));
+                    }
+                }
+            });
+
+            $('.decimal').keyup(function () {
+                if ($(this).val().indexOf('.') != -1) {
+                    if ($(this).val().split(".")[1].length > 2) {
+                        if (isNaN(parseFloat(this.value))) return;
+                        this.value = parseFloat(this.value).toFixed(2);
+                    }
+                }
+                return this; //for chaining
+            });
+        }
     </script>
 </body>
 </html>

@@ -4,8 +4,6 @@
     ViewBag.Title = "PEER-FAC";
 }
 @Html.Hidden("RankMsgHdn", Model.rankmsg)
-<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet"></link>
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <div class="direction">
     <h3>FACULTY DATA PROFORMA FOR RANKING (PEER List)</h3>
 </div>
@@ -13,16 +11,95 @@
     <div class="bd-example">
         @Html.AntiForgeryToken()
         <div id="messageDiv"></div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="padding-top:1px;padding-bottom:0px;">
+                <div class="panel-title">
+                    <ul class="nav navbar-nav">
+                        <li><a class="navnew nofocus">EmpNo :</a></li>
+                        <li style="margin:10px 10px 10px 0;height:35px">
+                            <input id="EmpNoTxt" class="form-control"
+                                   data-val="true" data-val-number="The field empNo must be a number."
+                                   data-val-required="The empNo field is required." id="empNo"
+                                   maxlength="100" minlength="1" name="empNo" title="Add text" type="text" style="width:150px;" />
+                        </li>
+                        <li style="margin:10px 10px 10px 0;height:35px">
+                            <button type="button" onclick="return SearchEmployee();" id="btnSearch" class="btn btn-primary">Search</button>
+                        </li>
+                        <li><a class="navnew nofocus">User: <label id="Userlbl"></label></a></li>
+                        <li><a class="navnew nofocus">Department: <label id="Departmentlbl"></label></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="table-responsive-xl" id="DOFAPEERTableDiv">
             @Html.Partial("DOFAPEERFormPartial", Model.dofaPeerViewModel)
         </div>
     </div>
-
 </form>
-@Html.Partial("AlertMessagePartail")
 
 <script>
     $(document).ready(function () {
         bindDataCaptYMChangeEvent();
     });
+
+    function SearchEmployee() {
+        var searchEmployee = $("#EmpNoTxt").val();
+        if (searchEmployee != "") {
+            $.post("/Forms/DofaPeerAutoComplete",
+            {
+                EmpNo: searchEmployee,
+                DataCaptYM: $("#DataCaptYM").val()
+            },
+            function (data) {
+                if (data.isEmpFound == true) {
+                    $("#Userlbl").html(data.empName);
+                    $("#Departmentlbl").html(data.empDEPT);                    
+                    LoadEmpData(false);
+                }
+                else {
+                    $("#Userlbl").html("");
+                    $("#Departmentlbl").html("");
+                    $("#buttonUL").hide();
+                    if ($("#alertMsgSpan").length > 0) {
+                        $("#alertMsgSpan").html("Add Employee from DOFA Menu");
+                        $("#ErrorAlertModel").modal("show");
+                        $("#EmpNoTxt").val("");
+                        var tableDivId = UrlConstant.TableDivID;
+                        $(tableDivId + " tbody").html("");
+                        $(tableDivId + " tbody").html("<tr><td scope=\"col\" colspan=\"12\">No Record Found.</td></tr>");
+                        $(tableDivId + " tfoot").hide();
+                    }
+                }
+            });
+        }
+        else
+        {
+            $("#Userlbl").html("");
+            $("#Departmentlbl").html("");
+            LoadEmpData(false);
+        }
+       return false;
+    }
+
+    function LoadEmpData(isFromSave)
+    {
+       var searchEmployee = $("#EmpNoTxt").val();       
+       $.post("/Forms/LoadEmpData",
+       {
+           EmpNo: searchEmployee,
+           DataCaptYM: $("#DataCaptYM").val(),
+           isFromSave: typeof isFromSave == "undefined" ? false : isFromSave
+       },
+       function (data) {
+           var tableDivId = UrlConstant.TableDivID;
+           $(tableDivId).html("");
+           $(tableDivId).html(data);           
+           if ($("#DataCaptYM").val() > 0) {
+               $("#buttonUL").show();
+           } else {
+               $("#buttonUL").hide();
+           }
+       });
+    }
 </script>

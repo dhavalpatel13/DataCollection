@@ -129,7 +129,13 @@ function SaveFormData(e, obj) {
     myData.needModificationMSG = $("#NeedModificationMSG").val();
 
     if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC" || UrlConstant.Menu == "DOFAPEER") {
-        myData.formData = $(SerializeFormId).serializeObject();
+        if (UrlConstant.Menu == "DOFAPEER") {
+            $(".empNo").removeAttr("disabled");
+            myData.formData = $(SerializeFormId).serializeObject();
+            $(".empNo").attr("disabled", "disabled");
+        } else {
+            myData.formData = $(SerializeFormId).serializeObject();
+        }
     }
     else {
         myData.formData = JSON.stringify($(SerializeFormId).serializeObject());
@@ -137,15 +143,18 @@ function SaveFormData(e, obj) {
 
     $.ajax({
         url: SaveUrlConstant.SaveUrl,
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',        
+        type: "POST",        
+        contentType: 'application/json; charset=utf-8',    
         data: JSON.stringify(myData), 
         success: function (data, textStatus, jqXHR) {
             if (data.status == true) {
-                setTimeout(function () {
-                    window.location.href = window.location.href;
-                },200);
-                
+                if (UrlConstant.Menu == "DOFAPEER") {
+                    LoadEmpData(true);
+                } else {
+                    setTimeout(function () {
+                        window.location.href = window.location.href;
+                    }, 200);
+                }
             } else {
                 if (data.msg && data.msg.length > 0) {
                     if ($("#alertMsgSpan").length > 0) {

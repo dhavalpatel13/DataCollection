@@ -3,6 +3,12 @@
 @Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
 @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
 
+<style>
+    a.nofocus:focus, a.nofocus:hover {
+        border: 0 !important;
+        background-color: transparent !important;
+    }
+</style>
 @if (Model.DofaPeerData != null || Model.DofaPeerData.Count > 0)
 {
     <div class="table-responsive-xl">
@@ -13,7 +19,7 @@
                         <th scope="col" style="vertical-align: middle;" rowspan="4">Sr.No</th>
                     </tr>
                     <tr>
-                        <th scope="col" style="vertical-align: middle;" rowspan="3">EmpNo. / Faculty Name / Dept Name</th>
+                        <th scope="col" style="vertical-align: middle;" rowspan="3">EmpNo</th>
                     </tr>
                     <tr>
                         <th scope="col" colspan="10">Peer details</th>
@@ -41,7 +47,9 @@
                         </tr>
                     }
                 </tbody>
-                @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0 && (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString()))
+                @if (DataCollection.ManageSession.SessionManager.DataCaptYR > 0 && Model.EmpNo > 0 && 
+                    (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && 
+                     DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString()))
                 {
                     <tfoot>
                         <tr>
@@ -112,36 +120,47 @@
             text-decoration: none;
         }
     </style>
-    @Html.Partial("ConfirmMessagePartail")
+    @Html.Partial("ConfirmMessagePartail")    
 
-
-    <ul class="list-inline" id="buttonUL" style="display:none">
+    <ul class="list-inline" id="buttonUL" style="display:none;">
         <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
         <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
         <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
         @if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DO.ToString())
         {
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
-            <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+            if (Model.EmpNo <= 0)
+            {
+                <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizeCfrm" class="btn btn-primary">Finalize</button></li>
+            }
+            else
+            {
+                <li class="list-inline-item no-print" style="float:right"><button type="submit" id="btnSave" class="btn btn-primary">Save</button></li>
+            }
         }
-        else if ((Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator || Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingbyHOD) && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
+        else
         {
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByHodCfrm" class="btn btn-primary">Finalize</button></li>
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationHodCfrm" class="btn btn-primary">Modification Needed</button></li>
-        }
-        else if ((Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD || Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataSenttoAssoDEAN) && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
-        {
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByAssoDeanCfrm" class="btn btn-primary">Finalize</button></li>
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationADeanCfrm" class="btn btn-primary">Modification Needed</button></li>
-        }
-        else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckedbyAssoDEAN && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
-        {
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByDeanCfrm" class="btn btn-primary">Finalize</button></li>
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
-        }
-        else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataLocked && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
-        {
-            <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
+            if (Model.EmpNo <= 0)
+            {
+                if ((Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataEntryCompletedbyOperator || Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingbyHOD) && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.HOD.ToString())
+                {
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByHodCfrm" class="btn btn-primary">Finalize</button></li>
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationHodCfrm" class="btn btn-primary">Modification Needed</button></li>
+                }
+                else if ((Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckingCompletedbyHOD || Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataSenttoAssoDEAN) && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.ADSRIC.ToString())
+                {
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByAssoDeanCfrm" class="btn btn-primary">Finalize</button></li>
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationADeanCfrm" class="btn btn-primary">Modification Needed</button></li>
+                }
+                else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataCheckedbyAssoDEAN && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
+                {
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#myModal" id="btnFinalizedByDeanCfrm" class="btn btn-primary">Finalize</button></li>
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
+                }
+                else if (Model.DataStatus == (int)DataAccess.Enum.DataStatus.DataLocked && DataCollection.ManageSession.SessionManager.UserWork == DataAccess.Enum.UserWork.DSRIC.ToString())
+                {
+                    <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
+                }
+            }
         }
     </ul>
 
@@ -151,8 +170,11 @@
             if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
                 $(".table td input").attr('readonly', true);
             }
-            intiAutocomplete();
-            //setTooltip();
+            @*var empno = parseInt('@Model.EmpNo'); 
+            if(empno > 0)
+            {
+
+            }*@
         });
 
         var buttonIds = '#btnSave, #btnFinalize, #btnModification, #btnFinalizedByHod, #btnFinalizedByAssoDean, #btnFinalizedByDean, #btnModificationHod, #btnModificationADean, #btnModificationDean';
@@ -180,7 +202,10 @@
                 if (_el.attr("name")) {
                     _el.attr("name", _el.attr("name").replace(PeerFacIndexVal, PeerFacIndexVal + 1));
                 }
-                _el.val("");
+
+                if (!_el.hasClass("empNo")) {
+                    _el.val("");
+                }
 
                 if (_el.hasClass("idno")) {
                     _el.addClass("new");
@@ -189,8 +214,7 @@
             });
             PeerFacIndex.val(PeerFacIndexVal + 1);
             trclone.appendTo("#DOFAPEERTable tbody");
-            trclone.attr("id", "tr_" + PeerFacIndex.val());            
-            intiAutocomplete();
+            trclone.attr("id", "tr_" + PeerFacIndex.val());
         }
 
         function removeDOFAPEERRow(e) {
@@ -207,63 +231,10 @@
                         _el.attr("name", "DofaPeerData[" + currentIndex + "]." + _el.attr("name").split(".")[1]);
                     }
                 });
-                currentIndex++;
+                currentIndex++;                
             });
-        }
-
-        function intiAutocomplete() {
-            $(".autocomplete").autocomplete({
-                source: function (request, response) {                    
-                    $.ajax({
-                        url: '/Forms/DofaPeerAutoComplete/',
-                        data: "{ 'prefix': '" + request.term + "'}",
-                        dataType: "json",
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            if (data.length > 0)
-                            {                                
-                                response($.map(data, function (item) {                                    
-                                    return {
-                                        label: item.empNo,
-                                        value: item.empDEPT,
-                                        name: item.empName
-                                    };
-                                }))
-                            }
-                            else
-                            {                                
-                                if ($("#alertMsgSpan").length > 0) {
-                                    $("#alertMsgSpan").html("Add Employee from DOFA Menu");
-                                    $("#ErrorAlertModel").modal("show");
-                                }
-                                
-                            }
-                        },
-                        error: function (response) {
-                            alert(response.responseText);
-                        },
-                        failure: function (response) {
-                            alert(response.responseText);
-                        }
-                    });
-                },
-                select: function (event, ui) {                    
-                    this.value = (ui.item.label + " - " + ui.item.name).toString();
-                    var trid = $(this).closest('tr').attr('id');
-                    $("#" + trid).find('[name*=PeerDept]').val(ui.item.value);
-                    $("#" + trid).find('[name*=empNo][type=hidden]').val(ui.item.label);
-                    event.preventDefault();
-                },
-                minLength: 1,
-                change: function (event, ui)
-                {
-                    if(ui.item == null)
-                    {
-                        this.value = "";
-                    }
-                },
-            });
-        }
+        }        
     </script>
 }
+
+@Html.Partial("AlertMessagePartail")

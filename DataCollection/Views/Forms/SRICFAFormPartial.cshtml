@@ -104,9 +104,9 @@
         }
     </style>
     @Html.Partial("ConfirmMessagePartail")
+    @Html.Partial("ButtonPartail", Model)
 
-
-    <ul class="list-inline" id="buttonUL" style="display:none">
+    @*<ul class="list-inline" id="buttonUL" style="display:none">
         <li class="list-inline-item" style="color: #933;font-weight:bold">Data Status Level: </li>
         <li class="list-inline-item" style="width:40%"><input id="DataStatusLevel" width="50%" type="text" readonly="readonly" class="form-control" value="@Model.DataStatusName" /></li>
         <li class="list-inline-item no-print" style="float:right"><button type="button" class="btn btn-primary" onclick="window.print();">Preview</button></li>
@@ -134,21 +134,22 @@
         {
             <li class="list-inline-item no-print" style="float:right"><button type="button" data-toggle="modal" data-target="#NeedModificationModal" id="btnModificationDeanCfrm" class="btn btn-primary">Modification Needed</button></li>
         }
-    </ul>
+    </ul>*@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".table td input[type='number']").forceNumeric();
+            @*$(".table td input[type='number']").forceNumeric();
             if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
                 $(".table td input").attr('readonly', true);
-            }
+            }*@
             setTooltip();
+            decimalFormat();
         });
 
-        var buttonIds = '#btnSave, #btnFinalize, #btnModification, #btnFinalizedByHod, #btnFinalizedByAssoDean, #btnFinalizedByDean, #btnModificationHod, #btnModificationADean, #btnModificationDean';
-        $(buttonIds).click(function (e) {
-            SaveFormData(e, this);
-        });
+        //var buttonIds = '#btnSave, #btnFinalize, #btnModification, #btnFinalizedByHod, #btnFinalizedByAssoDean, #btnFinalizedByDean, #btnModificationHod, #btnModificationADean, #btnModificationDean';
+        //$(buttonIds).click(function (e) {
+        //    SaveFormData(e, this);
+        //});
 
         var SaveUrlConstant = {
             SaveUrl: '@Url.Action("SaveSricFAFormData", "Forms")'

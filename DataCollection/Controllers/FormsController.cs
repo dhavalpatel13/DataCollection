@@ -113,7 +113,7 @@ namespace DataCollection.Controllers
             string needModificationMSG = data.needModificationMSG;
             Tuple<bool, bool> IsSuccess = formsViewModel.SaveUpdateFormData(data.formData, action, menu, needModificationMSG, out msg);
             TempData["isSaveSuccessfully"] = IsSuccess.Item1;
-            TempData["isFailedToSentEmail"] = !IsSuccess.Item2;
+            TempData["isFailedToSentEmail"] = !IsSuccess.Item2;            
             return Json(new { status = IsSuccess.Item1, msg = msg }, JsonRequestBehavior.AllowGet);
         }
         #endregion Common Methods
@@ -230,22 +230,63 @@ namespace DataCollection.Controllers
         #endregion DOSW Form
 
         [HttpPost]
-        public JsonResult DofaPeerAutoComplete(string prefix)
+        public JsonResult DofaPeerAutoComplete(string EmpNo, string DataCaptYM)
         {
-            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();            
+            int dataCaptYM = 0;
+            int.TryParse(DataCaptYM, out dataCaptYM);
 
             var dofaInfos = (from dofa in db.dofaInfos
-                             where dofa.empNo.ToString().StartsWith(prefix)
+                             where
+                             dofa.empNo.ToString().ToLower().Trim().Equals(EmpNo.ToLower().Trim())
+                             && dofa.DataCaptYM == dataCaptYM 
+                             && dofa.DeptID == SessionManager.DeptID 
+                             && dofa.MenuID == DataAccess.Enum.Menu.DOFA.ToString()
                              select new
                              {
                                  empNo = dofa.empNo,
                                  empDEPT = dofa.empDEPT,
                                  empName = dofa.empName
 
-                             }).ToList();
+                             }).FirstOrDefault();
 
-            return Json(dofaInfos);
+            object dofaa = new object();
+            if (dofaInfos != null)
+            {
+                dofaa = new { empNo = dofaInfos.empNo, empDEPT = dofaInfos.empDEPT, empName = dofaInfos.empName, isEmpFound= true };
+            }
+            else
+            {
+                dofaa = new { isEmpFound = false };
+            }
+
+            return Json(dofaa, JsonRequestBehavior.AllowGet);            
         }
 
+        public ActionResult LoadEmpData(string EmpNo, string DataCaptYM, bool isFromSave)
+        {
+            FormsViewModel dOAA1ViewModel = new FormsViewModel();
+            dOAA1ViewModel.GetDOAA1Data(Convert.ToInt32(DataCaptYM), Menu.DOFAPEER.ToString());
+            string MenuPartial = FormCommonMethods.GetMenuPartial(Menu.DOFAPEER.ToString());
+            if (!string.IsNullOrEmpty(EmpNo))
+            {
+                dOAA1ViewModel.dofaPeerViewModel.DofaPeerData = dOAA1ViewModel.dofaPeerViewModel.DofaPeerData.Where(a => a.empNo.Equals(Convert.ToInt32(EmpNo))).ToList();
+                dOAA1ViewModel.dofaPeerViewModel.EmpNo = Convert.ToInt32(EmpNo);
+            }
+            
+            if (dOAA1ViewModel.dofaPeerViewModel.DofaPeerData.Count() <= 0)
+            {
+                DofaPeer dofaPeer = new DofaPeer();
+                dofaPeer.empNo = Convert.ToInt32(EmpNo);
+                dOAA1ViewModel.dofaPeerViewModel.DofaPeerData.Add(dofaPeer);
+            }
+            object DataObject = FormCommonMethods.GetDynamicViewModel(Menu.DOFAPEER.ToString(), dOAA1ViewModel);
+            if(isFromSave)
+            {
+                TempData["isSaveSuccessfully"] = true;
+                TempData["isFailedToSentEmail"] = false;
+            }
+            return PartialView(MenuPartial, DataObject);
+        }
     }
 }

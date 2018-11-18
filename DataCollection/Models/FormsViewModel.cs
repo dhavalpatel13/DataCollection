@@ -17,6 +17,7 @@ namespace DataCollection.Models
         public stInfo info { get; set; }
         public stInfo2 info2 { get; set; }
         public LibInfo libInfo { get; set; }
+        public FinInfo finInfo { get; set; }
 
         public DofaViewModel dofaViewModel { get; set; }
         public SricFAViewModel sricFAViewModel { get; set; }

@@ -1,18 +1,18 @@
 ﻿@model DataCollection.Models.FormsViewModel
 
 @{
-    ViewBag.Title = "DOAA";
+    ViewBag.Title = "FP";
 }
 @Html.Hidden("RankMsgHdn", Model.rankmsg)
 <div class="direction">
-    <h3>DOAA DATA PROFORMA FOR RANKING</h3>
+    <h3>DEAN FINANCE & PLANNING DATA PROFORMA FOR RANKING (DFNP)</h3>
 </div>
-<form id="DOAA1Tableform">
+<form id="FPInfoTableform">
     <div class="bd-example">
         @*@Html.AntiForgeryToken()*@
         <div id="messageDiv"></div>
-        <div class="table-responsive-xl" id="DOAA1TableDiv">
-            @Html.Partial("DOAAFormPartial", Model.info)
+        <div class="table-responsive-xl" id="FPInfoTableDiv">
+            @Html.Partial("FPInfoFormPartial", Model.finInfo)
         </div>
     </div>
 

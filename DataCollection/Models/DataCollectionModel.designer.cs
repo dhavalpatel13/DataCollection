@@ -57,6 +57,9 @@ namespace DataCollection.Models
     partial void InsertdofaInfo(dofaInfo instance);
     partial void UpdatedofaInfo(dofaInfo instance);
     partial void DeletedofaInfo(dofaInfo instance);
+    partial void InsertFinInfo(FinInfo instance);
+    partial void UpdateFinInfo(FinInfo instance);
+    partial void DeleteFinInfo(FinInfo instance);
     #endregion
 		
 		public DataCollectionModelDataContext() : 
@@ -158,6 +161,14 @@ namespace DataCollection.Models
 			get
 			{
 				return this.GetTable<dofaInfo>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FinInfo> FinInfos
+		{
+			get
+			{
+				return this.GetTable<FinInfo>();
 			}
 		}
 		
@@ -2670,6 +2681,956 @@ namespace DataCollection.Models
 					this._AwardHonors = value;
 					this.SendPropertyChanged("AwardHonors");
 					this.OnAwardHonorsChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FinInfo")]
+	public partial class FinInfo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDNo;
+		
+		private int _DataCaptYM;
+		
+		private string _DeptID;
+		
+		private string _MenuID;
+		
+		private string _DataUser;
+		
+		private System.Nullable<System.DateTime> _DataUpdatedOn;
+		
+		private System.Nullable<short> _DataStatus;
+		
+		private string _DataStatusLog;
+		
+		private System.Nullable<char> _DataValid;
+		
+		private System.Nullable<char> _DataLocked;
+		
+		private string _FinYear;
+		
+		private System.Nullable<decimal> _ExpCapAAR;
+		
+		private System.Nullable<decimal> _ExpLibOverall;
+		
+		private System.Nullable<decimal> _ExpLibEngg;
+		
+		private System.Nullable<decimal> _ExpLibMgmt;
+		
+		private System.Nullable<decimal> _ExpLibArch;
+		
+		private System.Nullable<decimal> _ExpNewEqpLabs;
+		
+		private System.Nullable<decimal> _ExpEnggWS;
+		
+		private System.Nullable<decimal> _ExpStudios;
+		
+		private System.Nullable<decimal> _ExpOtherCapAssets;
+		
+		private System.Nullable<decimal> _ExpOperational;
+		
+		private System.Nullable<decimal> _ExpMaintRun;
+		
+		private System.Nullable<decimal> _ExpSalT;
+		
+		private System.Nullable<decimal> _ExpSalNT;
+		
+		private System.Nullable<decimal> _ExpMisc1;
+		
+		private System.Nullable<decimal> _ExpMisc2;
+		
+		private System.Nullable<decimal> _ExpTotal;
+		
+		private string _ExpRemarks;
+		
+		private System.Nullable<decimal> _SchFsUGFT;
+		
+		private System.Nullable<decimal> _SchFsUG5FT;
+		
+		private System.Nullable<decimal> _SchFsPGFT;
+		
+		private System.Nullable<decimal> _SchFsPGPT;
+		
+		private System.Nullable<decimal> _SchSSUGFT;
+		
+		private System.Nullable<decimal> _SchSSUG5FT;
+		
+		private System.Nullable<decimal> _SchSSPGFT;
+		
+		private System.Nullable<decimal> _SchSSPGPT;
+		
+		private System.Nullable<decimal> _SchTotal;
+		
+		private string _SchRemarks;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDNoChanging(int value);
+    partial void OnIDNoChanged();
+    partial void OnDataCaptYMChanging(int value);
+    partial void OnDataCaptYMChanged();
+    partial void OnDeptIDChanging(string value);
+    partial void OnDeptIDChanged();
+    partial void OnMenuIDChanging(string value);
+    partial void OnMenuIDChanged();
+    partial void OnDataUserChanging(string value);
+    partial void OnDataUserChanged();
+    partial void OnDataUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnDataUpdatedOnChanged();
+    partial void OnDataStatusChanging(System.Nullable<short> value);
+    partial void OnDataStatusChanged();
+    partial void OnDataStatusLogChanging(string value);
+    partial void OnDataStatusLogChanged();
+    partial void OnDataValidChanging(System.Nullable<char> value);
+    partial void OnDataValidChanged();
+    partial void OnDataLockedChanging(System.Nullable<char> value);
+    partial void OnDataLockedChanged();
+    partial void OnFinYearChanging(string value);
+    partial void OnFinYearChanged();
+    partial void OnExpCapAARChanging(System.Nullable<decimal> value);
+    partial void OnExpCapAARChanged();
+    partial void OnExpLibOverallChanging(System.Nullable<decimal> value);
+    partial void OnExpLibOverallChanged();
+    partial void OnExpLibEnggChanging(System.Nullable<decimal> value);
+    partial void OnExpLibEnggChanged();
+    partial void OnExpLibMgmtChanging(System.Nullable<decimal> value);
+    partial void OnExpLibMgmtChanged();
+    partial void OnExpLibArchChanging(System.Nullable<decimal> value);
+    partial void OnExpLibArchChanged();
+    partial void OnExpNewEqpLabsChanging(System.Nullable<decimal> value);
+    partial void OnExpNewEqpLabsChanged();
+    partial void OnExpEnggWSChanging(System.Nullable<decimal> value);
+    partial void OnExpEnggWSChanged();
+    partial void OnExpStudiosChanging(System.Nullable<decimal> value);
+    partial void OnExpStudiosChanged();
+    partial void OnExpOtherCapAssetsChanging(System.Nullable<decimal> value);
+    partial void OnExpOtherCapAssetsChanged();
+    partial void OnExpOperationalChanging(System.Nullable<decimal> value);
+    partial void OnExpOperationalChanged();
+    partial void OnExpMaintRunChanging(System.Nullable<decimal> value);
+    partial void OnExpMaintRunChanged();
+    partial void OnExpSalTChanging(System.Nullable<decimal> value);
+    partial void OnExpSalTChanged();
+    partial void OnExpSalNTChanging(System.Nullable<decimal> value);
+    partial void OnExpSalNTChanged();
+    partial void OnExpMisc1Changing(System.Nullable<decimal> value);
+    partial void OnExpMisc1Changed();
+    partial void OnExpMisc2Changing(System.Nullable<decimal> value);
+    partial void OnExpMisc2Changed();
+    partial void OnExpTotalChanging(System.Nullable<decimal> value);
+    partial void OnExpTotalChanged();
+    partial void OnExpRemarksChanging(string value);
+    partial void OnExpRemarksChanged();
+    partial void OnSchFsUGFTChanging(System.Nullable<decimal> value);
+    partial void OnSchFsUGFTChanged();
+    partial void OnSchFsUG5FTChanging(System.Nullable<decimal> value);
+    partial void OnSchFsUG5FTChanged();
+    partial void OnSchFsPGFTChanging(System.Nullable<decimal> value);
+    partial void OnSchFsPGFTChanged();
+    partial void OnSchFsPGPTChanging(System.Nullable<decimal> value);
+    partial void OnSchFsPGPTChanged();
+    partial void OnSchSSUGFTChanging(System.Nullable<decimal> value);
+    partial void OnSchSSUGFTChanged();
+    partial void OnSchSSUG5FTChanging(System.Nullable<decimal> value);
+    partial void OnSchSSUG5FTChanged();
+    partial void OnSchSSPGFTChanging(System.Nullable<decimal> value);
+    partial void OnSchSSPGFTChanged();
+    partial void OnSchSSPGPTChanging(System.Nullable<decimal> value);
+    partial void OnSchSSPGPTChanged();
+    partial void OnSchTotalChanging(System.Nullable<decimal> value);
+    partial void OnSchTotalChanged();
+    partial void OnSchRemarksChanging(string value);
+    partial void OnSchRemarksChanged();
+    #endregion
+		
+		public FinInfo()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDNo", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int IDNo
+		{
+			get
+			{
+				return this._IDNo;
+			}
+			set
+			{
+				if ((this._IDNo != value))
+				{
+					this.OnIDNoChanging(value);
+					this.SendPropertyChanging();
+					this._IDNo = value;
+					this.SendPropertyChanged("IDNo");
+					this.OnIDNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataCaptYM", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int DataCaptYM
+		{
+			get
+			{
+				return this._DataCaptYM;
+			}
+			set
+			{
+				if ((this._DataCaptYM != value))
+				{
+					this.OnDataCaptYMChanging(value);
+					this.SendPropertyChanging();
+					this._DataCaptYM = value;
+					this.SendPropertyChanged("DataCaptYM");
+					this.OnDataCaptYMChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string DeptID
+		{
+			get
+			{
+				return this._DeptID;
+			}
+			set
+			{
+				if ((this._DeptID != value))
+				{
+					this.OnDeptIDChanging(value);
+					this.SendPropertyChanging();
+					this._DeptID = value;
+					this.SendPropertyChanged("DeptID");
+					this.OnDeptIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MenuID
+		{
+			get
+			{
+				return this._MenuID;
+			}
+			set
+			{
+				if ((this._MenuID != value))
+				{
+					this.OnMenuIDChanging(value);
+					this.SendPropertyChanging();
+					this._MenuID = value;
+					this.SendPropertyChanged("MenuID");
+					this.OnMenuIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataUser", DbType="NVarChar(50)")]
+		public string DataUser
+		{
+			get
+			{
+				return this._DataUser;
+			}
+			set
+			{
+				if ((this._DataUser != value))
+				{
+					this.OnDataUserChanging(value);
+					this.SendPropertyChanging();
+					this._DataUser = value;
+					this.SendPropertyChanged("DataUser");
+					this.OnDataUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataUpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DataUpdatedOn
+		{
+			get
+			{
+				return this._DataUpdatedOn;
+			}
+			set
+			{
+				if ((this._DataUpdatedOn != value))
+				{
+					this.OnDataUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._DataUpdatedOn = value;
+					this.SendPropertyChanged("DataUpdatedOn");
+					this.OnDataUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataStatus", DbType="SmallInt")]
+		public System.Nullable<short> DataStatus
+		{
+			get
+			{
+				return this._DataStatus;
+			}
+			set
+			{
+				if ((this._DataStatus != value))
+				{
+					this.OnDataStatusChanging(value);
+					this.SendPropertyChanging();
+					this._DataStatus = value;
+					this.SendPropertyChanged("DataStatus");
+					this.OnDataStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataStatusLog", DbType="NVarChar(MAX)")]
+		public string DataStatusLog
+		{
+			get
+			{
+				return this._DataStatusLog;
+			}
+			set
+			{
+				if ((this._DataStatusLog != value))
+				{
+					this.OnDataStatusLogChanging(value);
+					this.SendPropertyChanging();
+					this._DataStatusLog = value;
+					this.SendPropertyChanged("DataStatusLog");
+					this.OnDataStatusLogChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataValid", DbType="Char(1)")]
+		public System.Nullable<char> DataValid
+		{
+			get
+			{
+				return this._DataValid;
+			}
+			set
+			{
+				if ((this._DataValid != value))
+				{
+					this.OnDataValidChanging(value);
+					this.SendPropertyChanging();
+					this._DataValid = value;
+					this.SendPropertyChanged("DataValid");
+					this.OnDataValidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataLocked", DbType="Char(1)")]
+		public System.Nullable<char> DataLocked
+		{
+			get
+			{
+				return this._DataLocked;
+			}
+			set
+			{
+				if ((this._DataLocked != value))
+				{
+					this.OnDataLockedChanging(value);
+					this.SendPropertyChanging();
+					this._DataLocked = value;
+					this.SendPropertyChanged("DataLocked");
+					this.OnDataLockedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinYear", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FinYear
+		{
+			get
+			{
+				return this._FinYear;
+			}
+			set
+			{
+				if ((this._FinYear != value))
+				{
+					this.OnFinYearChanging(value);
+					this.SendPropertyChanging();
+					this._FinYear = value;
+					this.SendPropertyChanged("FinYear");
+					this.OnFinYearChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpCapAAR", DbType="Money")]
+		public System.Nullable<decimal> ExpCapAAR
+		{
+			get
+			{
+				return this._ExpCapAAR;
+			}
+			set
+			{
+				if ((this._ExpCapAAR != value))
+				{
+					this.OnExpCapAARChanging(value);
+					this.SendPropertyChanging();
+					this._ExpCapAAR = value;
+					this.SendPropertyChanged("ExpCapAAR");
+					this.OnExpCapAARChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpLibOverall", DbType="Money")]
+		public System.Nullable<decimal> ExpLibOverall
+		{
+			get
+			{
+				return this._ExpLibOverall;
+			}
+			set
+			{
+				if ((this._ExpLibOverall != value))
+				{
+					this.OnExpLibOverallChanging(value);
+					this.SendPropertyChanging();
+					this._ExpLibOverall = value;
+					this.SendPropertyChanged("ExpLibOverall");
+					this.OnExpLibOverallChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpLibEngg", DbType="Money")]
+		public System.Nullable<decimal> ExpLibEngg
+		{
+			get
+			{
+				return this._ExpLibEngg;
+			}
+			set
+			{
+				if ((this._ExpLibEngg != value))
+				{
+					this.OnExpLibEnggChanging(value);
+					this.SendPropertyChanging();
+					this._ExpLibEngg = value;
+					this.SendPropertyChanged("ExpLibEngg");
+					this.OnExpLibEnggChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpLibMgmt", DbType="Money")]
+		public System.Nullable<decimal> ExpLibMgmt
+		{
+			get
+			{
+				return this._ExpLibMgmt;
+			}
+			set
+			{
+				if ((this._ExpLibMgmt != value))
+				{
+					this.OnExpLibMgmtChanging(value);
+					this.SendPropertyChanging();
+					this._ExpLibMgmt = value;
+					this.SendPropertyChanged("ExpLibMgmt");
+					this.OnExpLibMgmtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpLibArch", DbType="Money")]
+		public System.Nullable<decimal> ExpLibArch
+		{
+			get
+			{
+				return this._ExpLibArch;
+			}
+			set
+			{
+				if ((this._ExpLibArch != value))
+				{
+					this.OnExpLibArchChanging(value);
+					this.SendPropertyChanging();
+					this._ExpLibArch = value;
+					this.SendPropertyChanged("ExpLibArch");
+					this.OnExpLibArchChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpNewEqpLabs", DbType="Money")]
+		public System.Nullable<decimal> ExpNewEqpLabs
+		{
+			get
+			{
+				return this._ExpNewEqpLabs;
+			}
+			set
+			{
+				if ((this._ExpNewEqpLabs != value))
+				{
+					this.OnExpNewEqpLabsChanging(value);
+					this.SendPropertyChanging();
+					this._ExpNewEqpLabs = value;
+					this.SendPropertyChanged("ExpNewEqpLabs");
+					this.OnExpNewEqpLabsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpEnggWS", DbType="Money")]
+		public System.Nullable<decimal> ExpEnggWS
+		{
+			get
+			{
+				return this._ExpEnggWS;
+			}
+			set
+			{
+				if ((this._ExpEnggWS != value))
+				{
+					this.OnExpEnggWSChanging(value);
+					this.SendPropertyChanging();
+					this._ExpEnggWS = value;
+					this.SendPropertyChanged("ExpEnggWS");
+					this.OnExpEnggWSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpStudios", DbType="Money")]
+		public System.Nullable<decimal> ExpStudios
+		{
+			get
+			{
+				return this._ExpStudios;
+			}
+			set
+			{
+				if ((this._ExpStudios != value))
+				{
+					this.OnExpStudiosChanging(value);
+					this.SendPropertyChanging();
+					this._ExpStudios = value;
+					this.SendPropertyChanged("ExpStudios");
+					this.OnExpStudiosChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpOtherCapAssets", DbType="Money")]
+		public System.Nullable<decimal> ExpOtherCapAssets
+		{
+			get
+			{
+				return this._ExpOtherCapAssets;
+			}
+			set
+			{
+				if ((this._ExpOtherCapAssets != value))
+				{
+					this.OnExpOtherCapAssetsChanging(value);
+					this.SendPropertyChanging();
+					this._ExpOtherCapAssets = value;
+					this.SendPropertyChanged("ExpOtherCapAssets");
+					this.OnExpOtherCapAssetsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpOperational", DbType="Money")]
+		public System.Nullable<decimal> ExpOperational
+		{
+			get
+			{
+				return this._ExpOperational;
+			}
+			set
+			{
+				if ((this._ExpOperational != value))
+				{
+					this.OnExpOperationalChanging(value);
+					this.SendPropertyChanging();
+					this._ExpOperational = value;
+					this.SendPropertyChanged("ExpOperational");
+					this.OnExpOperationalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpMaintRun", DbType="Money")]
+		public System.Nullable<decimal> ExpMaintRun
+		{
+			get
+			{
+				return this._ExpMaintRun;
+			}
+			set
+			{
+				if ((this._ExpMaintRun != value))
+				{
+					this.OnExpMaintRunChanging(value);
+					this.SendPropertyChanging();
+					this._ExpMaintRun = value;
+					this.SendPropertyChanged("ExpMaintRun");
+					this.OnExpMaintRunChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpSalT", DbType="Money")]
+		public System.Nullable<decimal> ExpSalT
+		{
+			get
+			{
+				return this._ExpSalT;
+			}
+			set
+			{
+				if ((this._ExpSalT != value))
+				{
+					this.OnExpSalTChanging(value);
+					this.SendPropertyChanging();
+					this._ExpSalT = value;
+					this.SendPropertyChanged("ExpSalT");
+					this.OnExpSalTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpSalNT", DbType="Money")]
+		public System.Nullable<decimal> ExpSalNT
+		{
+			get
+			{
+				return this._ExpSalNT;
+			}
+			set
+			{
+				if ((this._ExpSalNT != value))
+				{
+					this.OnExpSalNTChanging(value);
+					this.SendPropertyChanging();
+					this._ExpSalNT = value;
+					this.SendPropertyChanged("ExpSalNT");
+					this.OnExpSalNTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpMisc1", DbType="Money")]
+		public System.Nullable<decimal> ExpMisc1
+		{
+			get
+			{
+				return this._ExpMisc1;
+			}
+			set
+			{
+				if ((this._ExpMisc1 != value))
+				{
+					this.OnExpMisc1Changing(value);
+					this.SendPropertyChanging();
+					this._ExpMisc1 = value;
+					this.SendPropertyChanged("ExpMisc1");
+					this.OnExpMisc1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpMisc2", DbType="Money")]
+		public System.Nullable<decimal> ExpMisc2
+		{
+			get
+			{
+				return this._ExpMisc2;
+			}
+			set
+			{
+				if ((this._ExpMisc2 != value))
+				{
+					this.OnExpMisc2Changing(value);
+					this.SendPropertyChanging();
+					this._ExpMisc2 = value;
+					this.SendPropertyChanged("ExpMisc2");
+					this.OnExpMisc2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpTotal", DbType="Money")]
+		public System.Nullable<decimal> ExpTotal
+		{
+			get
+			{
+				return this._ExpTotal;
+			}
+			set
+			{
+				if ((this._ExpTotal != value))
+				{
+					this.OnExpTotalChanging(value);
+					this.SendPropertyChanging();
+					this._ExpTotal = value;
+					this.SendPropertyChanged("ExpTotal");
+					this.OnExpTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpRemarks", DbType="NVarChar(100)")]
+		public string ExpRemarks
+		{
+			get
+			{
+				return this._ExpRemarks;
+			}
+			set
+			{
+				if ((this._ExpRemarks != value))
+				{
+					this.OnExpRemarksChanging(value);
+					this.SendPropertyChanging();
+					this._ExpRemarks = value;
+					this.SendPropertyChanged("ExpRemarks");
+					this.OnExpRemarksChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchFsUGFT", DbType="Money")]
+		public System.Nullable<decimal> SchFsUGFT
+		{
+			get
+			{
+				return this._SchFsUGFT;
+			}
+			set
+			{
+				if ((this._SchFsUGFT != value))
+				{
+					this.OnSchFsUGFTChanging(value);
+					this.SendPropertyChanging();
+					this._SchFsUGFT = value;
+					this.SendPropertyChanged("SchFsUGFT");
+					this.OnSchFsUGFTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchFsUG5FT", DbType="Money")]
+		public System.Nullable<decimal> SchFsUG5FT
+		{
+			get
+			{
+				return this._SchFsUG5FT;
+			}
+			set
+			{
+				if ((this._SchFsUG5FT != value))
+				{
+					this.OnSchFsUG5FTChanging(value);
+					this.SendPropertyChanging();
+					this._SchFsUG5FT = value;
+					this.SendPropertyChanged("SchFsUG5FT");
+					this.OnSchFsUG5FTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchFsPGFT", DbType="Money")]
+		public System.Nullable<decimal> SchFsPGFT
+		{
+			get
+			{
+				return this._SchFsPGFT;
+			}
+			set
+			{
+				if ((this._SchFsPGFT != value))
+				{
+					this.OnSchFsPGFTChanging(value);
+					this.SendPropertyChanging();
+					this._SchFsPGFT = value;
+					this.SendPropertyChanged("SchFsPGFT");
+					this.OnSchFsPGFTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchFsPGPT", DbType="Money")]
+		public System.Nullable<decimal> SchFsPGPT
+		{
+			get
+			{
+				return this._SchFsPGPT;
+			}
+			set
+			{
+				if ((this._SchFsPGPT != value))
+				{
+					this.OnSchFsPGPTChanging(value);
+					this.SendPropertyChanging();
+					this._SchFsPGPT = value;
+					this.SendPropertyChanged("SchFsPGPT");
+					this.OnSchFsPGPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchSSUGFT", DbType="Money")]
+		public System.Nullable<decimal> SchSSUGFT
+		{
+			get
+			{
+				return this._SchSSUGFT;
+			}
+			set
+			{
+				if ((this._SchSSUGFT != value))
+				{
+					this.OnSchSSUGFTChanging(value);
+					this.SendPropertyChanging();
+					this._SchSSUGFT = value;
+					this.SendPropertyChanged("SchSSUGFT");
+					this.OnSchSSUGFTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchSSUG5FT", DbType="Money")]
+		public System.Nullable<decimal> SchSSUG5FT
+		{
+			get
+			{
+				return this._SchSSUG5FT;
+			}
+			set
+			{
+				if ((this._SchSSUG5FT != value))
+				{
+					this.OnSchSSUG5FTChanging(value);
+					this.SendPropertyChanging();
+					this._SchSSUG5FT = value;
+					this.SendPropertyChanged("SchSSUG5FT");
+					this.OnSchSSUG5FTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchSSPGFT", DbType="Money")]
+		public System.Nullable<decimal> SchSSPGFT
+		{
+			get
+			{
+				return this._SchSSPGFT;
+			}
+			set
+			{
+				if ((this._SchSSPGFT != value))
+				{
+					this.OnSchSSPGFTChanging(value);
+					this.SendPropertyChanging();
+					this._SchSSPGFT = value;
+					this.SendPropertyChanged("SchSSPGFT");
+					this.OnSchSSPGFTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchSSPGPT", DbType="Money")]
+		public System.Nullable<decimal> SchSSPGPT
+		{
+			get
+			{
+				return this._SchSSPGPT;
+			}
+			set
+			{
+				if ((this._SchSSPGPT != value))
+				{
+					this.OnSchSSPGPTChanging(value);
+					this.SendPropertyChanging();
+					this._SchSSPGPT = value;
+					this.SendPropertyChanged("SchSSPGPT");
+					this.OnSchSSPGPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchTotal", DbType="Money")]
+		public System.Nullable<decimal> SchTotal
+		{
+			get
+			{
+				return this._SchTotal;
+			}
+			set
+			{
+				if ((this._SchTotal != value))
+				{
+					this.OnSchTotalChanging(value);
+					this.SendPropertyChanging();
+					this._SchTotal = value;
+					this.SendPropertyChanged("SchTotal");
+					this.OnSchTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchRemarks", DbType="NVarChar(100)")]
+		public string SchRemarks
+		{
+			get
+			{
+				return this._SchRemarks;
+			}
+			set
+			{
+				if ((this._SchRemarks != value))
+				{
+					this.OnSchRemarksChanging(value);
+					this.SendPropertyChanging();
+					this._SchRemarks = value;
+					this.SendPropertyChanged("SchRemarks");
+					this.OnSchRemarksChanged();
 				}
 			}
 		}

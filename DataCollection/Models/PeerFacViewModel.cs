@@ -17,6 +17,7 @@ namespace DataCollection.Models
         public int DataCaptYM { get; set; }
         public int DataStatus { get; set; }
         public string DataStatusName { get; set; }
+        public int EmpNo { get; set; }
 
         public void GetDofaPeerData(int _dataCaptYM)
         {
