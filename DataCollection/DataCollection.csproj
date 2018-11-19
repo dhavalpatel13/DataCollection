@@ -199,6 +199,8 @@
     <Compile Include="Models\RankUserViewModel.cs" />
     <Compile Include="ManageSession\SessionManager.cs" />
     <Compile Include="Models\ReportsViewModel.cs" />
+    <Compile Include="Models\InfraViewModel.cs" />
+    <Compile Include="Models\TPDeptViewModel.cs" />
     <Compile Include="Models\SricDeptViewModel.cs" />
     <Compile Include="Models\PeerFacViewModel.cs" />
     <Compile Include="Models\SricFAViewModel.cs" />
@@ -315,6 +317,10 @@
     <Content Include="Views\Forms\DOFAPEERForm.cshtml" />
     <Content Include="Views\Forms\DOFAPEERFormPartial.cshtml" />
     <Content Include="Views\Forms\EditorTemplates\DofaPeerSinglePartial.cshtml" />
+    <Content Include="Views\Forms\TPDEPTForm.cshtml" />
+    <Content Include="Views\Forms\TPDEPTFormPartial.cshtml" />
+    <Content Include="Views\Forms\INFRAForm.cshtml" />
+    <Content Include="Views\Forms\INFRAFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

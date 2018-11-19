@@ -1,0 +1,126 @@
+﻿@model DataCollection.Models.InfraViewModel
+
+@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
+
+@if (Model.InfraDeptData != null && Model.InfraDeptData.Count > 0 && Model.InfraInfoData != null && Model.InfraInfoData.Count > 0)
+{
+    <div class="direction">
+        <h3>INFRASTRUCTURE DATA PROFORMA FOR RANKING</h3>
+    </div>
+    <br />
+    <div class="table-responsive-xl">
+        @for (int i = 0; i < Model.InfraDeptData.Count; i++)
+        {
+            @Html.HiddenFor(m => m.InfraDeptData[i].IDNo);
+            @Html.HiddenFor(m => m.InfraDeptData[i].DeptID);
+        }
+
+        <div class="table-responsive-xl">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th align="center" valign="middle">Department</th>
+                        <th align="center" valign="middle">No. of Class Room</th>
+                        <th align="center" valign="middle">No. of Labs</th>
+                        <th align="center" valign="middle">No. of Auditoriums</th>
+                        <th align="center" valign="middle">No. of Conference Rooms</th>
+                        <th align="center" valign="middle">No. of Faculty Cabins</th>
+                        <th align="center" valign="middle">No. of Computer Labs</th>
+                        <th align="center" valign="middle">Special Labs</th>
+                        <th align="center" valign="middle">Other Labs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.InfraDeptData.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.InfraDeptData[i].DeptName</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].ClassRooms, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].Labs, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].Auditoriums, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].ConfRooms, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].FaclCabins, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].CompLabs, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].SplLabs, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                            <td>@Html.TextBoxFor(m => m.InfraDeptData[i].OtherLabs, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+    </div>
+
+    <div class="direction">
+        <h3>INSTITUTE INFRASTRUCTURE</h3>
+    </div>
+    <br />
+    <div class="table-responsive-xl">
+        @for (int i = 0; i < Model.InfraInfoData.Count; i++)
+        {
+            @Html.HiddenFor(m => m.InfraInfoData[i].IDNo);
+            @Html.HiddenFor(m => m.InfraInfoData[i].InfraNo);
+            @Html.HiddenFor(m => m.InfraInfoData[i].InfraDescr);
+            @Html.HiddenFor(m => m.InfraInfoData[i].InfraRemarks);
+            @Html.HiddenFor(m => m.InfraInfoData[i].DeptID);
+        }
+
+        <div class="table-responsive-xl">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th align="center" valign="middle">Sr. No.</th>
+                        <th align="center" valign="middle">Description</th>
+                        <th align="center" valign="middle">Units / Measurements / Qty</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.InfraInfoData.Count; i++)
+                    {
+                        <tr>
+                            <td width="100" align="center" valign="middle">@Model.InfraInfoData[i].InfraNo</td>
+                            <td>@Model.InfraInfoData[i].InfraDescr</td>
+                            <td>@Html.TextBoxFor(m => m.InfraInfoData[i].InfraDetails, new { @class = "form-control edit-text-value", type = "text", title = "Add Text" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+    </div>
+    <style>
+        input.edit-value {
+            min-width: 50px;
+        }
+
+        input.edit-text-value {
+            min-width: 300px;
+        }
+
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
+    </style>
+    @Html.Partial("ConfirmMessagePartail")
+    @Html.Partial("ButtonPartail", Model)
+
+
+    <script>
+    $(document).ready(function () {
+        setTooltip();
+        decimalFormat();
+    });
+
+    var SaveUrlConstant = {
+        SaveUrl: '@Url.Action("SaveInfraFormData", "Forms")'
+    };
+
+    var UrlConstant = {
+        Menu: '@DataAccess.Enum.Menu.INFRA.ToString()',
+        SerializeFormID: '#InfraTableform',
+        TableDivID: '#InfraTableDiv'
+    };
+    </script>
+}

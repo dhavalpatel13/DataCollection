@@ -24,7 +24,9 @@ namespace DataAccess.Enum
         SRICFA,
         DOFA,
         USERS,
-        DOFAPEER
+        DOFAPEER,
+        TPDEPT,
+        INFRA
     }
 
     public enum UserWork

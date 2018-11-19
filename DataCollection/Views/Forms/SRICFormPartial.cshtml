@@ -3,7 +3,7 @@
 @Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
 @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
 
-@if (Model.SricDeptData != null || Model.SricDeptData.Count > 0)
+@if (Model.SricDeptData != null && Model.SricDeptData.Count > 0)
 {
 <div class="table-responsive-xl">
     @for (int i = 0; i < Model.SricDeptData.Count; i++)

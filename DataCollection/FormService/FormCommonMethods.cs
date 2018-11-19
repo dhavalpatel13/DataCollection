@@ -44,6 +44,12 @@ namespace DataCollection.FormService
                 case "DOFAPEER":
                     MenuPartial = "DOFAPEERFormPartial";
                     break;
+                case "TPDEPT":
+                    MenuPartial = "TPDEPTFormPartial";
+                    break;
+                case "INFRA":
+                    MenuPartial = "INFRAFormPartial";
+                    break;
                 default:
                     break;
             }
@@ -84,6 +90,12 @@ namespace DataCollection.FormService
                     break;
                 case "DOFAPEER":
                     FormsDataViewModel = FormsViewModel.dofaPeerViewModel;
+                    break;
+                case "TPDEPT":
+                    FormsDataViewModel = FormsViewModel.tpDeptViewModel;
+                    break;
+                case "INFRA":
+                    FormsDataViewModel = FormsViewModel.infraViewModel;
                     break;
                 default:
                     break;

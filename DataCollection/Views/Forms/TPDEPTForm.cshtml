@@ -1,0 +1,26 @@
+﻿@model DataCollection.Models.FormsViewModel
+
+@{
+    ViewBag.Title = "TP FORM";
+}
+@Html.Hidden("RankMsgHdn", Model.rankmsg)
+<div class="direction">
+    <h3>TRAINING & PLACEMENT DATA PROFORMA FOR RANKING</h3>
+</div>
+<form id="TPDEPTTableform">
+    <div class="bd-example">
+        @Html.AntiForgeryToken()
+        <div id="messageDiv"></div>
+        <div class="table-responsive-xl" id="TPDEPTTableDiv">
+            @Html.Partial("TPDEPTFormPartial", Model.tpDeptViewModel)
+        </div>
+    </div>
+
+</form>
+@Html.Partial("AlertMessagePartail")
+
+<script>
+    $(document).ready(function () {
+        bindDataCaptYMChangeEvent();
+    });
+</script>

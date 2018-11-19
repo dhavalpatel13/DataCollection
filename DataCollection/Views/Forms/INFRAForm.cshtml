@@ -1,0 +1,24 @@
+﻿@model DataCollection.Models.FormsViewModel
+
+@{
+    ViewBag.Title = "Infra Form";
+}
+@Html.Hidden("RankMsgHdn", Model.rankmsg)
+
+<form id="InfraTableform">
+    <div class="bd-example">
+        @Html.AntiForgeryToken()
+        <div id="messageDiv"></div>
+        <div class="table-responsive-xl" id="InfraTableDiv">
+            @Html.Partial("INFRAFormPartial", Model.infraViewModel)
+        </div>
+    </div>
+
+</form>
+@Html.Partial("AlertMessagePartail")
+
+<script>
+    $(document).ready(function () {
+        bindDataCaptYMChangeEvent();
+    });
+</script>

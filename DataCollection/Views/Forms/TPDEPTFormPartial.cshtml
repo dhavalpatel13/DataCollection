@@ -1,0 +1,127 @@
+﻿@model DataCollection.Models.TPDeptViewModel
+
+@Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
+@Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
+
+@if (Model.TPDeptData != null && Model.TPDeptData.Count > 0)
+{
+<div class="table-responsive-xl">
+    @for (int i = 0; i < Model.TPDeptData.Count; i++)
+    {
+        @Html.HiddenFor(m => m.TPDeptData[i].IDNo);
+        @Html.HiddenFor(m => m.TPDeptData[i].DeptID);
+    }
+
+    <div class="table-responsive-xl">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle" rowspan="2">Department</th>
+                    <th align="center" valign="middle" colspan="5">UG-FT</th>
+                    <th align="center" valign="middle" colspan="5">UG-5YRS-FT</th>
+                    <th align="center" valign="middle" colspan="5">PG-FT</th>
+                    <th align="center" valign="middle" colspan="5">PG-PT</th>
+                </tr>
+                <tr>
+                    <!-- UG-FT -->
+                    <th align="center" valign="middle">No. of Students Registered</th>
+                    <th align="center" valign="middle">No. of Offer Made</th>
+                    <th align="center" valign="middle">Highest Salary</th>
+                    <th align="center" valign="middle">Median Salary</th>
+                    <th align="center" valign="middle">Lowest Salary</th>
+
+                    <!-- UG-5YRS-FT -->
+                    <th align="center" valign="middle">No. of Students Registered</th>
+                    <th align="center" valign="middle">No. of Offer Made</th>
+                    <th align="center" valign="middle">Highest Salary</th>
+                    <th align="center" valign="middle">Median Salary</th>
+                    <th align="center" valign="middle">Lowest Salary</th>
+
+                    <!-- PG-FT -->
+                    <th align="center" valign="middle">No. of Students Registered</th>
+                    <th align="center" valign="middle">No. of Offer Made</th>
+                    <th align="center" valign="middle">Highest Salary</th>
+                    <th align="center" valign="middle">Median Salary</th>
+                    <th align="center" valign="middle">Lowest Salary</th>
+
+                    <!-- PG-PT -->
+                    <th align="center" valign="middle">No. of Students Registered</th>
+                    <th align="center" valign="middle">No. of Offer Made</th>
+                    <th align="center" valign="middle">Highest Salary</th>
+                    <th align="center" valign="middle">Median Salary</th>
+                    <th align="center" valign="middle">Lowest Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.TPDeptData.Count; i++)
+                {
+                <tr>
+                    <td>@Model.TPDeptData[i].DeptName</td>
+                    <!-- UG-FT -->
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StRegUGFT, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StOfferUGFT, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StHighSalUGFT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StMedianSalUGFT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StLowestSalUGFT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+
+                    <!-- UG-5YRS-FT -->
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StRegUG5FT, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StOfferUG5FT, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StHighSalUG5FT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StMedianSalUG5FT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StLowestSalUG5FT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+
+                    <!-- PG-FT -->
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StRegPGFT, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StOfferPGFT, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StHighSalPGFT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StMedianSalPGFT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StLowestSalPGFT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+
+                    <!-- PG-PT -->
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StRegPGPT, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StOfferPGPT, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StHighSalPGPT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StMedianSalPGPT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                    <td>@Html.TextBoxFor(m => m.TPDeptData[i].StLowestSalPGPT, new { @class = "form-control edit-value decimal", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+</div>
+    <style>
+        input.edit-value {
+            min-width: 70px;
+        }
+
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
+
+        #accordion .panel-body {
+            padding:0px !important;
+        }
+    </style>
+    @Html.Partial("ConfirmMessagePartail")
+    @Html.Partial("ButtonPartail", Model)
+
+
+    <script>
+    $(document).ready(function () {
+        setTooltip();
+        decimalFormat();
+    });
+
+    var SaveUrlConstant = {
+        SaveUrl: '@Url.Action("SaveTPDEPTFormData", "Forms")'
+    };
+
+    var UrlConstant = {
+        Menu: '@DataAccess.Enum.Menu.TPDEPT.ToString()',
+        SerializeFormID: '#TPDEPTTableform',
+        TableDivID: '#TPDEPTTableDiv'
+    };
+    </script>
+}

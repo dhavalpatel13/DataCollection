@@ -409,4 +409,19 @@
     <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
     <param name="DeptID" SqlDbType="12" direction="1"></param>
   </sproc>
+  <sproc name="TP_DEPT_DATA_SELECT_BY_DataCaptYM">
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+  </sproc>
+  <sproc name="Bulk_Update_TP_DEPT_BY_DataCaptYM">
+    <param name="TpDeptData" SqlDbType="30" direction="1"></param>
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+  </sproc>
+  <sproc name="INFRA_DATA_SELECT_BY_DataCaptYM">
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+  </sproc>
+  <sproc name="Bulk_Update_INFRA_BY_DataCaptYM">
+    <param name="InfraDeptData" SqlDbType="30" direction="1"></param>
+    <param name="InfraInfoData" SqlDbType="30" direction="1"></param>
+    <param name="DataCaptYM" SqlDbType="8" direction="1"></param>
+  </sproc>
 </sprocs>

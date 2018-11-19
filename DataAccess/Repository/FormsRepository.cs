@@ -28,6 +28,10 @@ namespace DataAccess.Repository
         const string _Bulk_Update_SricDept_Data = "Bulk_Update_SRIC_DEPT_BY_DataCaptYM";
         const string _Rpt_SELECT_BY_DataCaptYM_DeptID = "Rpt_SELECT_BY_DataCaptYM_DeptID";
         const string _Bulk_Update_DofaPeer_Data = "Bulk_Update_DofaPeer_DATA_BY_DataCaptYM_DeptID";
+        const string _SELECT_TPDept_Data = "TP_DEPT_DATA_SELECT_BY_DataCaptYM";
+        const string _Bulk_Update_TPDept_Data = "Bulk_Update_TP_DEPT_BY_DataCaptYM";
+        const string _SELECT_INFRA_Data = "INFRA_DATA_SELECT_BY_DataCaptYM";
+        const string _Bulk_Update_INFRA_Data = "Bulk_Update_INFRA_BY_DataCaptYM";
 
         /// <summary>
         /// 
@@ -329,6 +333,92 @@ namespace DataAccess.Repository
             DataSet dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
             return dataSet;
+        }
+
+        public List<TPDept> GetTPDeptFormDataByID(int DataCaptYM)
+        {
+            Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+            sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+            IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_TPDept_Data);
+            SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+            command.Connection = connection;
+            List<TPDept> tPDepts = EntityMapper.MapCollection<TPDept>(command.ExecuteReader()).ToList();
+            DBConnectionHelper.CloseSqlConnection(connection);
+            return tPDepts;
+        }
+
+        public bool UpdateBulkTPDeptFormData(DataTable data, int DataCaptYM)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+                sqlParamDictionary.Add("TpDeptData", data);
+                sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+                IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_TPDept_Data);
+                connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+                command.Connection = connection;
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DBConnectionHelper.CloseSqlConnection(connection);
+            }
+        }
+
+        public Tuple<List<InfraDept>, List<InfraInfo>> GetInfraFormDataByID(int DataCaptYM)
+        {
+            Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+            sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+
+            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+            IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_INFRA_Data);
+            SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+            command.Connection = connection;
+            dataAdapter.SelectCommand = (SqlCommand)command;
+            DataSet dataSet = new DataSet();
+            dataAdapter.Fill(dataSet);
+            DBConnectionHelper.CloseSqlConnection(connection);
+
+            List<InfraDept> infraDepts = EntityMapper.MapCollection<InfraDept>(dataSet.Tables[0]).ToList();
+            List<InfraInfo> infraInfos = EntityMapper.MapCollection<InfraInfo>(dataSet.Tables[1]).ToList();
+            return new Tuple<List<InfraDept>, List<InfraInfo>>(infraDepts, infraInfos);
+        }
+
+        public bool UpdateBulkInfraFormData(DataTable infraDeptData, DataTable infraInfoData, int DataCaptYM)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+                sqlParamDictionary.Add("InfraDeptData", infraDeptData);
+                sqlParamDictionary.Add("InfraInfoData", infraInfoData);
+                sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+                IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_INFRA_Data);
+                connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+                command.Connection = connection;
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DBConnectionHelper.CloseSqlConnection(connection);
+            }
         }
     }
 }

@@ -24,6 +24,8 @@ namespace DataCollection.Models
         public DofaPeerViewModel dofaPeerViewModel { get; set; }
 
         public SricDeptViewModel sricDeptViewModel { get; set; }
+        public TPDeptViewModel tpDeptViewModel { get; set; }
+        public InfraViewModel infraViewModel { get; set; }
 
         public bool isSaveSuccessfully { get; set; }
         public string rankmsg { get; set; }
@@ -88,6 +90,16 @@ namespace DataCollection.Models
                 dofaPeerViewModel = new DofaPeerViewModel();
                 dofaPeerViewModel.GetDofaPeerData(DataCaptYM);
             }
+            else if (MenuID == DataAccess.Enum.Menu.TPDEPT.ToString())
+            {
+                tpDeptViewModel = new TPDeptViewModel();
+                tpDeptViewModel.GetTPDeptData(DataCaptYM);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.INFRA.ToString())
+            {
+                infraViewModel = new InfraViewModel();
+                infraViewModel.GetInfraData(DataCaptYM);
+            }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
             this.rankmsg = rankmesg.Message;
@@ -116,6 +128,16 @@ namespace DataCollection.Models
             {
                 dofaPeerViewModel = new DofaPeerViewModel();
                 dofaPeerViewModel.GetDofaPeerData(dataCaptYM);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.TPDEPT.ToString())
+            {
+                tpDeptViewModel = new TPDeptViewModel();
+                tpDeptViewModel.GetTPDeptData(dataCaptYM);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.INFRA.ToString())
+            {
+                infraViewModel = new InfraViewModel();
+                infraViewModel.GetInfraData(dataCaptYM);
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
@@ -328,6 +350,35 @@ namespace DataCollection.Models
                     formsViewModel.isSaveSuccessfully = false;
                 }
             }
+            else if (menu == DataAccess.Enum.Menu.TPDEPT.ToString())
+            {
+                if (objectData != null && typeof(TPDeptViewModel) == objectData.GetType())
+                {
+                    TPDeptViewModel sdvm = (TPDeptViewModel)objectData;
+                    DataCaptYM = sdvm.DataCaptYM;
+                    DeptID = "TPDEPT";
+                    formsViewModel.isSaveSuccessfully = sdvm.SaveTPDeptData(action, out msg);
+                }
+                else
+                {
+                    formsViewModel.isSaveSuccessfully = false;
+                }
+            }
+            else if (menu == DataAccess.Enum.Menu.INFRA.ToString())
+            {
+                if (objectData != null && typeof(InfraViewModel) == objectData.GetType())
+                {
+                    InfraViewModel sdvm = (InfraViewModel)objectData;
+                    DataCaptYM = sdvm.DataCaptYM;
+                    DeptID = "INFRA";
+                    formsViewModel.isSaveSuccessfully = sdvm.SaveInfraData(action, out msg);
+                }
+                else
+                {
+                    formsViewModel.isSaveSuccessfully = false;
+                }
+            }
+
             if (formsViewModel.isSaveSuccessfully)
             {
                 IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID, needModificationMSG);
