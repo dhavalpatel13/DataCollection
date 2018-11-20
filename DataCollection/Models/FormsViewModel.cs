@@ -17,7 +17,7 @@ namespace DataCollection.Models
         public stInfo info { get; set; }
         public stInfo2 info2 { get; set; }
         public LibInfo libInfo { get; set; }
-        public FinInfo finInfo { get; set; }
+        public DFNPViewModel dfnpViewModel { get; set; }
 
         public DofaViewModel dofaViewModel { get; set; }
         public SricFAViewModel sricFAViewModel { get; set; }
@@ -100,6 +100,11 @@ namespace DataCollection.Models
                 infraViewModel = new InfraViewModel();
                 infraViewModel.GetInfraData(DataCaptYM);
             }
+            else if (MenuID == DataAccess.Enum.Menu.DFNP.ToString())
+            {
+                dfnpViewModel = new DFNPViewModel();
+                dfnpViewModel.GetDFNPData(DataCaptYM);
+            }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
             this.rankmsg = rankmesg.Message;
@@ -138,6 +143,11 @@ namespace DataCollection.Models
             {
                 infraViewModel = new InfraViewModel();
                 infraViewModel.GetInfraData(dataCaptYM);
+            }
+            else if (MenuID == DataAccess.Enum.Menu.DFNP.ToString())
+            {
+                dfnpViewModel = new DFNPViewModel();
+                dfnpViewModel.GetDFNPData(dataCaptYM);
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
@@ -372,6 +382,19 @@ namespace DataCollection.Models
                     DataCaptYM = sdvm.DataCaptYM;
                     DeptID = "INFRA";
                     formsViewModel.isSaveSuccessfully = sdvm.SaveInfraData(action, out msg);
+                }
+                else
+                {
+                    formsViewModel.isSaveSuccessfully = false;
+                }
+            }
+
+            else if (menu == DataAccess.Enum.Menu.DFNP.ToString())
+            {
+                if (objectData != null && typeof(DFNPViewModel) == objectData.GetType())
+                {
+                    DFNPViewModel vm = (DFNPViewModel)objectData;
+                    formsViewModel.isSaveSuccessfully = vm.SaveDFNPData(action, out msg);
                 }
                 else
                 {

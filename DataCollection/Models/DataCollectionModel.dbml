@@ -127,48 +127,6 @@
       <Column Name="AwardHonors" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.FinInfo" Member="FinInfos">
-    <Type Name="FinInfo">
-      <Column Name="IDNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="DataCaptYM" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="DeptID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MenuID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="DataUser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="DataUpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DataStatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="DataStatusLog" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="DataValid" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
-      <Column Name="DataLocked" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
-      <Column Name="FinYear" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ExpCapAAR" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpLibOverall" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpLibEngg" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpLibMgmt" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpLibArch" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpNewEqpLabs" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpEnggWS" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpStudios" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpOtherCapAssets" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpOperational" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpMaintRun" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpSalT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpSalNT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpMisc1" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpMisc2" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ExpRemarks" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="SchFsUGFT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchFsUG5FT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchFsPGFT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchFsPGPT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchSSUGFT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchSSUG5FT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchSSPGFT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchSSPGPT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="SchRemarks" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Function Name="dbo.Get_All_Table" Method="Get_All_Table">
     <ElementType Name="Get_All_TableResult">
       <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />

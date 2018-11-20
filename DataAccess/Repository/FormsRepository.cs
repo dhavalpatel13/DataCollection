@@ -32,6 +32,8 @@ namespace DataAccess.Repository
         const string _Bulk_Update_TPDept_Data = "Bulk_Update_TP_DEPT_BY_DataCaptYM";
         const string _SELECT_INFRA_Data = "INFRA_DATA_SELECT_BY_DataCaptYM";
         const string _Bulk_Update_INFRA_Data = "Bulk_Update_INFRA_BY_DataCaptYM";
+        const string _SELECT_DFNP_Data = "DFNP_DATA_SELECT_BY_DataCaptYM";
+        const string _Bulk_Update_DFNP_Data = "Bulk_Update_DFNP_BY_DataCaptYM";
 
         /// <summary>
         /// 
@@ -403,6 +405,46 @@ namespace DataAccess.Repository
                 sqlParamDictionary.Add("InfraInfoData", infraInfoData);
                 sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
                 IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_INFRA_Data);
+                connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+                command.Connection = connection;
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DBConnectionHelper.CloseSqlConnection(connection);
+            }
+        }
+
+        public FinInfo GetDFNPDataByID(int DataCaptYM, string DeptId)
+        {
+            Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+            sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+            sqlParamDictionary.Add("DeptID", DeptId);
+            IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_DFNP_Data);
+            SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
+            command.Connection = connection;
+            FinInfo finInfo = EntityMapper.MapSingle<FinInfo>(command.ExecuteReader());
+            DBConnectionHelper.CloseSqlConnection(connection);
+            return finInfo;
+        }
+
+        public bool UpdateBulkDFNPData(DataTable data, int DataCaptYM)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+                sqlParamDictionary.Add("FinInfoData", data);
+                sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+                IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_DFNP_Data);
                 connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
                 command.Connection = connection;
                 int result = command.ExecuteNonQuery();

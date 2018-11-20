@@ -1,18 +1,18 @@
 ﻿@model DataCollection.Models.FormsViewModel
 
 @{
-    ViewBag.Title = "FP";
+    ViewBag.Title = "DFNP Form";
 }
 @Html.Hidden("RankMsgHdn", Model.rankmsg)
 <div class="direction">
     <h3>DEAN FINANCE & PLANNING DATA PROFORMA FOR RANKING (DFNP)</h3>
 </div>
-<form id="FPInfoTableform">
+<form id="DFNPTableform">
     <div class="bd-example">
         @*@Html.AntiForgeryToken()*@
         <div id="messageDiv"></div>
-        <div class="table-responsive-xl" id="FPInfoTableDiv">
-            @Html.Partial("FPInfoFormPartial", Model.finInfo)
+        <div class="table-responsive-xl" id="DFNPTableDiv">
+            @Html.Partial("DFNPFormPartial", Model.dfnpViewModel)
         </div>
     </div>
 

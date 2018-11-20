@@ -50,6 +50,9 @@ namespace DataCollection.FormService
                 case "INFRA":
                     MenuPartial = "INFRAFormPartial";
                     break;
+                case "DFNP":
+                    MenuPartial = "DFNPFormPartial";
+                    break;
                 default:
                     break;
             }
@@ -96,6 +99,9 @@ namespace DataCollection.FormService
                     break;
                 case "INFRA":
                     FormsDataViewModel = FormsViewModel.infraViewModel;
+                    break;
+                case "DFNP":
+                    FormsDataViewModel = FormsViewModel.dfnpViewModel;
                     break;
                 default:
                     break;

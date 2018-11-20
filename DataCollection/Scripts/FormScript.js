@@ -128,7 +128,7 @@ function SaveFormData(e, obj) {
     myData.menu = UrlConstant.Menu;
     myData.needModificationMSG = $("#NeedModificationMSG").val();
 
-    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC" || UrlConstant.Menu == "DOFAPEER" || UrlConstant.Menu == "TPDEPT" || UrlConstant.Menu == "INFRA") {
+    if (UrlConstant.Menu == "DOFA" || UrlConstant.Menu == "SRICFA" || UrlConstant.Menu == "SRIC" || UrlConstant.Menu == "DOFAPEER" || UrlConstant.Menu == "TPDEPT" || UrlConstant.Menu == "INFRA" || UrlConstant.Menu == "DFNP") {
         if (UrlConstant.Menu == "DOFAPEER") {
             $(".empNo").removeAttr("disabled");
             myData.formData = $(SerializeFormId).serializeObject();

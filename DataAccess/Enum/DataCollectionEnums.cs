@@ -26,7 +26,8 @@ namespace DataAccess.Enum
         USERS,
         DOFAPEER,
         TPDEPT,
-        INFRA
+        INFRA,
+        DFNP
     }
 
     public enum UserWork
