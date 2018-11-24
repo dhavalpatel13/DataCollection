@@ -5,6 +5,17 @@
 }
 @Html.Hidden("RankMsgHdn", Model.rankmsg)
 
+<style>
+    .table tbody > tr > td {
+        padding: 7px !important;
+        vertical-align: middle;
+    }
+
+    td > input {
+        text-align: center;
+        margin-left: 5px;
+    }
+</style>
 <form id="InfraTableform">
     <div class="bd-example">
         @Html.AntiForgeryToken()

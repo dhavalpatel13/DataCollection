@@ -30,7 +30,7 @@ namespace DataCollection.Models
             {
                 finInfo.DataCaptYM = DataCaptYM;
                 finInfo.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                finInfo.DataStatusName = "Data Entry Started by Operator";
+                finInfo.DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
             }
         }
 

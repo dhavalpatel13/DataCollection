@@ -376,11 +376,11 @@ namespace DataAccess.Repository
             }
         }
 
-        public Tuple<List<InfraDept>, List<InfraInfo>> GetInfraFormDataByID(int DataCaptYM)
+        public Tuple<List<InfraDept>, List<InfraInfo>> GetInfraFormDataByID(int DataCaptYM, string DeptId)
         {
             Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
             sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
-
+            sqlParamDictionary.Add("DeptId", DeptId);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _SELECT_INFRA_Data);
             SqlConnection connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
@@ -395,15 +395,19 @@ namespace DataAccess.Repository
             return new Tuple<List<InfraDept>, List<InfraInfo>>(infraDepts, infraInfos);
         }
 
-        public bool UpdateBulkInfraFormData(DataTable infraDeptData, DataTable infraInfoData, int DataCaptYM)
+        public bool UpdateBulkInfraFormData(DataTable infraDeptData, DataTable infraInfoData, int DataCaptYM, bool IsSaveInfraInfo)
         {
             SqlConnection connection = null;
             try
             {
                 Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
                 sqlParamDictionary.Add("InfraDeptData", infraDeptData);
-                sqlParamDictionary.Add("InfraInfoData", infraInfoData);
+                if (infraInfoData != null)
+                {
+                    sqlParamDictionary.Add("InfraInfoData", infraInfoData);
+                }
                 sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
+                sqlParamDictionary.Add("IsSaveInfraInfo", IsSaveInfraInfo);
                 IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_INFRA_Data);
                 connection = DBConnectionHelper.OpenNewSqlConnection(this.ConnectionString);
                 command.Connection = connection;

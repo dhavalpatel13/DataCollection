@@ -35,7 +35,7 @@
                     @for (int i = 0; i < Model.InfraDeptData.Count; i++)
                     {
                         <tr>
-                            <td>@Model.InfraDeptData[i].DeptName</td>
+                            <td>@Html.Label(@Model.InfraDeptData[i].DeptID)</td>
                             <td>@Html.TextBoxFor(m => m.InfraDeptData[i].ClassRooms, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                             <td>@Html.TextBoxFor(m => m.InfraDeptData[i].Labs, new { @class = "form-control edit-value", type = "number", min = 0, max = int.MaxValue, title = "Add Number" })</td>
                             <td>@Html.TextBoxFor(m => m.InfraDeptData[i].Auditoriums, new { @class = "form-control edit-value", type = "number", required = "true", min = 0, max = int.MaxValue, title = "Add Number" })</td>
@@ -52,6 +52,7 @@
         <br />
     </div>
 
+    if (@Model.IsInfraInfoVisible) { 
     <div class="direction">
         <h3>INSTITUTE INFRASTRUCTURE</h3>
     </div>
@@ -90,6 +91,8 @@
         </div>
         <br />
     </div>
+    }
+    
     <style>
         input.edit-value {
             min-width: 50px;

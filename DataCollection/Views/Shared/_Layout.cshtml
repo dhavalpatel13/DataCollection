@@ -15,7 +15,8 @@
     @{
         if (DataCollection.FormService.FormCommonMethods.IsUserLogin(Url.RequestContext.HttpContext.Request.Url.LocalPath))
         {
-            Response.Redirect("~/User/Login", false);
+            //Response.Redirect("~/User/Login", false);
+            Response.Redirect("~/AboutUs", false);
         }
     }
     <div class="container">
@@ -28,7 +29,7 @@
                                 <img src="/Images/IRDBanner2.png" alt="Logo" title="Logo" style=" width: 100%;">
                             </a>
                         </div>*@
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="20000">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -37,10 +38,10 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img src="/Images/IRDBanner2.png" alt="Logo" title="Logo" style=" width: 100%;">
+                                    <img src="/Images/IRDBanner1.png" alt="Logo" title="Logo" style=" width: 100%;">
                                 </div>
                                 <div class="item">
-                                    <img src="/Images/IRDBanner1.png" alt="Logo" title="Logo" style=" width: 100%;">
+                                    <img src="/Images/IRDBanner2.png" alt="Logo" title="Logo" style=" width: 100%;">
                                 </div>
                             </div>
                         </div>

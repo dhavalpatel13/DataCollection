@@ -41,7 +41,7 @@ namespace DataCollection.Models
                 {
                     info = new stInfo();
                     info.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                    info.DataStatusName = "Data Entry Started by Operator";
+                    info.DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
                     info.DataCaptYM = DataCaptYM;
                     info.DeptName = info.DeptID = SessionManager.DeptID;
                 }
@@ -53,7 +53,7 @@ namespace DataCollection.Models
                 {
                     info2 = new stInfo2();
                     info2.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                    info2.DataStatusName = "Data Entry Started by Operator";
+                    info2.DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
                     info2.DataCaptYM = DataCaptYM;
                     info2.DeptName = info2.DeptID = SessionManager.DeptID;
                 }
@@ -65,7 +65,7 @@ namespace DataCollection.Models
                 {
                     libInfo = new LibInfo();
                     libInfo.DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                    libInfo.DataStatusName = "Data Entry Started by Operator";
+                    libInfo.DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
                     libInfo.DataCaptYM = DataCaptYM;
                     libInfo.DeptName = libInfo.DeptID = SessionManager.DeptID;
                 }
@@ -353,7 +353,15 @@ namespace DataCollection.Models
                     DofaPeerViewModel sdvm = (DofaPeerViewModel)objectData;
                     DataCaptYM = sdvm.DataCaptYM;
                     DeptID = "DOFA";
-                    formsViewModel.isSaveSuccessfully = sdvm.SaveDofaPeerData(action, out msg);
+                    int EmpNo = 0;
+                    string EmpName = string.Empty;
+
+                    formsViewModel.isSaveSuccessfully = sdvm.SaveDofaPeerData(action, out msg, out EmpNo, out EmpName);
+
+                    if (formsViewModel.isSaveSuccessfully && action.ToLower().Trim() == "save")
+                    {
+                        IsEmailSent = FormCommonMethods.SendEmailOnSaveForDOFAPeer(action, EmpNo, EmpName);
+                    }
                 }
                 else
                 {
@@ -402,7 +410,7 @@ namespace DataCollection.Models
                 }
             }
 
-            if (formsViewModel.isSaveSuccessfully)
+            if (formsViewModel.isSaveSuccessfully && action.ToLower().Trim() != "save")
             {
                 IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID, needModificationMSG);
             }

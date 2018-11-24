@@ -46,6 +46,8 @@ namespace DataAccess.Enum
             PPT = "Pulp & Paper Technology",
             QIP = "QIP",
             SRIC = "SRIC",
-            WRDM = "Water Resources Development & Management";
+            WRDM = "Water Resources Development & Management",
+            EW = "Estate and Works";
+            
     }
 }

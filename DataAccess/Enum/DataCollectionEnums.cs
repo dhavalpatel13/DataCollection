@@ -41,9 +41,9 @@ namespace DataAccess.Enum
 
     public enum DataStatus : int
     {
-        [StringValue("Data Entry Started by Operator")]
+        [StringValue("Data Entry Started by DEO")]
         DataEntryStartedbyOperator = 1,
-        [StringValue("Data Entry Completed by Operator")]
+        [StringValue("Data Entry Completed by DEO")]
         DataEntryCompletedbyOperator = 2,
         [StringValue("Data Checking by HOD")]
         DataCheckingbyHOD = 3,

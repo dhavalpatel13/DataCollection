@@ -37,7 +37,7 @@ namespace DataCollection.Models
                 if (DataStatus == 0)
                 {
                     DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                    DataStatusName = "Data Entry Started by Operator";
+                    DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
                 }
             }
         }

@@ -66,7 +66,7 @@
                 }
             </table>
         </div>
-        <label>Association Type **</label> <span style="margin-right:10px;">R - Regular</span><span style="margin-right:10px;">C - Contractual</span><span style="margin-right:10px;">V - Visiting</span><span style="margin-right:10px;">G - Guest</span><span style="margin-right:10px;">A - Adjunct</span>
+        <label>Association Type **</label> <span style="margin-right:10px;">R - Regular</span><span style="margin-right:10px;">C - Contractual</span><span style="margin-right:10px;">V - Visiting</span><span style="margin-right:10px;">G - Guest</span><span style="margin-right:10px;">A - Adjunct</span><span style="margin-right:10px;">D - Institute Post Docs</span>
         <br />
         <label>Faculty Exchange Inbound ** </label> <span style="margin-right:10px;">Faculty who have visited as a guest faculty in the institute from another university abroad on international exchange programmes </span>
         <br />
@@ -169,7 +169,7 @@
     <script>
         $(document).ready(function () {
             $(".table td input[type='number']").forceNumeric();
-            if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+            if ('@DataCollection.ManageSession.SessionManager.DataCaptYR' == '0' || '@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
                 $(".table td input").attr('readonly', true);
             }
 

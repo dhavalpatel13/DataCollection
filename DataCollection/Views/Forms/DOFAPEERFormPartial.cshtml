@@ -22,9 +22,11 @@
                         <th scope="col" style="vertical-align: middle;" rowspan="3">EmpNo</th>
                     </tr>
                     <tr>
-                        <th scope="col" colspan="10">Peer details</th>
+                        <th scope="col" colspan="11">Peer details</th>
                     </tr>
+                    
                     <tr>
+                        @*<th scope="col">PeerNo</th>*@
                         <th scope="col">Title</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
@@ -35,6 +37,7 @@
                         <th scope="col">Email (Personal)</th>
                         <th scope="col">Mobile</th>
                         <th scope="col">Peer Type (National / International)</th>
+                        <th scope="col">Peer Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +45,8 @@
                     {
                         <tr id="tr_@i">
                             @*<input type="hidden" value="@i" class="DOFAPEERindex" name="Model.DofaPeerData[i].PeerNo" />*@
-                            @Html.HiddenFor(a => Model.DofaPeerData[i].PeerNo, new { value = @i, @class="DOFAPEERindex" })
+                            @*@Html.HiddenFor(a => Model.DofaPeerData[i].PeerNo, new { value = @i, @class = "DOFAPEERindex" })*@
+                            @Html.HiddenFor(a => Model.DofaPeerData[i].PeerNo, new { value = (i + 1), @class="DOFAPEERindex" })
                             @Html.EditorFor(m => m.DofaPeerData[i], "DofaPeerSinglePartial")
                         </tr>
                     }
@@ -167,14 +171,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".table td input[type='number']").forceNumeric();
-            if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+            if ('@DataCollection.ManageSession.SessionManager.DataCaptYR' == '0' || '@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
                 $(".table td input").attr('readonly', true);
             }
-            @*var empno = parseInt('@Model.EmpNo'); 
-            if(empno > 0)
-            {
-
-            }*@
         });
 
         var buttonIds = '#btnSave, #btnFinalize, #btnModification, #btnFinalizedByHod, #btnFinalizedByAssoDean, #btnFinalizedByDean, #btnModificationHod, #btnModificationADean, #btnModificationDean';

@@ -95,7 +95,7 @@ namespace DataCollection.Controllers
                                           where post.UserID == UserId
                                           select menu.MenuID1).ToArray();
 
-            rankUserViewModel.MenuDDLList = db.MenuIDs.Select(i => new SelectListItem() { Text = i.MenuDetails, Value = i.MenuID1, Selected = rankUserViewModel.MenuList.Contains(i.MenuID1) }).AsEnumerable();
+            rankUserViewModel.MenuDDLList = db.MenuIDs.Where(a => !(a.IsAdminMenu ?? false)).Select(i => new SelectListItem() { Text = i.MenuDetails, Value = i.MenuID1, Selected = rankUserViewModel.MenuList.Contains(i.MenuID1) }).AsEnumerable();
             rankUserViewModel.UserRoleDDLList = db.UserRoles.Select(i => new SelectListItem() { Text = i.UserRoleDetails, Value = i.UserRole1 }).AsEnumerable();            
             rankUserViewModel.UserWorkDDLList = db.UserWorks.Select(i => new SelectListItem() { Text = i.UserWorkDetails, Value = i.UserWork1 }).AsEnumerable();
             rankUserViewModel.DeptDDLList = db.Depts.Select(i => new SelectListItem() { Text = i.DeptName, Value = i.DeptID }).AsEnumerable();
@@ -130,22 +130,32 @@ namespace DataCollection.Controllers
                     try
                     {                      
 
-                        UserMenu userMenu = db.UserMenus.Where(a => a.UserID == rankUserViewModel.RankUser.UserID).FirstOrDefault();
+                        IEnumerable<UserMenu> userMenu = db.UserMenus.Where(a => a.UserID == rankUserViewModel.RankUser.UserID).ToList();
                         if (userMenu != null)
                         {
-                            db.UserMenus.DeleteOnSubmit(userMenu);                            
+                            var sa = userMenu.Where(a => !MenuList.Contains(a.MenuID)).ToList();
+                            if (sa.Any())
+                            {
+                                db.UserMenus.DeleteAllOnSubmit(sa);
+                            }
                         }
 
                         List<UserMenu> userMenuList = new List<UserMenu>();
                         foreach (string item in MenuList)
                         {
-                            UserMenu menu = new UserMenu();
-                            menu.MenuID = item;
-                            menu.UserID = rankUserViewModel.RankUser.UserID;
-                            userMenuList.Add(menu);
+                            var sa = userMenu.Where(a => a.MenuID == item).FirstOrDefault();
+                            if (sa == null)
+                            {
+                                UserMenu menu = new UserMenu();
+                                menu.MenuID = item;
+                                menu.UserID = rankUserViewModel.RankUser.UserID;
+                                userMenuList.Add(menu);
+                            }
                         }
 
-                        db.UserMenus.InsertAllOnSubmit(userMenuList);
+                        if (userMenuList.Any()) {
+                            db.UserMenus.InsertAllOnSubmit(userMenuList);
+                        }
 
                         db.SubmitChanges();
                         db.Transaction.Commit();

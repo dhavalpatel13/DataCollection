@@ -227,6 +227,36 @@ namespace DataCollection.FormService
             return eRankUser;
         }
 
+        public static bool SendEmailOnSaveForDOFAPeer(string Action, int EmpNo, string EmpName)
+        {
+            string subject = "IRD Data Entry updated by " + SessionManager.UserName;
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            string tomail = "webtechrk@gmail.com";
+            string body = string.Empty;
+
+            if (Action == "Save")
+            {
+                body = "Peer List Added/Updated For EmpNo:" + EmpNo + "<br /> EmpName:" + EmpName + " On " + DateTime.Now.ToString() + " by User: " + SessionManager.UserName;
+            }
+
+            FormServices formServices = new FormServices();
+            var hod = db.RankUsers.Where(a => a.DeptID.ToLower() == SessionManager.DeptID.ToLower() &&
+                          a.UserRole.ToLower() == UserRoles.User.ToString().ToLower() &&
+                          a.UserWork.ToLower() == DataAccess.Enum.UserWork.HOD.ToString().ToLower()).FirstOrDefault();
+            if (hod != null)
+            {
+                tomail = hod.UserEmail;
+            }
+
+            if (!string.IsNullOrEmpty(body))
+            {
+                return formServices.SendEmail(tomail, "", subject, body);
+            }else
+            {
+                return true;
+            }
+        }
+
         public static bool SendFinallizeEmail(string Action, int DataCaptYM, string DeptId, string needModificationMSG)
         {
             string subject = "IRD Data Entry updated by " + SessionManager.UserName;
@@ -305,9 +335,16 @@ namespace DataCollection.FormService
                 }
             }
 
-            body = body.Replace("\r\n", "<br />");
-            FormServices formServices = new FormServices();
-            return formServices.SendEmail(tomail, "", subject, body);
+            if (!string.IsNullOrEmpty(body))
+            {
+                body = body.Replace("\r\n", "<br />");
+                FormServices formServices = new FormServices();
+                return formServices.SendEmail(tomail, "", subject, body);
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public static string ConvertDataTableToHTML(DataTable dt)

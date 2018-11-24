@@ -31,7 +31,7 @@ namespace DataCollection.Models
                 SricFAData = new List<SricFA>();
                 SricFAData.Add(new SricFA());
                 DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                DataStatusName = "Data Entry Started by Operator";
+                DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
             }
             else
             {

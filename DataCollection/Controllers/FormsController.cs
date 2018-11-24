@@ -273,30 +273,31 @@ namespace DataCollection.Controllers
         #endregion DOSW Form
 
         [HttpPost]
-        public JsonResult DofaPeerAutoComplete(string EmpNo, string DataCaptYM)
+        public JsonResult DofaPeerAutoComplete(string EmpNo) //, string DataCaptYM
         {
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();            
-            int dataCaptYM = 0;
-            int.TryParse(DataCaptYM, out dataCaptYM);
+            //int dataCaptYM = 0;
+            //int.TryParse(DataCaptYM, out dataCaptYM);
 
             var dofaInfos = (from dofa in db.dofaInfos
                              where
                              dofa.empNo.ToString().ToLower().Trim().Equals(EmpNo.ToLower().Trim())
-                             && dofa.DataCaptYM == dataCaptYM 
+                             //&& dofa.DataCaptYM == dataCaptYM 
                              && dofa.DeptID == SessionManager.DeptID 
                              && dofa.MenuID == DataAccess.Enum.Menu.DOFA.ToString()
                              select new
                              {
                                  empNo = dofa.empNo,
                                  empDEPT = dofa.empDEPT,
-                                 empName = dofa.empName
+                                 empName = dofa.empName,
+                                 dataCaptYM = dofa.DataCaptYM
 
                              }).FirstOrDefault();
 
             object dofaa = new object();
             if (dofaInfos != null)
             {
-                dofaa = new { empNo = dofaInfos.empNo, empDEPT = dofaInfos.empDEPT, empName = dofaInfos.empName, isEmpFound= true };
+                dofaa = new { dataCaptYM = dofaInfos.dataCaptYM,  empNo = dofaInfos.empNo, empDEPT = dofaInfos.empDEPT, empName = dofaInfos.empName, isEmpFound= true };
             }
             else
             {
@@ -308,8 +309,9 @@ namespace DataCollection.Controllers
 
         public ActionResult LoadEmpData(string EmpNo, string DataCaptYM, bool isFromSave)
         {
+            SessionManager.DataCaptYR = Convert.ToInt32(DataCaptYM);
             FormsViewModel dOAA1ViewModel = new FormsViewModel();
-            dOAA1ViewModel.GetDOAA1Data(Convert.ToInt32(DataCaptYM), Menu.DOFAPEER.ToString());
+            dOAA1ViewModel.GetDOAA1Data(Convert.ToInt32(DataCaptYM), Menu.DOFAPEER.ToString());            
             string MenuPartial = FormCommonMethods.GetMenuPartial(Menu.DOFAPEER.ToString());
             if (!string.IsNullOrEmpty(EmpNo))
             {
@@ -321,6 +323,7 @@ namespace DataCollection.Controllers
             {
                 DofaPeer dofaPeer = new DofaPeer();
                 dofaPeer.empNo = Convert.ToInt32(EmpNo);
+                dofaPeer.PeerNo = 1;
                 dOAA1ViewModel.dofaPeerViewModel.DofaPeerData.Add(dofaPeer);
             }
             object DataObject = FormCommonMethods.GetDynamicViewModel(Menu.DOFAPEER.ToString(), dOAA1ViewModel);

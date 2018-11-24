@@ -33,8 +33,9 @@
 <script>
     $(document).ready(function () {
         $(".table td input[type='number']").forceNumeric();
-        if ('@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
-            $(".table td input[type='number']").attr('readonly', true);
+        if ('@DataCollection.ManageSession.SessionManager.DataCaptYR' == '0' || '@Model.DataStatus' != '@((int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator)' || '@DataCollection.ManageSession.SessionManager.UserWork' != '@DataAccess.Enum.UserWork.DO.ToString()') {
+            $(".table td input").attr('readonly', true);
+            //[type = 'number']
         }
     });
 

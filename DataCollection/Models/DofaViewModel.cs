@@ -77,7 +77,7 @@ namespace DataCollection.Models
                 DofaData = new List<DofaInfo>();
                 DofaData.Add(new DofaInfo());
                 DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
-                DataStatusName = "Data Entry Started by Operator";
+                DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
             }
             else
             {

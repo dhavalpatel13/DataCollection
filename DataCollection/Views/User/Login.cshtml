@@ -9,7 +9,7 @@
 <div class="login-form signup-form">
     @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
-        @Html.AntiForgeryToken()
+        //@Html.AntiForgeryToken()
         <h2 class="text-center">Log in</h2>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

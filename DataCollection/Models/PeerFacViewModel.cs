@@ -31,7 +31,9 @@ namespace DataCollection.Models
             if (DofaPeerData == null || DofaPeerData.Count == 0)
             {
                 DofaPeerData = new List<DofaPeer>();
-                DofaPeerData.Add(new DofaPeer());
+                DofaPeer dofaPeer = new DofaPeer();
+                dofaPeer.PeerNo = 1;
+                DofaPeerData.Add(dofaPeer);
                 DataStatus = (int)DataAccess.Enum.DataStatus.DataEntryStartedbyOperator;
                 DataStatusName = (DataAccess.Enum.DataStatus.DataEntryStartedbyOperator).GetStringValue();
             }
@@ -42,9 +44,9 @@ namespace DataCollection.Models
             }
         }
 
-        public bool SaveDofaPeerData(string action, out string msg)
+        public bool SaveDofaPeerData(string action, out string msg, out int empNo, out string empName)
         {
-            msg = string.Empty;
+            msg = string.Empty; empNo = 0; empName = string.Empty;
             bool success = false;
             if (DofaPeerData == null || DofaPeerData.Count == 0)
             {
@@ -74,7 +76,10 @@ namespace DataCollection.Models
                     item.DataValid = Convert.ToChar("Y");
                     item.DataLocked = Convert.ToChar("N");
                     item.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
-                    item.PeerDept = emp.empDEPT;
+                    item.PeerRemarks = SessionManager.UserName + " on " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
+                    empNo = emp.empNo;
+                    empName = emp.empName;
+
                 }
                 else
                 {
@@ -93,23 +98,6 @@ namespace DataCollection.Models
 
             try
             {
-                //List<DofaPeer> DofaPeerDataInsert = DofaPeerData.Where(a => a.IDNo <= 0).ToList();
-                //db.DofaPeers.InsertAllOnSubmit(DofaPeerDataInsert);
-                //db.SubmitChanges();
-
-                //List<DofaPeer> DofaPeerDataUpdate = DofaPeerData.Where(a => a.IDNo > 0).ToList();
-                //foreach (DofaPeer item in DofaPeerDataUpdate)
-                //{
-                //    using (DataCollectionModelDataContext db1 = new DataCollectionModelDataContext())
-                //    {
-                //        DofaPeer DofaPeer = db1.DofaPeers.Where(a => a.IDNo == item.IDNo).FirstOrDefault();
-                //        if (DofaPeer != null)
-                //        {
-                //            DofaPeer = item;
-                //            db1.SubmitChanges();
-                //        }
-                //    }
-                //}
                 FormsRepository formsRepository = new FormsRepository();
                 DataTable dt = ToDataTable(DofaPeerData);
                 success = formsRepository.UpdateBulkDofaPeerFormData(dt, SessionManager.DataCaptYR, SessionManager.DeptID);

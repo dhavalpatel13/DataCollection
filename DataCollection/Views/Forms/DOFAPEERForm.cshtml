@@ -45,16 +45,28 @@
 
     function SearchEmployee() {
         var searchEmployee = $("#EmpNoTxt").val();
+        var dataCaptYM = $("#DataCaptYM").val();
+        if (searchEmployee == "" && dataCaptYM <= 0)
+        {
+            if ($("#alertMsgSpan").length > 0) {
+                $("#alertMsgSpan").html("Select Data Captured Year Or Search with EmpNo.");
+                $("#ErrorAlertModel").modal("show");                
+            }
+            return false;
+        }
+
+
         if (searchEmployee != "") {
             $.post("/Forms/DofaPeerAutoComplete",
             {
                 EmpNo: searchEmployee,
-                DataCaptYM: $("#DataCaptYM").val()
+                //DataCaptYM: $("#DataCaptYM").val()
             },
             function (data) {
                 if (data.isEmpFound == true) {
                     $("#Userlbl").html(data.empName);
-                    $("#Departmentlbl").html(data.empDEPT);                    
+                    $("#Departmentlbl").html(data.empDEPT);
+                    $("#DataCaptYM").val(data.dataCaptYM);
                     LoadEmpData(false);
                 }
                 else {

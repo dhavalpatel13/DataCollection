@@ -175,7 +175,7 @@ namespace DataCollection.Controllers
 
         //Login POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel loginViewModel, string ReturnUrl = "")
         {
             string message = "";
