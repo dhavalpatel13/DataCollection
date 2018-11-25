@@ -88,6 +88,7 @@ namespace DataCollection.Models
                     item.DataValid = "Y";
                     item.DataLocked = "N";
                     item.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
+                    item.InfraRemarks = SessionManager.UserName + " on " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");
                 }
             }
             else

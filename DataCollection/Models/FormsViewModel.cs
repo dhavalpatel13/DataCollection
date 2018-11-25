@@ -208,13 +208,13 @@ namespace DataCollection.Models
         }
         #endregion LIB Form
         
-        public Tuple<bool, bool> SaveUpdateFormData(object objectData, string action, string menu, string needModificationMSG, out string msg)
+        public Tuple<bool, bool?> SaveUpdateFormData(object objectData, string action, string menu, string needModificationMSG, out string msg)
         {
             msg = string.Empty;
             FormsViewModel formsViewModel = new FormsViewModel();
             int DataCaptYM = 0; 
             string DeptID = string.Empty;
-            bool IsEmailSent = false;
+            bool? IsEmailSent = null;
 
             if (menu == DataAccess.Enum.Menu.DOSW.ToString() || menu == DataAccess.Enum.Menu.ADIR.ToString())
             {
@@ -415,7 +415,7 @@ namespace DataCollection.Models
                 IsEmailSent = FormCommonMethods.SendFinallizeEmail(action, DataCaptYM, DeptID, needModificationMSG);
             }
 
-            return new Tuple<bool, bool>(formsViewModel.isSaveSuccessfully, IsEmailSent);
+            return new Tuple<bool, bool?>(formsViewModel.isSaveSuccessfully, IsEmailSent);
         }
     }
 }
