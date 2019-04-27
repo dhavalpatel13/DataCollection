@@ -12,14 +12,14 @@ namespace DataCollection.Models
 {
     public class DFNPViewModel : BaseViewModel
     {
-        public FinInfo finInfo { get; set; }
+        public FinInfo finInfo { get; set; }        
 
         public void GetDFNPData(int _dataCaptYM)
         {
             FormsRepository formsRepository = new FormsRepository();
             var DataCaptYM = SessionManager.DataCaptYR > 0 ? SessionManager.DataCaptYR : (_dataCaptYM > 0 ? _dataCaptYM : 0);
-
-            finInfo = formsRepository.GetDFNPDataByID(DataCaptYM, SessionManager.DeptID);
+            string deptID = string.IsNullOrEmpty(SessionManager.EmpDeptID) ? SessionManager.DeptID : SessionManager.EmpDeptID;
+            finInfo = formsRepository.GetDFNPDataByID(DataCaptYM, deptID);
 
             if (finInfo == null)
             {
@@ -44,7 +44,7 @@ namespace DataCollection.Models
             }
 
             finInfo.MenuID = DataAccess.Enum.Menu.DFNP.ToString();
-            finInfo.DeptID = SessionManager.DeptID;
+            finInfo.DeptID = string.IsNullOrEmpty(finInfo.EmpDept) ? SessionManager.DeptID : finInfo.EmpDept;
             finInfo.DeptName = SessionManager.DeptID;
             finInfo.DataUser = SessionManager.UserName;
             finInfo.DataUpdatedOn = DateTime.Now;

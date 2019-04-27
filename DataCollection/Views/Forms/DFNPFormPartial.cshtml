@@ -1,8 +1,19 @@
-﻿@model DataCollection.Models.DFNPViewModel 
+﻿@model DataCollection.Models.DFNPViewModel
 
 @Html.HiddenFor(m => m.finInfo.DataCaptYM, new { id = "DataCaptYMhid" })
 @Html.HiddenFor(m => m.finInfo.DataStatus, new { id = "DataStatushn" })
 @Html.HiddenFor(m => m.finInfo.IDNo)
+
+<div class="panel panel-default">
+    <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
+        <div class="panel-title pull-right">
+            <label class="control-label" style="margin-top:4px;">Select Department for DFNP Form Data :&nbsp;</label>
+            @Html.DropDownListFor(m => m.finInfo.EmpDept, DataCollection.FormService.FormCommonMethods.GetDeptDropdownData(), new { @id= "EmpDept", @class = "form-control pull-right", onchange = "onDeptChange(this)" })
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
 
 <div class="table-responsive-xl">
     <table class="table">
@@ -15,7 +26,7 @@
         <tbody id="detailofstd">
             <tr>
                 <td>Current Financial Year-2018-19</td>
-                <td>@Html.TextBoxFor(m => m.finInfo.FinYear, new { @class = "form-control" }) </td>                
+                <td>@Html.TextBoxFor(m => m.finInfo.FinYear, new { @class = "form-control" }) </td>
             </tr>
             <tr>
                 <td>Annual Capital Expenditure on Academic Activities and Resources (excluding expenditure on buildings) (Including SRIC Research & Consultancy projects amount)</td>
@@ -119,8 +130,8 @@
                 <td>Total (INR)</td>
                 <td><input type="text" readonly="readonly" name="finInfo.SchTotal" class="form-control decimal" id="calc2total" /></td>
             </tr>
-        </tbody>      
-    </table>    
+        </tbody>
+    </table>
 </div>
 @Html.Partial("ConfirmMessagePartail")
 
@@ -131,13 +142,12 @@
         SaveUrl: '@Url.Action("SaveDFNPFormData", "Forms")'
     };
 
-    $(document).ready(function () {
-        //CalculateTotal();
+    $(document).ready(function () {        
         calculateTotalAll();
         decimalFormat();
     });
 
-    var UrlConstant = {        
+    var UrlConstant = {
         Menu: '@DataAccess.Enum.Menu.DFNP.ToString()',
         SerializeFormID: '#DFNPTableform',
         TableDivID: '#DFNPTableDiv'

@@ -4,6 +4,17 @@
 @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
 @Html.HiddenFor(m => m.IDNo)
 
+<div class="panel panel-default">
+    <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
+        <div class="panel-title pull-right">
+            <label class="control-label" style="margin-top:4px;">Select Department for DOAA Form Data :&nbsp;</label>
+            @Html.DropDownListFor(m => m.EmpDept, DataCollection.FormService.FormCommonMethods.GetDeptDropdownData(), new { @class = "form-control pull-right", onchange = "onDeptChange(this)" })
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
 <div class="table-responsive-xl">
     <table class="table">
         <thead>
@@ -227,7 +238,10 @@
 </div>
 @Html.Partial("ConfirmMessagePartail")
 
-@Html.Partial("ButtonPartail", Model)
+@if (!string.IsNullOrWhiteSpace(Model.EmpDept))
+{
+    @Html.Partial("ButtonPartail", Model)
+}
 
 <script>
     $(document).ready(function () {

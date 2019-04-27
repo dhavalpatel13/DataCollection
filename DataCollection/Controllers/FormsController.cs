@@ -26,11 +26,12 @@ namespace DataCollection.Controllers
         }
 
         #region Common Methods
-        public ActionResult OnDAtaCaptYMChange(int DataCaptYM, string Menu, string DeptId)
+        public ActionResult OnDAtaCaptYMChange(int DataCaptYM, string Menu, string DeptId, string EmpId)
         {
             FormsViewModel dOAA1ViewModel = new FormsViewModel();
             SessionManager.DataCaptYR = DataCaptYM;
             SessionManager.DeptID = DeptId;
+            SessionManager.EmpDeptID = string.IsNullOrEmpty(EmpId) ? DeptId : EmpId;
             dOAA1ViewModel.GetDOAA1Data(DataCaptYM, Menu);
             string MenuPartial = FormCommonMethods.GetMenuPartial(Menu);
             object DataObject = FormCommonMethods.GetDynamicViewModel(Menu, dOAA1ViewModel);

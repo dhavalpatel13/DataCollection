@@ -366,5 +366,16 @@ namespace DataCollection.FormService
             html += "</tbody></table>";
             return html;
         }
+
+        public static List<SelectListItem> GetDeptDropdownData()
+        { 
+            DataCollectionModelDataContext db = new DataCollectionModelDataContext();
+            List<SelectListItem> DeptDDLList = new List<SelectListItem>()
+            { new SelectListItem() { Text = "-- Select --", Value = "" } };
+
+            DeptDDLList.AddRange(db.Depts.Where(w => w.DeptType == 'A').Select(i => new SelectListItem { Text = i.DeptName, Value = i.DeptID }));
+
+            return DeptDDLList;
+        }
     }
 }

@@ -49,6 +49,7 @@ namespace DataAccess.Entity
         public decimal? SchSSPGPT { get; set; }
         public decimal? SchTotal { get; set; }
         public string SchRemarks { get; set; }
+        public string EmpDept { get; set; }
 
     }
 }

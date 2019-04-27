@@ -18,7 +18,9 @@ namespace DataCollection.ManageSession
         const string RANKUSERMENU = "RANKUSERMENU";
         const string MENULIST = "MENULIST";
         const string DATACAPTYR = "DATACAPTYR";
+        const string EMPDEPTID = "EmpDeptID";
         const string USERWORK = "UserWork";
+
 
         public static string UserId
         {
@@ -119,6 +121,23 @@ namespace DataCollection.ManageSession
             set
             {
                 HttpContext.Current.Session[DEPTID] = value;
+            }
+        }
+
+        public static string EmpDeptID
+        {
+            get
+            {
+                string _EmpDeptID = string.Empty;
+                if (HttpContext.Current.Session[EMPDEPTID] != null && HttpContext.Current.Session[EMPDEPTID].ToString().Trim().Length > 0)
+                {
+                    _EmpDeptID = Convert.ToString(HttpContext.Current.Session[EMPDEPTID].ToString());
+                }
+                return _EmpDeptID;
+            }
+            set
+            {
+                HttpContext.Current.Session[EMPDEPTID] = value;
             }
         }
 

@@ -1,8 +1,15 @@
 ﻿
+<style>
+    .navbar-default .navbar-nav > .active > a {
+        padding-bottom: 20px;
+    }
+</style>
+
 <div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
+            <iframe src="http://free.timeanddate.com/clock/i6irzh4z/n1860/tlin/fn16/fs18/fc00f/tct/pct/ftb/pa8/tt0/tw1/tm1/th1/tb4" frameborder="0" width="172" height="58" allowtransparency="true"></iframe>
+             <ul class="nav navbar-nav navbar-right">
                 @if (User.Identity.IsAuthenticated && DataCollection.ManageSession.SessionManager.IsUserLogin == true
                                 && DataCollection.ManageSession.SessionManager.MenuList != null && DataCollection.ManageSession.SessionManager.MenuList.Count > 0)
                 {
@@ -12,7 +19,8 @@
                     { 
                         foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList)
                         {
-                            <li>
+                            string a = (Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() == Menu.MenuUrl.ToLower() ? "class=active" : "");
+                            <li @a>
                                 <a class="navnew" href="@Menu.MenuUrl">@Menu.MenuDetails</a>
                             </li>
                         }
@@ -21,7 +29,8 @@
                     {
                         foreach (DataCollection.Models.MenuID Menu in DataCollection.ManageSession.SessionManager.MenuList.Where(a => a.IsAdminMenu == true).ToList())
                         {
-                            <li>
+                            string a = (Url.RequestContext.HttpContext.Request.Url.LocalPath.ToLower() == Menu.MenuUrl.ToLower() ? "class=active" : "");
+                            <li @a>                            
                                 <a class="navnew" href="@Menu.MenuUrl">@Menu.MenuDetails</a>
                             </li>
                         }
@@ -29,16 +38,16 @@
                 }
 
                 @if (User.Identity.IsAuthenticated && DataCollection.ManageSession.SessionManager.IsUserLogin == true)
-                {
-                    <li>@Html.ActionLink("CHANGE PASSWORD", "ChangePassword", "User", null, new { @class = "navnew" }) </li>
-                    <li>@Html.ActionLink("LOGOUT", "Logout", "User", null, new { @class = "navnew" }) </li>
+                {   
+                    <li id="ChangePassword">@Html.ActionLink("CHANGE PASSWORD", "ChangePassword", "User", null, new { @class = "navnew" }) </li>
+                    <li id="Logout">@Html.ActionLink("LOGOUT", "Logout", "User", null, new { @class = "navnew" }) </li>
                 }
                 else
                 {
-                    <li>@Html.ActionLink("CONTACT US", "Index", "Contact", null, new { @class = "navnew" }) </li>
-                    <li>@Html.ActionLink("ABOUT US", "Index", "AboutUs", null, new { @class = "navnew" }) </li>
-                    <li>@Html.ActionLink("LOGIN", "Login", "User", null, new { @class = "navnew login" }) </li>
-                    <li>@Html.ActionLink("NEW USER REGISTRATION", "Registration", "User", null, new { @class = "navnew Register" }) </li>
+                    <li id="Contact">@Html.ActionLink("CONTACT US", "Index", "Contact", null, new { @class = "navnew" }) </li>
+                    <li id="AboutUs">@Html.ActionLink("ABOUT US", "Index", "AboutUs", null, new { @class = "navnew" }) </li>
+                    <li id="Login">@Html.ActionLink("LOGIN", "Login", "User", null, new { @class = "navnew login" }) </li>
+                    <li id="Registration">@Html.ActionLink("NEW USER REGISTRATION", "Registration", "User", null, new { @class = "navnew Register" }) </li>
                 }
             </ul>
         </div>

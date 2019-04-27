@@ -112,5 +112,6 @@ namespace DataAccess.Entity
         public int? stPhDPT { get; set; }
         public int? stGradPhDFT { get; set; }
         public int? stGradPhDPT { get; set; }
+        public string EmpDept { get; set; }
     }
 }

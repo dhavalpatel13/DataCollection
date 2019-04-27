@@ -23,4 +23,26 @@
     $(document).ready(function () {
         bindDataCaptYMChangeEvent();
     });
+
+    function onDeptChange(el) {
+        $("#DataCaptYMhid").val($("#DataCaptYM").val());
+        var empdept = $("#EmpDept").val() || "";
+        $.post("/Forms/OnDAtaCaptYMChange",
+        {
+            DataCaptYM: $("#DataCaptYM").val().toString(),
+            Menu: UrlConstant.Menu,
+            DeptID: MenuConstant.IsAdmin ? $("#DepartmentsDDL").val() : MenuConstant.DeptId,
+            EmpId: empdept
+        },
+        function (data) {
+            var tableDivId = UrlConstant.TableDivID;
+            $(tableDivId).html("");
+            $(tableDivId).html(data);
+            if ($("#DataCaptYM").val() > 0) {
+                $("#buttonUL").show();
+            } else {
+                $("#buttonUL").hide();
+            }
+        });
+    }
 </script>

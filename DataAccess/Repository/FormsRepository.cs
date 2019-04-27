@@ -446,6 +446,8 @@ namespace DataAccess.Repository
             try
             {
                 Dictionary<string, object> sqlParamDictionary = new Dictionary<string, object>();
+
+                data.Columns.Remove("EmpDept");
                 sqlParamDictionary.Add("FinInfoData", data);
                 sqlParamDictionary.Add("DataCaptYM", DataCaptYM);
                 IDbCommand command = new SqlCommand().GetCommandWithParameters(sqlParamDictionary, _Bulk_Update_DFNP_Data);

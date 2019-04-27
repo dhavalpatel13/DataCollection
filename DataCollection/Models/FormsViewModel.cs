@@ -36,7 +36,8 @@ namespace DataCollection.Models
             DataCaptYM = SessionManager.DataCaptYR > 0 ? SessionManager.DataCaptYR : (DataCaptYM > 0 ? DataCaptYM : 0);
             if (MenuID == DataAccess.Enum.Menu.DOAA.ToString())
             {
-                this.info = formsRepository.GetDOAA1FormDataByID(DataCaptYM, SessionManager.DeptID, MenuID);
+                string deptID = string.IsNullOrEmpty(SessionManager.EmpDeptID) ? SessionManager.DeptID : SessionManager.EmpDeptID;
+                this.info = formsRepository.GetDOAA1FormDataByID(DataCaptYM, deptID, MenuID);
                 if (info == null)
                 {
                     info = new stInfo();
@@ -45,6 +46,7 @@ namespace DataCollection.Models
                     info.DataCaptYM = DataCaptYM;
                     info.DeptName = info.DeptID = SessionManager.DeptID;
                 }
+                info.EmpDept = SessionManager.EmpDeptID;
             }
             else if (MenuID == DataAccess.Enum.Menu.ADIR.ToString() || MenuID == DataAccess.Enum.Menu.DOSW.ToString())
             {
@@ -104,6 +106,7 @@ namespace DataCollection.Models
             {
                 dfnpViewModel = new DFNPViewModel();
                 dfnpViewModel.GetDFNPData(DataCaptYM);
+                dfnpViewModel.finInfo.EmpDept = SessionManager.EmpDeptID;
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
@@ -257,8 +260,8 @@ namespace DataCollection.Models
 
                 info.DataUpdatedOn = DateTime.Now;
                 info.DataStatus = FormCommonMethods.GetStatusByAction(action);
-                info.DataUser = SessionManager.UserName;
-                info.DeptID = SessionManager.DeptID;
+                info.DataUser = SessionManager.UserName;                
+                info.DeptID = string.IsNullOrEmpty(info.EmpDept) ? SessionManager.DeptID : info.EmpDept;
                 info.DataValid = "Y";
                 info.DataLocked = "N";
                 info.DataStatusLog = SessionManager.UserName + " " + DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss");

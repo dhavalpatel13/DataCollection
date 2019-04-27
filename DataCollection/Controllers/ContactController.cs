@@ -31,7 +31,7 @@ namespace DataCollection.Controllers
 
             body = body.Replace("\r\n", "<br/>");
             FormServices formServices = new FormServices();
-            formServices.SendEmail("sric@iitr.ac.in", ContactUsViewModels.Email, ContactUsViewModels.Subject, body);
+            formServices.SendEmail("ird@iitr.ac.in", ContactUsViewModels.Email, ContactUsViewModels.Subject, body);
             ViewBag.Status = true;
             ViewBag.Message = "Email has been sent successfully. We will contact you soon.";
             ModelState.Clear();

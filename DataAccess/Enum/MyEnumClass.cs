@@ -47,6 +47,7 @@ namespace DataAccess.Enum
             QIP = "QIP",
             SRIC = "SRIC",
             WRDM = "Water Resources Development & Management",
+            DFNP = "DFNP",
             EW = "Estate and Works";
             
     }
