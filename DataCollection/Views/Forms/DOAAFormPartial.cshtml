@@ -3,12 +3,15 @@
 @Html.HiddenFor(m => m.DataCaptYM, new { id = "DataCaptYMhid" })
 @Html.HiddenFor(m => m.DataStatus, new { id = "DataStatushn" })
 @Html.HiddenFor(m => m.IDNo)
+@{
+    List<SelectListItem> selectListItems = DataCollection.FormService.FormCommonMethods.GetDeptDropdownData("DOAA");
+}
 
 <div class="panel panel-default">
     <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
         <div class="panel-title pull-right">
             <label class="control-label" style="margin-top:4px;">Select Department for DOAA Form Data :&nbsp;</label>
-            @Html.DropDownListFor(m => m.EmpDept, DataCollection.FormService.FormCommonMethods.GetDeptDropdownData(), new { @class = "form-control pull-right", onchange = "onDeptChange(this)" })
+            @Html.DropDownListFor(m => m.EmpDept, selectListItems, new { @class = "form-control pull-right", onchange = "onDeptChange(this)" })
         </div>
     </div>
 </div>
@@ -22,7 +25,7 @@
                 <th scope="col" style="vertical-align: middle;" rowspan="3">Details of Students</th>
             </tr>
             <tr>
-                <th scope="col" colspan="4">Overall</th>
+                <th scope="col" colspan="4" id="OverallTH">Overall</th>
             </tr>
             <tr>
                 <th scope="col">UG</th>
@@ -98,8 +101,8 @@
             <tr>
                 <td>Physically Challenged (SC+ST+OBC Male)</td>
                 <td>@Html.TextBoxFor(m => m.stPHMaleUGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
-                <td>@Html.TextBoxFor(m => m.stPHMaleUG5FT, new { @class = "form-control", @type = "number"}) </td>
-                <td>@Html.TextBoxFor(m => m.stPHMalePGFT, new { @class = "form-control", @type = "number"}) </td>
+                <td>@Html.TextBoxFor(m => m.stPHMaleUG5FT, new { @class = "form-control", @type = "number" }) </td>
+                <td>@Html.TextBoxFor(m => m.stPHMalePGFT, new { @class = "form-control", @type = "number" }) </td>
                 <td>@Html.TextBoxFor(m => m.stPHMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
             </tr>
             <tr>
@@ -206,15 +209,15 @@
                 <td>@Html.TextBoxFor(m => m.stConfIntMaleUG5FT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
                 <td>@Html.TextBoxFor(m => m.stConfIntMalePGFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
                 <td>@Html.TextBoxFor(m => m.stConfIntMalePGPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
-            </tr>  
+            </tr>
             <tr>
                 <th>Total</th>
                 <td> <input type="text" readonly="readonly" class="form-control" id="UgftTotal" /> </td>
                 <td> <input type="text" readonly="readonly" class="form-control" id="Ug5ftTotal" /></td>
                 <td> <input type="text" readonly="readonly" class="form-control" id="PgftTotal" /></td>
                 <td> <input type="text" readonly="readonly" class="form-control" id="PgptTotal" /></td>
-            </tr>          
-        </tbody>      
+            </tr>
+        </tbody>
         <thead>
             <tr>
                 <th scope="col" style="vertical-align: middle;" rowspan="2">Ph.D Student Details</th>
@@ -233,8 +236,8 @@
                 <td colspan="2">@Html.TextBoxFor(m => m.stGradPhDFT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
                 <td colspan="2">@Html.TextBoxFor(m => m.stGradPhDPT, new { @class = "form-control", @type = "number", @min = 0, @max = Int32.MaxValue }) </td>
             </tr>
-        </tbody>      
-    </table>    
+        </tbody>
+    </table>
 </div>
 @Html.Partial("ConfirmMessagePartail")
 
@@ -248,7 +251,7 @@
         CalculateTotal();
     });
 
-    var UrlConstant = {        
+    var UrlConstant = {
         Menu: '@DataAccess.Enum.Menu.DOAA.ToString()',
         SerializeFormID: '#DOAA1Tableform',
         TableDivID: '#DOAA1TableDiv'

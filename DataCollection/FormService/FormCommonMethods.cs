@@ -367,13 +367,23 @@ namespace DataCollection.FormService
             return html;
         }
 
-        public static List<SelectListItem> GetDeptDropdownData()
+        public static List<SelectListItem> GetDeptDropdownData(string deptName)
         { 
             DataCollectionModelDataContext db = new DataCollectionModelDataContext();
             List<SelectListItem> DeptDDLList = new List<SelectListItem>()
-            { new SelectListItem() { Text = "-- Select --", Value = "" } };
+            {
+                new SelectListItem() { Text = "-- Select --", Value = "" }
+            };
 
-            DeptDDLList.AddRange(db.Depts.Where(w => w.DeptType == 'A').Select(i => new SelectListItem { Text = i.DeptName, Value = i.DeptID }));
+            if (deptName == "DFNP")
+            {
+                DeptDDLList.AddRange(db.Depts.Select(i => new SelectListItem { Text = i.DeptName, Value = i.DeptID }));
+            }
+            else
+            {
+                DeptDDLList.Add(new SelectListItem() { Text = "DOAA", Value = "DOAA" });
+                DeptDDLList.AddRange(db.Depts.Where(w => w.DeptType == 'A').Select(i => new SelectListItem { Text = i.DeptName, Value = i.DeptID }));
+            }
 
             return DeptDDLList;
         }
