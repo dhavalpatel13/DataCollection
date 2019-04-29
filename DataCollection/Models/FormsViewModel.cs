@@ -151,6 +151,7 @@ namespace DataCollection.Models
             {
                 dfnpViewModel = new DFNPViewModel();
                 dfnpViewModel.GetDFNPData(dataCaptYM);
+                dfnpViewModel.finInfo.EmpDept = SessionManager.EmpDeptID;
             }
 
             RankMesg rankmesg = FormCommonMethods.GetCurrentRankMesg();
