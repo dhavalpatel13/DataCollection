@@ -161,9 +161,9 @@
     });
 
     function bindCalculateAll(obj) {
-        var num = obj.value.match(/^\d+$/);
-        if (num === null) {
-            //obj.value = "";
+        var re = /^\d+(\.\d{1,2})?$/;
+        var num = obj.value.match(re);
+        if (num === null) { 
         }
         else {
             calculateTotalAll();
@@ -172,15 +172,15 @@
 
     function calculateTotalAll() {
         var result1 = 0;
-        var result2= 0;
+        var result2 = 0;        
         $('input[type="number"].calc1').each(function (index, val) {
-            if ($(val).val() != "") {
-                result1 += parseInt($(val).val());
+            if ($(val).val() != "") {                
+                result1 += parseFloat($(val).val());
             }
         });
         $('input[type="number"].calc2').each(function (index, val) {
             if ($(val).val() != "") {
-                result2 += parseInt($(val).val());
+                result2 += parseFloat($(val).val());
             }
         });
         $('#calc1total').val(result1);
