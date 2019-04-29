@@ -161,7 +161,7 @@
     });
 
     function bindCalculateAll(obj) {
-        var re = /^\d+(\.\d{1,2})?$/;
+        var re = /^(\s*|\d+)(\.\d{1,2})?$/; ///^\d+(\.\d{1,2})?$/;
         var num = obj.value.match(re);
         if (num === null) { 
         }
